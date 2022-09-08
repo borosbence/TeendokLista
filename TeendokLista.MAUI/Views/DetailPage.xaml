@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TeendokLista.MAUI.Views.DetailPage"
+             Title="Részletek" 
+             Style="{StaticResource rPage}">
+    
+    <VerticalStackLayout Margin="5">
+        <VerticalStackLayout.Resources>
+            <Style TargetType="Label">
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+            <Style TargetType="HorizontalStackLayout">
+                <Setter Property="Spacing" Value="10" />
+            </Style>
+        </VerticalStackLayout.Resources>
+        
+        <HorizontalStackLayout>
+            <Label >Azonosító:</Label>
+            <Label Text="{Binding Feladat.id, Mode=OneWay}"/>
+        </HorizontalStackLayout>
+        
+        <Entry Text="{Binding Feladat.cim}" Style="{StaticResource cimStyle}"/>
+        <Editor Text="{Binding Feladat.tartalom}" Style="{StaticResource tartalomStyle}"/>
+        
+        <HorizontalStackLayout>
+            <Label>Határidő:</Label>
+            <DatePicker Date="{Binding Feladat.hatarido}"
+                        VerticalOptions="Center"/>
+        </HorizontalStackLayout>
+        
+        <HorizontalStackLayout>
+            <Label>Teljesítve:</Label>
+            <CheckBox IsChecked="{Binding Feladat.teljesitve}" 
+                      VerticalOptions="Center"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout>
+            <Button Text="Mentés" ImageSource="save.png"
+                    HorizontalOptions="Start"
+                    Style="{StaticResource gombStyle}"
+                    Command="{Binding SaveCommandAsync }">
+            </Button>
+            <Button Text="Törlés" ImageSource="trash.png"
+                    HorizontalOptions="End"
+                    Style="{StaticResource gombStyle}"
+                    Background="Red"
+                    Command="{Binding DeleteCommandAsync}">
+            </Button>
+        </HorizontalStackLayout>
+
+    </VerticalStackLayout>
+    
+</ContentPage>

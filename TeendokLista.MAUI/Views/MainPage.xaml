@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:TeendokLista.MAUI.Models"
+             x:Class="TeendokLista.MAUI.Views.MainPage"
+             Title="Jegyzetek">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Új +"
+                     Order="Primary" Priority="0"
+                     Command="{Binding NewCommandAsync}"/>
+        <ToolbarItem Text="Kijelentkezés"
+                     Order="Primary" 
+                     Priority="1"/>
+    </ContentPage.ToolbarItems>
+    <ScrollView>
+        <FlexLayout Wrap="Wrap"
+                    AlignItems="Start"
+                    AlignContent="Start"
+                    BindableLayout.ItemsSource="{Binding Feladatok}"
+                    BindableLayout.ItemTemplate="{StaticResource jegyzetListTmpl}">
+        </FlexLayout>
+    </ScrollView>
+
+</ContentPage>
