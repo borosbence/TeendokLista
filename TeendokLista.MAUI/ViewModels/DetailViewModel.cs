@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using TeendokLista.MAUI.Models;
 using TeendokLista.MAUI.Repositories;
-using TeendokLista.MAUI.Views;
 
 namespace TeendokLista.MAUI.ViewModels
 {

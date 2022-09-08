@@ -9,19 +9,6 @@ namespace TeendokLista.MAUI.Repositories
         {
             Feladatok = new List<Feladat>();
             Feladatok.Add(new Feladat { id = 1, cim = "1. feladat", tartalom = "Első", teljesitve = true });
-            Feladatok.Add(new Feladat { cim = "1. feladat", tartalom = "Első", teljesitve = true });
-            Feladatok.Add(new Feladat { cim = "1. feladat", tartalom = "Első", teljesitve = true });
-            Feladatok.Add(new Feladat { cim = "1. feladat", tartalom = "Első", teljesitve = true });
-            Feladatok.Add(new Feladat { cim = "1. feladat", tartalom = "Első", teljesitve = true });
-            Feladatok.Add(new Feladat { cim = "1. feladat", tartalom = "Első", teljesitve = true });
-            Feladatok.Add(new Feladat { cim = "1. feladat", tartalom = "Első", teljesitve = true });
-            Feladatok.Add(new Feladat { cim = "1. feladat", tartalom = "Első", teljesitve = true });
-            Feladatok.Add(new Feladat { cim = "1. feladat", tartalom = "Első", teljesitve = true });
-            Feladatok.Add(new Feladat { cim = "1. feladat", tartalom = "Első", teljesitve = true });
-            Feladatok.Add(new Feladat { cim = "1. feladat", tartalom = "Első", teljesitve = true });
-            Feladatok.Add(new Feladat { cim = "1. feladat", tartalom = "Első", teljesitve = true });
-            Feladatok.Add(new Feladat { cim = "1. feladat", tartalom = "Első", teljesitve = true });
-            Feladatok.Add(new Feladat { cim = "1. feladat", tartalom = "Első", teljesitve = true });
             Feladatok.Add(new Feladat { id = 2, cim = "2. feladat", tartalom = @"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.
 Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.
 Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.
