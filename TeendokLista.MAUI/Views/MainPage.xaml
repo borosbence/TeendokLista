@@ -3,12 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:model="clr-namespace:TeendokLista.MAUI.Models"
              x:Class="TeendokLista.MAUI.Views.MainPage"
-             Title="Jegyzetek">
+             Title="Jegyzetek" 
+             NavigationPage.HasBackButton="False">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Új +"
+        <ToolbarItem Text="Új +" IconImageSource="add.png"
                      Order="Primary" Priority="0"
                      Command="{Binding NewCommandAsync}"/>
-        <ToolbarItem Text="Kijelentkezés"
+        <ToolbarItem Text="Kijelentkezés" IconImageSource="exit.png"
                      Order="Primary" 
                      Priority="1"/>
     </ContentPage.ToolbarItems>

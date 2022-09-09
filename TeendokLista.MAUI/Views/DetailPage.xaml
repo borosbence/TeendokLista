@@ -6,7 +6,7 @@
              Style="{StaticResource rPage}">
 
     <ScrollView>
-        <VerticalStackLayout Margin="5">
+        <VerticalStackLayout Margin="10">
             <VerticalStackLayout.Resources>
                 <Style TargetType="Label">
                     <Setter Property="VerticalOptions" Value="Center" />
