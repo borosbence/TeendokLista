@@ -26,10 +26,10 @@
 
     <Style x:Key="rPage" TargetType="ContentPage" >
         <Style.Triggers>
-            <DataTrigger Binding="{Binding Feladat.teljesitve}" TargetType="ContentPage" Value="False">
+            <DataTrigger Binding="{Binding Feladat.Teljesitve}" TargetType="ContentPage" Value="False">
                 <Setter Property="Background" Value="{StaticResource teljesitveFalse}"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Feladat.teljesitve}" TargetType="ContentPage" Value="True">
+            <DataTrigger Binding="{Binding Feladat.Teljesitve}" TargetType="ContentPage" Value="True">
                 <Setter Property="Background" Value="{StaticResource teljesitveTrue}"/>
             </DataTrigger>
         </Style.Triggers>

@@ -20,11 +20,7 @@ namespace TeendokLista.MAUI.ViewModels
         public Feladat Feladat
         {
             get { return _feladat; }
-            set
-            {
-                _feladat = value;
-                OnPropertyChanged();
-            }
+            set { SetProperty(ref _feladat, value); }
         }
 
         public IAsyncRelayCommand SaveCommandAsync { get; set; }
@@ -32,10 +28,10 @@ namespace TeendokLista.MAUI.ViewModels
 
         private async Task Delete()
         {
-            bool letezik = await _repository.ExistsAsync(_feladat.id);
+            bool letezik = await _repository.ExistsAsync(_feladat.Id);
             if (letezik)
             {
-                await _repository.DeleteAsync(_feladat.id);
+                await _repository.DeleteAsync(_feladat.Id);
             }
             MessagingCenter.Send(this, "UpdateView", Feladat);
             await Shell.Current.GoToAsync("..");
@@ -43,7 +39,7 @@ namespace TeendokLista.MAUI.ViewModels
 
         private async Task Save()
         {
-            bool letezik = await _repository.ExistsAsync(_feladat.id);
+            bool letezik = await _repository.ExistsAsync(_feladat.Id);
             if (letezik)
             {
                 await _repository.UpdateAsync(_feladat);

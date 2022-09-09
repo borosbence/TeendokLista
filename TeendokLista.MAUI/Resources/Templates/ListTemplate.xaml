@@ -20,7 +20,7 @@
                     <Rectangle.Style>
                         <Style TargetType="{x:Type Rectangle}">
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding teljesitve}" Value="False" TargetType="Rectangle">
+                                <DataTrigger Binding="{Binding Teljesitve}" Value="False" TargetType="Rectangle">
                                     <Setter Property="Fill">
                                         <Setter.Value>
                                             <LinearGradientBrush>
@@ -30,7 +30,7 @@
                                         </Setter.Value>
                                     </Setter>
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding teljesitve}" Value="True" TargetType="Rectangle">
+                                <DataTrigger Binding="{Binding Teljesitve}" Value="True" TargetType="Rectangle">
                                     <Setter Property="Fill" Value="LightGray" />
                                 </DataTrigger>
                             </Style.Triggers>
@@ -38,8 +38,8 @@
                     </Rectangle.Style>
                 </Rectangle>
                 <VerticalStackLayout WidthRequest="140" HeightRequest="140" Spacing="5">
-                    <Label Text="{Binding cim}" FontSize="16" FontAttributes="Bold,Italic" MaxLines="1" />
-                    <Label Text="{Binding tartalom}" FontSize="16" FontAttributes="Italic" MaxLines="5"/>
+                    <Label Text="{Binding Cim}" FontSize="16" FontAttributes="Bold,Italic" MaxLines="1" />
+                    <Label Text="{Binding Tartalom}" FontSize="16" FontAttributes="Italic" MaxLines="5"/>
                 </VerticalStackLayout>
             </Grid>
         </AbsoluteLayout>

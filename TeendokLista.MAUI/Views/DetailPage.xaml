@@ -18,21 +18,21 @@
 
             <HorizontalStackLayout>
                 <Label>Azonosító:</Label>
-                <Label Text="{Binding Feladat.id, Mode=OneWay}"/>
+                <Label Text="{Binding Feladat.Id, Mode=OneWay}"/>
             </HorizontalStackLayout>
 
-            <Entry Placeholder="Cím" Text="{Binding Feladat.cim}" Style="{StaticResource cimStyle}"/>
-            <Editor Placeholder="Tartalom" Text="{Binding Feladat.tartalom}" Style="{StaticResource tartalomStyle}" />
+            <Entry Placeholder="Cím" Text="{Binding Feladat.Cim}" Style="{StaticResource cimStyle}"/>
+            <Editor Placeholder="Tartalom" Text="{Binding Feladat.Tartalom}" Style="{StaticResource tartalomStyle}" />
 
             <HorizontalStackLayout>
                 <Label>Határidő:</Label>
-                <DatePicker Date="{Binding Feladat.hatarido}"
+                <DatePicker Date="{Binding Feladat.Hatarido}"
                         VerticalOptions="Center"/>
             </HorizontalStackLayout>
 
             <HorizontalStackLayout>
                 <Label>Teljesítve:</Label>
-                <CheckBox IsChecked="{Binding Feladat.teljesitve}" 
+                <CheckBox IsChecked="{Binding Feladat.Teljesitve}" 
                       VerticalOptions="Center"/>
             </HorizontalStackLayout>
 

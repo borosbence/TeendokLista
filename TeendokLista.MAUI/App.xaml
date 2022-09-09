@@ -4,10 +4,13 @@
              xmlns:local="clr-namespace:TeendokLista.MAUI"
              x:Class="TeendokLista.MAUI.App">
     <Application.Resources>
+        <Style TargetType="Shell" ApplyToDerivedTypes="True">
+            <Setter Property="Shell.BackgroundColor" Value="White" />
+        </Style>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
-                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+                <!--<ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />-->
                 <ResourceDictionary Source="Resources/Templates/ListTemplate.xaml" />
                 <ResourceDictionary Source="Resources/Templates/JegyzetTemplate.xaml" />
             </ResourceDictionary.MergedDictionaries>
