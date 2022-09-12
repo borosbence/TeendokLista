@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:model="clr-namespace:TeendokLista.MAUI.Models"
              xmlns:vm="clr-namespace:TeendokLista.MAUI.ViewModels"
-             x:Class="TeendokLista.MAUI.Resources.Templates.ListTemplate">
+             x:Class="TeendokLista.MAUI.Resources.ListTemplate">
 
     <DataTemplate x:Key="jegyzetListTmpl" x:DataType="model:Feladat">
         <AbsoluteLayout>

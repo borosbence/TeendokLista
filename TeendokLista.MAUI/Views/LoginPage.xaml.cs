@@ -1,14 +1,12 @@
+using TeendokLista.MAUI.ViewModels;
+
 namespace TeendokLista.MAUI.Views;
 
 public partial class LoginPage : ContentPage
 {
-	public LoginPage()
+	public LoginPage(LoginViewModel vm)
 	{
 		InitializeComponent();
-	}
-
-	private async void Button_Clicked(object sender, EventArgs e)
-	{
-		await Shell.Current.GoToAsync(nameof(MainPage));
-	}
+        BindingContext = vm;
+    }
 }

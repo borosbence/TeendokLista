@@ -7,7 +7,7 @@
     Shell.FlyoutBehavior="Disabled">
 
     <ShellContent
-        Title="Home"
+        Title="Jegyzetek"
         ContentTemplate="{DataTemplate view:LoginPage}"
         Route="LoginPage" />
 

@@ -1,4 +1,4 @@
-namespace TeendokLista.MAUI.Resources.Templates;
+namespace TeendokLista.MAUI.Resources;
 
 public partial class ListTemplate : ResourceDictionary
 {

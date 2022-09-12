@@ -18,12 +18,16 @@ namespace TeendokLista.MAUI
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-            builder.Services.AddSingleton<MainPage>();
-            builder.Services.AddSingleton<IGenericRepository<Feladat>, FeladatLocalRepository>();
-            builder.Services.AddSingleton<MainViewModel>();
+            builder.Services.AddTransient<IFelhasznaloRepository, FelhasznaloLocalRepository>();
+            builder.Services.AddSingleton<LoginViewModel>();
+            builder.Services.AddSingleton<LoginPage>();
 
-            builder.Services.AddTransient<DetailPage>();
+            builder.Services.AddTransient<IGenericRepository<Feladat>, FeladatLocalRepository>();
+            builder.Services.AddTransient<MainViewModel>();
+            builder.Services.AddTransient<MainPage>();
+
             builder.Services.AddTransient<DetailViewModel>();
+            builder.Services.AddTransient<DetailPage>();
 
             return builder.Build();
         }

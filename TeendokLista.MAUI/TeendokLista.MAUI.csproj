@@ -49,10 +49,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Resources\Templates\JegyzetTemplate.xaml">
+	  <MauiXaml Update="Resources\JegyzetStyle.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Resources\Templates\ListTemplate.xaml">
+	  <MauiXaml Update="Resources\ListTemplate.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Resources\StringResource.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\DetailPage.xaml">
@@ -71,8 +74,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Resources\Templates\ListTemplate.xaml.cs">
+	  <Compile Update="Resources\ListTemplate.xaml.cs">
 	    <DependentUpon>ListTemplate.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Resources\StringResource.xaml.cs">
+	    <DependentUpon>StringResource.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
