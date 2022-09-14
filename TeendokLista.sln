@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeendokLista.MAUI", "TeendokLista.MAUI\TeendokLista.MAUI.csproj", "{02C153A9-9664-43E5-A8C3-32520595E49E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeendokLista.MAUI", "TeendokLista.MAUI\TeendokLista.MAUI.csproj", "{02C153A9-9664-43E5-A8C3-32520595E49E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeendokLista.API", "TeendokLista.API\TeendokLista.API.csproj", "{B8A5268F-83D0-47E4-93D3-927896130631}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,6 +19,10 @@ Global
 		{02C153A9-9664-43E5-A8C3-32520595E49E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02C153A9-9664-43E5-A8C3-32520595E49E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{02C153A9-9664-43E5-A8C3-32520595E49E}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{B8A5268F-83D0-47E4-93D3-927896130631}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8A5268F-83D0-47E4-93D3-927896130631}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8A5268F-83D0-47E4-93D3-927896130631}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8A5268F-83D0-47E4-93D3-927896130631}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

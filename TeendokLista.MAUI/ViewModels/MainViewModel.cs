@@ -17,14 +17,12 @@ namespace TeendokLista.MAUI.ViewModels
             Feladatok = new ObservableCollection<Feladat>(_repository.GetAllAsync().Result);
             NewCommandAsync = new AsyncRelayCommand(AddItem);
             SelectCommandAsync = new AsyncRelayCommand<Feladat>(f => ShowDetail(f));
-            LogoutCommand = new RelayCommand<Window>(Close);
             UpdateView();
         }
 
         public ObservableCollection<Feladat> Feladatok { get; set; }
         public IAsyncRelayCommand<Feladat> SelectCommandAsync { get; set; }
         public IAsyncRelayCommand NewCommandAsync { get; set; }
-        public IRelayCommand<Window> LogoutCommand { get; set; }
 
         private void UpdateView()
         {
@@ -55,13 +53,6 @@ namespace TeendokLista.MAUI.ViewModels
                 { "Feladat", new Feladat() }
             };
             await Shell.Current.GoToAsync(nameof(DetailPage), navigationParameter);
-        }
-
-        private void Close(Window window)
-        {
-            //var loginView = new LoginView();
-            //loginView.Show();
-            //window.Close();
         }
     }
 }

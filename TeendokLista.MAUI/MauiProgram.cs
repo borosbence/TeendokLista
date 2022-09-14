@@ -1,5 +1,6 @@
 ﻿using TeendokLista.MAUI.Models;
 using TeendokLista.MAUI.Repositories;
+using TeendokLista.MAUI.Repositories.Local;
 using TeendokLista.MAUI.ViewModels;
 using TeendokLista.MAUI.Views;
 
