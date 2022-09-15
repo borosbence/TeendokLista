@@ -39,12 +39,6 @@ namespace TeendokLista.MAUI.ViewModels
         {
             MessagingCenter.Subscribe<DetailViewModel, Feladat>(this, "UpdateView", async (sender, feladat) =>
             {
-                //Feladatok.Clear();
-                //var feladatok = _repository.GetAllAsync().Result;
-                //foreach (var f in feladatok)
-                //{
-                //    Feladatok.Add(f);
-                //}
                 await LoadData();
             });
         }

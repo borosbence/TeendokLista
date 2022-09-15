@@ -6,8 +6,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TeendokLista.API.Data;
-using TeendokLista.API.DTOs;
-using TeendokLista.API.Services;
 using TeendokLista.API.Models;
 
 namespace TeendokLista.API.Controllers
@@ -25,19 +23,19 @@ namespace TeendokLista.API.Controllers
 
         // GET: api/Feladatok
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<FeladatDto>>> Getfeladatok()
+        public async Task<ActionResult<IEnumerable<Feladat>>> Getfeladatok()
         {
           if (_context.feladatok == null)
           {
               return NotFound();
           }
             var result = await _context.feladatok.OrderBy(x => x.hatarido).ToListAsync();
-            return result.toDto();
+            return result;
         }
 
         // GET: api/Feladatok/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<FeladatDto>> GetFeladat(int id)
+        public async Task<ActionResult<Feladat>> GetFeladat(int id)
         {
           if (_context.feladatok == null)
           {
@@ -50,12 +48,11 @@ namespace TeendokLista.API.Controllers
                 return NotFound();
             }
 
-            return feladat.toDto();
+            return feladat;
         }
 
         // PUT: api/Feladatok/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        // TODO: Dto paraméterből Feladat
         [HttpPut("{id}")]
         public async Task<IActionResult> PutFeladat(int id, Feladat feladat)
         {
@@ -88,7 +85,7 @@ namespace TeendokLista.API.Controllers
         // POST: api/Feladatok
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<FeladatDto>> PostFeladat(Feladat feladat)
+        public async Task<ActionResult<Feladat>> PostFeladat(Feladat feladat)
         {
           if (_context.feladatok == null)
           {
@@ -97,7 +94,7 @@ namespace TeendokLista.API.Controllers
             _context.feladatok.Add(feladat);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetFeladat", new { id = feladat.id }, feladat.toDto());
+            return CreatedAtAction("GetFeladat", new { id = feladat.id }, feladat);
         }
 
         // DELETE: api/Feladatok/5

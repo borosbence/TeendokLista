@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 
 namespace TeendokLista.API.Models
@@ -25,6 +26,8 @@ namespace TeendokLista.API.Models
 
         [ForeignKey("felhasznalo_id")]
         [InverseProperty("feladatok")]
+        [JsonIgnore]
+
         // public virtual Felhasznalo felhasznalo { get; set; } = null!;
         public virtual Felhasznalo? felhasznalo { get; set; }
     }

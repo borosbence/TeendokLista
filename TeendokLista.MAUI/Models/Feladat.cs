@@ -9,7 +9,7 @@ namespace TeendokLista.MAUI.Models
         {
             Hatarido = DateTime.Now;
             // TODO: bejelentkezett felhasználó
-            FelhasznaloId = 1;
+            // FelhasznaloId = 2;
         }
 
         private int id;

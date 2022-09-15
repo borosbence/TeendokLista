@@ -20,6 +20,7 @@ namespace TeendokLista.MAUI
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            // builder.Services.AddHttpClient();
             builder.Services.AddScoped<IFelhasznaloRepository, FelhasznaloLocalRepository>();
             builder.Services.AddSingleton<LoginViewModel>();
             builder.Services.AddSingleton<LoginPage>();

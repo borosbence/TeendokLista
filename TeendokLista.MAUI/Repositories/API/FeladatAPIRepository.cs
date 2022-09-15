@@ -20,61 +20,33 @@ namespace TeendokLista.MAUI.Repositories.API
 
         public async Task<List<Feladat>> GetAllAsync()
         {
-            HttpResponseMessage response = await client.GetAsync(PATH);
-            if (response.IsSuccessStatusCode)
-            {
-                return await response.Content.ReadFromJsonAsync<List<Feladat>>();
-            }
-            return null;
+            return await client.GetFromJsonAsync<List<Feladat>>(PATH);
         }
 
         public async Task<Feladat> GetByIdAsync(int id)
         {
-            HttpResponseMessage response = await client.GetAsync(PATH + "/" + id);
-            if (response.IsSuccessStatusCode)
-            {
-                return await response.Content.ReadFromJsonAsync<Feladat>();
-            }
-            return null;
+            return await client.GetFromJsonAsync<Feladat>(PATH + "/" + id);
         }
+
         public async Task<bool> ExistsAsync(int id)
         {
-            HttpResponseMessage response = await client.GetAsync(PATH + "/" + id);
-            if (response.IsSuccessStatusCode)
-            {
-                var feladat = await response.Content.ReadFromJsonAsync<Feladat>();
-                return feladat != null;
-            }
-            return false;
+            var feladat = await client.GetFromJsonAsync<Feladat>(PATH + "/" + id);
+            return feladat != null;
         }
 
         public async Task InsertAsync(Feladat entity)
         {
-            HttpResponseMessage response = await client.PostAsJsonAsync(PATH, entity);
-            if (!response.IsSuccessStatusCode)
-            {
-                string error = await response.Content.ReadAsStringAsync();
-                throw new Exception(error);
-            }
+            await client.PostAsJsonAsync(PATH, entity);
         }
 
         public async Task UpdateAsync(Feladat entity)
         {
-            HttpResponseMessage response = await client.PutAsJsonAsync(PATH + "/" + entity.Id, entity);
-            if (!response.IsSuccessStatusCode)
-            {
-                string error = await response.Content.ReadAsStringAsync();
-                throw new Exception(error);
-            }
+            await client.PutAsJsonAsync(PATH + "/" + entity.Id, entity);
         }
+
         public async Task DeleteAsync(int id)
         {
-            HttpResponseMessage response = await client.DeleteAsync(PATH + "/" + id);
-            if (!response.IsSuccessStatusCode)
-            {
-                string error = await response.Content.ReadAsStringAsync();
-                throw new Exception(error);
-            }
+            await client.DeleteAsync(PATH + "/" + id);
         }
     }
 }
