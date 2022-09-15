@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System.Text.Json.Serialization;
 
 namespace TeendokLista.MAUI.Models
 {
@@ -6,12 +7,13 @@ namespace TeendokLista.MAUI.Models
     {
         public Feladat()
         {
-            Cim = "Cím";
-            Tartalom = "Tartalom";
             Hatarido = DateTime.Now;
+            // TODO: bejelentkezett felhasználó
+            FelhasznaloId = 1;
         }
 
         private int id;
+        [JsonPropertyName("id")]
         public int Id
         {
             get { return id; }
@@ -19,20 +21,23 @@ namespace TeendokLista.MAUI.Models
         }
 
         private string cim;
+        [JsonPropertyName("cim")]
         public string Cim
         {
             get { return cim; }
             set { SetProperty(ref cim, value); }
         }
 
-        private string tartalom;
-        public string Tartalom
+        private string? tartalom;
+        [JsonPropertyName("tartalom")]
+        public string? Tartalom
         {
             get { return tartalom; }
             set { SetProperty(ref tartalom, value); }
         }
 
         private DateTime hatarido;
+        [JsonPropertyName("hatarido")]
         public DateTime Hatarido
         {
             get { return hatarido; }
@@ -40,10 +45,14 @@ namespace TeendokLista.MAUI.Models
         }
 
         private bool teljesitve;
+        [JsonPropertyName("teljesitve")]
         public bool Teljesitve
         {
             get { return teljesitve; }
             set { SetProperty(ref teljesitve, value); }
         }
+
+        [JsonPropertyName("felhasznalo_id")]
+        public int FelhasznaloId { get; set; }
     }
 }

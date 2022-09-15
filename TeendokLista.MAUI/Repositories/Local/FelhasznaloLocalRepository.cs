@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TeendokLista.MAUI.Repositories.Local
+﻿namespace TeendokLista.MAUI.Repositories.Local
 {
     public class FelhasznaloLocalRepository : IFelhasznaloRepository
     {

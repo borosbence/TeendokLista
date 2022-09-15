@@ -55,6 +55,7 @@ namespace TeendokLista.API.Controllers
 
         // PUT: api/Feladatok/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // TODO: Dto paraméterből Feladat
         [HttpPut("{id}")]
         public async Task<IActionResult> PutFeladat(int id, Feladat feladat)
         {

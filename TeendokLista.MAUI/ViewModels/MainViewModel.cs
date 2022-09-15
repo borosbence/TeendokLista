@@ -13,27 +13,39 @@ namespace TeendokLista.MAUI.ViewModels
         public MainViewModel(IGenericRepository<Feladat> repository)
         {
             _repository = repository;
-            // TODO: db repository esetén csere
-            Feladatok = new ObservableCollection<Feladat>(_repository.GetAllAsync().Result);
+            Task.Run(async () => await LoadData()).Wait();
             NewCommandAsync = new AsyncRelayCommand(AddItem);
             SelectCommandAsync = new AsyncRelayCommand<Feladat>(f => ShowDetail(f));
             UpdateView();
         }
 
-        public ObservableCollection<Feladat> Feladatok { get; set; }
+        private ObservableCollection<Feladat> _feladatok = new ObservableCollection<Feladat>();
+        public ObservableCollection<Feladat> Feladatok
+        {
+            get { return _feladatok; }
+            set { SetProperty(ref _feladatok, value); }
+        }
+
         public IAsyncRelayCommand<Feladat> SelectCommandAsync { get; set; }
         public IAsyncRelayCommand NewCommandAsync { get; set; }
 
+        private async Task LoadData()
+        {
+            var result = await _repository.GetAllAsync();
+            Feladatok = new ObservableCollection<Feladat>(result);
+        }
+
         private void UpdateView()
         {
-            MessagingCenter.Subscribe<DetailViewModel, Feladat>(this, "UpdateView", (sender, feladat) =>
+            MessagingCenter.Subscribe<DetailViewModel, Feladat>(this, "UpdateView", async (sender, feladat) =>
             {
-                Feladatok.Clear();
-                var feladatok = _repository.GetAllAsync().Result;
-                foreach (var f in feladatok)
-                {
-                    Feladatok.Add(f);
-                }
+                //Feladatok.Clear();
+                //var feladatok = _repository.GetAllAsync().Result;
+                //foreach (var f in feladatok)
+                //{
+                //    Feladatok.Add(f);
+                //}
+                await LoadData();
             });
         }
 

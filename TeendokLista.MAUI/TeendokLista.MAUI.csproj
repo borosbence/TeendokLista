@@ -73,13 +73,13 @@
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
 	</ItemGroup>
 
-	<ItemGroup>
+	<!--<ItemGroup>
 	  <Compile Update="Resources\ListTemplate.xaml.cs">
 	    <DependentUpon>ListTemplate.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Resources\StringResource.xaml.cs">
 	    <DependentUpon>StringResource.xaml</DependentUpon>
 	  </Compile>
-	</ItemGroup>
+	</ItemGroup>-->
 
 </Project>

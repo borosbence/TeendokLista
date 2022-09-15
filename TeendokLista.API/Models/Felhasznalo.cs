@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 namespace TeendokLista.API.Models
 {
     [Table("felhasznalok")]
-    [Index("id", Name = "Id", IsUnique = true)]
     [Index("felhasznalonev", Name = "felhasznalonev", IsUnique = true)]
     public partial class Felhasznalo
     {

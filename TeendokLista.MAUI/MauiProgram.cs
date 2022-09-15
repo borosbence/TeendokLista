@@ -1,5 +1,6 @@
 ﻿using TeendokLista.MAUI.Models;
 using TeendokLista.MAUI.Repositories;
+using TeendokLista.MAUI.Repositories.API;
 using TeendokLista.MAUI.Repositories.Local;
 using TeendokLista.MAUI.ViewModels;
 using TeendokLista.MAUI.Views;
@@ -19,11 +20,11 @@ namespace TeendokLista.MAUI
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-            builder.Services.AddTransient<IFelhasznaloRepository, FelhasznaloLocalRepository>();
+            builder.Services.AddScoped<IFelhasznaloRepository, FelhasznaloLocalRepository>();
             builder.Services.AddSingleton<LoginViewModel>();
             builder.Services.AddSingleton<LoginPage>();
 
-            builder.Services.AddTransient<IGenericRepository<Feladat>, FeladatLocalRepository>();
+            builder.Services.AddScoped<IGenericRepository<Feladat>, FeladatAPIRepository>();
             builder.Services.AddTransient<MainViewModel>();
             builder.Services.AddTransient<MainPage>();
 

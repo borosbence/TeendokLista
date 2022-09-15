@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:model="clr-namespace:TeendokLista.MAUI.Models"
+             xmlns:behaviors="clr-namespace:Behaviors;assembly=Behaviors" 
              x:Class="TeendokLista.MAUI.Views.MainPage"
              Title="Jegyzetek" 
              NavigationPage.HasBackButton="False">

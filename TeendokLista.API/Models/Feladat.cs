@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace TeendokLista.API.Models
 {
     [Table("feladatok")]
-    [Index("felhasznalo_id", Name = "IX_FK_felhasznalofeladat")]
+    [Index("felhasznalo_id", Name = "felhasznalo_id")]
     public partial class Feladat
     {
         [Key]
@@ -25,6 +25,7 @@ namespace TeendokLista.API.Models
 
         [ForeignKey("felhasznalo_id")]
         [InverseProperty("feladatok")]
-        public virtual Felhasznalo felhasznalo { get; set; } = null!;
+        // public virtual Felhasznalo felhasznalo { get; set; } = null!;
+        public virtual Felhasznalo? felhasznalo { get; set; }
     }
 }

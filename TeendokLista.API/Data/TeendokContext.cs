@@ -38,8 +38,7 @@ namespace TeendokLista.API.Data
                 entity.HasOne(d => d.felhasznalo)
                     .WithMany(p => p.feladatok)
                     .HasForeignKey(d => d.felhasznalo_id)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_felhasznalofeladat");
+                    .HasConstraintName("feladatok_ibfk_1");
             });
 
             OnModelCreatingPartial(modelBuilder);
