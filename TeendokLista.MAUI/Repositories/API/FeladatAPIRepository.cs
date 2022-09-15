@@ -7,7 +7,8 @@ namespace TeendokLista.MAUI.Repositories.API
     public class FeladatAPIRepository : IGenericRepository<Feladat>
     {
         private readonly HttpClient client;
-        private const string BASE_URL = "http://localhost:5000/";
+        //private const string BASE_URL = "http://localhost:5000/";
+        private const string BASE_URL = "http://192.168.1.11:5000/";
         private const string PATH = "api/feladatok";
 
         public FeladatAPIRepository()
@@ -30,8 +31,8 @@ namespace TeendokLista.MAUI.Repositories.API
 
         public async Task<bool> ExistsAsync(int id)
         {
-            var feladat = await client.GetFromJsonAsync<Feladat>(PATH + "/" + id);
-            return feladat != null;
+            HttpResponseMessage responseMessage = await client.GetAsync(PATH + "/" + id);
+            return responseMessage.IsSuccessStatusCode;
         }
 
         public async Task InsertAsync(Feladat entity)

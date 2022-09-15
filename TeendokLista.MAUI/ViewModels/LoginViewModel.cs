@@ -43,14 +43,18 @@ namespace TeendokLista.MAUI.ViewModels
 
         private async Task Login()
         {
-            ErrorMessage = _repository.Authenticate(_username, _password);
-            if (ErrorMessage == "Sikeres bejelentkezés.")
+            string response = _repository.Authenticate(_username, _password);
+            if (response == "Sikeres bejelentkezés.")
             {
+                Username = null;
+                Password = null;
+                ErrorMessage = null;
                 await Shell.Current.GoToAsync(nameof(MainPage));
             }
-            Username = null;
-            Password = null;
-            ErrorMessage = null;
+            else
+            {
+                ErrorMessage = response;
+            }
         }
     }
 }

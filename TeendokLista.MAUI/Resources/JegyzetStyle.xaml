@@ -4,7 +4,7 @@
              x:Class="TeendokLista.MAUI.Resources.JegyzetStyle">
 
     <Style TargetType="Shell" ApplyToDerivedTypes="True">
-        <Setter Property="Shell.BackgroundColor" Value="White" />
+        <Setter Property="Shell.BackgroundColor" Value="#EEE" />
     </Style>
 
     <Style x:Key="cimStyle" TargetType="Entry">
