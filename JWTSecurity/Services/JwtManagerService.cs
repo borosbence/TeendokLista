@@ -10,11 +10,14 @@ namespace JWTSecurity.Services
 {
     public class JwtManagerService
     {
-        private IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
+
         public JwtManagerService(IConfiguration configuration)
         {
             _configuration = configuration;
         }
+
+
         public JwtToken GenerateToken(string userName, string role = null)
         {
             var tokenKey = Encoding.UTF8.GetBytes(_configuration["JWT:Key"]);
@@ -32,17 +35,16 @@ namespace JWTSecurity.Services
                         signingCredentials: signIn);
             var accessToken = new JwtSecurityTokenHandler().WriteToken(token);
             var refreshToken = GenerateRefreshToken();
-            return new JwtToken(accessToken, refreshToken);
+            return new JwtToken { Access_Token = accessToken, Refresh_Token = refreshToken };
         }
 
+        /// <summary>
+        /// Generate a random refresh token.
+        /// </summary>
+        /// <returns></returns>
         public string GenerateRefreshToken()
         {
-            var randomNumber = new byte[32];
-            using (var rng = RandomNumberGenerator.Create())
-            {
-                rng.GetBytes(randomNumber);
-                return Convert.ToBase64String(randomNumber);
-            }
+            return Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
         }
 
         public ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
@@ -61,7 +63,7 @@ namespace JWTSecurity.Services
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken securityToken);
-            JwtSecurityToken jwtSecurityToken = securityToken as JwtSecurityToken;
+            JwtSecurityToken? jwtSecurityToken = securityToken as JwtSecurityToken;
             if (jwtSecurityToken == null || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256Signature, StringComparison.InvariantCultureIgnoreCase))
             {
                 throw new SecurityTokenException("Invalid token.");

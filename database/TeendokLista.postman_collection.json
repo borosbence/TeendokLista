@@ -1,0 +1,171 @@
+{
+	"info": {
+		"_postman_id": "2889664e-a254-4f75-ae5f-c44aaa0ebfdc",
+		"name": "TeendokLista",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17404630"
+	},
+	"item": [
+		{
+			"name": "Token/Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\" : \"admin\",\r\n    \"password\" : \"admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/Token/Login",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"Token",
+						"Login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Token/Refresh",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"access_token\": \"{{access_token}}\",\r\n    \"refresh_token\": \"{{refresh_token}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/Token/Refresh",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"Token",
+						"Refresh"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Token/Logout",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"access_token\": \"{{access_token}}\",\r\n    \"refresh_token\": \"{{refresh_token}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localhost}}/Token/Logout",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"Token",
+						"Logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Felhasznalok-JWT",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{localhost}}/Felhasznalok",
+					"host": [
+						"{{localhost}}"
+					],
+					"path": [
+						"Felhasznalok"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "access_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "refresh_token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

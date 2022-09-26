@@ -19,6 +19,8 @@ namespace TeendokLista.API.Data
 
         public virtual DbSet<Feladat> feladatok { get; set; } = null!;
         public virtual DbSet<Felhasznalo> felhasznalok { get; set; } = null!;
+        public virtual DbSet<Szerepkor> szerepkorok { get; set; } = null!;
+        public virtual DbSet<Token> tokenek { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -39,6 +41,23 @@ namespace TeendokLista.API.Data
                     .WithMany(p => p.feladatok)
                     .HasForeignKey(d => d.felhasznalo_id)
                     .HasConstraintName("feladatok_ibfk_1");
+            });
+
+            modelBuilder.Entity<Felhasznalo>(entity =>
+            {
+                entity.HasOne(d => d.szerepkor)
+                    .WithMany(p => p.felhasznalok)
+                    .HasForeignKey(d => d.szerepkor_id)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("felhasznalok_ibfk_1");
+            });
+
+            modelBuilder.Entity<Token>(entity =>
+            {
+                entity.HasOne(d => d.felhasznalo)
+                    .WithMany(p => p.tokenek)
+                    .HasForeignKey(d => d.felhasznalo_id)
+                    .HasConstraintName("tokenek_ibfk_1");
             });
 
             OnModelCreatingPartial(modelBuilder);

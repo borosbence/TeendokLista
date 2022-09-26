@@ -15,7 +15,12 @@ namespace JWTSecurity.Extensions
 {
     public static class WebAppBuilder
     {
-        public static WebApplicationBuilder RegisterJWTService(this WebApplicationBuilder builder, bool swaggerEnabled = false)
+        /// <summary>
+        /// Register the JwtManager service as a DI. Adds JwtBearer authentication.
+        /// </summary>
+        /// <param name="builder">Web Application builder</param>
+        /// <returns>WebApplicationBuilder</returns>
+        public static WebApplicationBuilder RegisterJWTAuthentication(this WebApplicationBuilder builder)
         {
             ConfigurationManager configuration = builder.Configuration;
 
@@ -33,8 +38,8 @@ namespace JWTSecurity.Extensions
                 o.SaveToken = true;
                 o.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateIssuer = true, // on production make it true
-                    ValidateAudience = true, // on production make it true
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
                     ClockSkew = TimeSpan.Zero,
@@ -44,35 +49,43 @@ namespace JWTSecurity.Extensions
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Key"]))
                 };
             });
-            if (swaggerEnabled)
+
+            return builder;
+        }
+
+        /// <summary>
+        /// Register JWT Authentication to Swagger.
+        /// </summary>
+        /// <param name="builder">Web Application builder</param>
+        /// <returns>WebApplicationBuilder</returns>
+        public static WebApplicationBuilder RegisterSwaggerJWTAuth(this WebApplicationBuilder builder)
+        {
+            builder.Services.AddSwaggerGen(c =>
             {
-                // Swagger beállítása
-                builder.Services.AddSwaggerGen(c =>
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
-                    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                    {
-                        Name = "Authorization",
-                        BearerFormat = "JWT", // Optional
-                        Scheme = "bearer",
-                        Description = "JWT Authorization header using the Bearer scheme. Insert the plain token only.",
-                        In = ParameterLocation.Header,
-                        Type = SecuritySchemeType.Http,
-                    });
-                    c.AddSecurityRequirement(new OpenApiSecurityRequirement {
-                   {
-                     new OpenApiSecurityScheme
-                     {
-                       Reference = new OpenApiReference
-                       {
-                         Type = ReferenceType.SecurityScheme,
-                         Id = "Bearer"
-                       }
-                      },
-                      new string[] { }
-                    }
-                  });
+                    Name = "Authorization",
+                    BearerFormat = "JWT", // Optional
+                    Scheme = "bearer",
+                    Description = "JWT Authorization header using the Bearer scheme. Insert the plain token only.",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
                 });
-            }
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement 
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        Array.Empty<string>()
+                    }
+                });
+            });
 
             return builder;
         }

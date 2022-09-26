@@ -27,27 +27,26 @@ namespace TeendokLista.API.Controllers
         public async Task<ActionResult<JwtToken>> Login(UserLogin userLogin)
         {
             // Felhasználó kikeresése
-            var dbFelhasznalo = await _context.felhasznalok.FirstOrDefaultAsync(x =>
-                x.felhasznalonev == userLogin.Username);
+            var dbUser = await _context.felhasznalok
+                .Include(x => x.szerepkor)
+                .FirstOrDefaultAsync(x => x.felhasznalonev == userLogin.Username);
             // Ha nem létezik a felhasználó
-            if (dbFelhasznalo == null)
+            if (dbUser == null)
             {
                 return Unauthorized();
             }
             // Jelszó hashelés
             // string password = BCrypt.Net.BCrypt.HashPassword(userLogin.Password);
             // Jelszó ellenőrzése
-            if (!BCrypt.Net.BCrypt.Verify(userLogin.Password, dbFelhasznalo.jelszo))
+            if (!BCrypt.Net.BCrypt.Verify(userLogin.Password, dbUser.jelszo))
             {
                 return Unauthorized("Hibás felhasználónév vagy jelszó.");
             }
-            // Szerepkör beállítása
-            string role = dbFelhasznalo.felhasznalonev == "admin" ? "admin" : "user";
-            // Token generálása
-            var jwtToken = _jwtManager.GenerateToken(dbFelhasznalo.felhasznalonev, role);
+
+            // Új Token generálása
+            var jwtToken = _jwtManager.GenerateToken(dbUser.felhasznalonev, dbUser.szerepkor.nev);
             // Refresh token elmentése az adatbázisba
-            dbFelhasznalo.token = jwtToken.RefreshToken;
-            dbFelhasznalo.token_lejarat = DateTime.Now.AddDays(7);
+            _context.tokenek.Add(new Token(jwtToken.Refresh_Token, dbUser.id));
             _context.SaveChanges();
 
             // Token visszaadása
@@ -57,46 +56,54 @@ namespace TeendokLista.API.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("Refresh")]
-        public async Task<ActionResult<JwtToken>> Refresh(JwtToken token)
+        public async Task<ActionResult<JwtToken>> Refresh(JwtToken jwtToken)
         {
             // Felhasználói adatok kinyerése a tokenből
-            var principal = _jwtManager.GetPrincipalFromExpiredToken(token.AccessToken);
-            var username = principal.Identity?.Name;
-            var dbFelhasznalo = await _context.felhasznalok.FirstOrDefaultAsync(x => x.felhasznalonev == username);
-            if (dbFelhasznalo == null)
+            var principal = _jwtManager.GetPrincipalFromExpiredToken(jwtToken.Access_Token);
+            var username = principal.Identity.Name;
+            var dbUser = await _context.felhasznalok
+                .Include(x => x.szerepkor)
+                .FirstOrDefaultAsync(x => x.felhasznalonev == username );
+            if (dbUser == null)
             {
                 return Unauthorized();
             }
+            // Token kikeresése
+            var refreshToken = await _context.tokenek
+                .FirstOrDefaultAsync(x => x.felhasznalo_id == dbUser.id && x.token == jwtToken.Refresh_Token);
             // Ha nem egyezik a refresh token vagy már lejárt
-            if (dbFelhasznalo.token != token.RefreshToken || dbFelhasznalo.token_lejarat <= DateTime.Now)
+            if (refreshToken.token != jwtToken.Refresh_Token || refreshToken.lejarat_datum <= DateTime.Now)
             {
                 return Unauthorized();
             }
-            string role = dbFelhasznalo.felhasznalonev == "admin" ? "admin" : "user";
-            var jwtToken = _jwtManager.GenerateToken(username, role);
 
+            // Új token generálása
+            var newToken = _jwtManager.GenerateToken(username, dbUser.szerepkor.nev);
             // Refresh token elmentése az adatbázisba
-            dbFelhasznalo.token = jwtToken.RefreshToken;
-            dbFelhasznalo.token_lejarat = DateTime.Now.AddDays(7);
+            _context.tokenek.Add(new Token(newToken.Refresh_Token, dbUser.id));
             _context.SaveChanges();
 
-            return jwtToken;
+            return newToken;
         }
 
 
         [Authorize]
-        [HttpGet]
+        [HttpPost]
         [Route("Logout")]
-        public async Task<IActionResult> Logout()
+        public async Task<IActionResult> Logout(JwtToken jwtToken)
         {
             var username = User.Identity.Name;
-            var dbFelhasznalo = await _context.felhasznalok.FirstOrDefaultAsync(x =>
-                x.felhasznalonev == username);
-            if (dbFelhasznalo != null)
+            var dbUser = await _context.felhasznalok
+                .FirstOrDefaultAsync(x => x.felhasznalonev == username);
+            if (dbUser != null)
             {
-                dbFelhasznalo.token = null;
-                dbFelhasznalo.token_lejarat = null;
-                _context.SaveChanges();
+                var token = await _context.tokenek
+                    .FirstOrDefaultAsync(x => x.felhasznalo_id == dbUser.id && x.token == jwtToken.Refresh_Token);
+                if (token != null)
+                {
+                    _context.tokenek.Remove(token);
+                    _context.SaveChanges();
+                }
             }
             return NoContent();
         }
