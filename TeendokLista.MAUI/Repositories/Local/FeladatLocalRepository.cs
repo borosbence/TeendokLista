@@ -42,9 +42,9 @@ Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Ma
             feladatok.Add(entity);
             return Task.CompletedTask;
         }
-        public Task UpdateAsync(Feladat entity)
+        public Task UpdateAsync(int id, Feladat entity)
         {
-            int index = feladatok.FindIndex(x => x.Id == entity.Id);
+            int index = feladatok.FindIndex(x => x.Id == id);
             feladatok[index] = entity;
             return Task.CompletedTask;
         }

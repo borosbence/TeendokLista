@@ -15,11 +15,11 @@ namespace TeendokLista.MAUI.ViewModels
             _repository = repository;
             Task.Run(async () => await LoadData()).Wait();
             NewCommandAsync = new AsyncRelayCommand(AddItem);
-            SelectCommandAsync = new AsyncRelayCommand<Feladat>(f => ShowDetail(f));
+            SelectCommandAsync = new AsyncRelayCommand<Feladat>(f => ShowItem(f));
             UpdateView();
         }
 
-        private ObservableCollection<Feladat> _feladatok = new ObservableCollection<Feladat>();
+        private ObservableCollection<Feladat> _feladatok = new();
         public ObservableCollection<Feladat> Feladatok
         {
             get { return _feladatok; }
@@ -43,7 +43,7 @@ namespace TeendokLista.MAUI.ViewModels
             });
         }
 
-        private async Task ShowDetail(Feladat feladat)
+        private async Task ShowItem(Feladat feladat)
         {
             var navigationParameter = new Dictionary<string, object>
             {

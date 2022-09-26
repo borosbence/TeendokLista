@@ -42,7 +42,7 @@ namespace TeendokLista.MAUI.ViewModels
             bool letezik = await _repository.ExistsAsync(_feladat.Id);
             if (letezik)
             {
-                await _repository.UpdateAsync(_feladat);
+                await _repository.UpdateAsync(_feladat.Id, _feladat);
             }
             else
             {

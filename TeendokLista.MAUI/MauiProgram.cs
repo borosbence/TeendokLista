@@ -25,7 +25,7 @@ namespace TeendokLista.MAUI
             builder.Services.AddSingleton<LoginViewModel>();
             builder.Services.AddSingleton<LoginPage>();
 
-            builder.Services.AddScoped<IGenericRepository<Feladat>, FeladatAPIRepository>();
+            builder.Services.AddScoped<IGenericRepository<Feladat>, GenericAPIRepository<Feladat>>();
             builder.Services.AddTransient<MainViewModel>();
             builder.Services.AddTransient<MainPage>();
 
