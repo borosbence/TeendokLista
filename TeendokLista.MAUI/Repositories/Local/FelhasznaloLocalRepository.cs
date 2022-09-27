@@ -1,14 +1,19 @@
-﻿namespace TeendokLista.MAUI.Repositories.Local
+﻿using TeendokLista.MAUI.Services;
+
+namespace TeendokLista.MAUI.Repositories.Local
 {
     public class FelhasznaloLocalRepository : IFelhasznaloRepository
     {
-        public string Authenticate(string username, string password)
+        public Task<string> AuthenticateAsync(string username, string password)
         {
             if (username == "admin" && password == "admin")
             {
-                return "Sikeres bejelentkezés.";
+                CurrentUser.Id = 1;
+                CurrentUser.FelhasznaloNev = "admin";
+                CurrentUser.Szerepkor = "admin";
+                return Task.FromResult("Sikeres bejelentkezés.");
             }
-            return "Hibás felhasználónév vagy jelszó.";
+            return Task.FromResult("Hibás felhasználónév vagy jelszó.");
         }
     }
 }

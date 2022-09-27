@@ -1,28 +1,27 @@
 ﻿using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using TeendokLista.MAUI.Handlers;
 
 namespace TeendokLista.MAUI.Repositories.API
 {
     public class GenericAPIRepository<T> : IGenericRepository<T>
     {
-        private readonly HttpClient client;
+        protected readonly HttpClient client;
         private const string BASE_URL = "http://localhost:5000/";
         // private const string BASE_URL = "http://192.168.1.11:5000/";
         private const string PATH = "api/feladatok";
 
         public GenericAPIRepository()
         {
-            client = new HttpClient
-            {
-                BaseAddress = new Uri(BASE_URL),
-            };
-            client.DefaultRequestHeaders.Accept.Clear();
+            // TokenAuthHandler kiszedése
+            client = new HttpClient(new TokenAuthHandler());
+            client.BaseAddress = new Uri(BASE_URL);
+            client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
         public async Task<List<T>> GetAllAsync()
         {
-            // TODO: hibakezelés
             return await client.GetFromJsonAsync<List<T>>(PATH);
         }
 

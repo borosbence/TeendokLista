@@ -21,7 +21,7 @@ namespace TeendokLista.MAUI
                 });
 
             // builder.Services.AddHttpClient();
-            builder.Services.AddScoped<IFelhasznaloRepository, FelhasznaloLocalRepository>();
+            builder.Services.AddScoped<IFelhasznaloRepository, FelhasznaloAPIRepository>();
             builder.Services.AddSingleton<LoginViewModel>();
             builder.Services.AddSingleton<LoginPage>();
 

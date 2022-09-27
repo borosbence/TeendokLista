@@ -14,7 +14,7 @@ namespace TeendokLista.API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            builder.WebHost.UseUrls("http://localhost:5000", "http://*:5000");
+            builder.WebHost.UseUrls("http://localhost:5000", "http://0.0.0.0:5000");
 
             // DbContext
             builder.Services.AddDbContext<TeendokContext>(options =>

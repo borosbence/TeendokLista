@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TeendokLista.API.Data;
+using TeendokLista.API.DTOs;
+using TeendokLista.API.Extensions;
 using TeendokLista.API.Models;
 
 namespace TeendokLista.API.Controllers
@@ -25,14 +27,15 @@ namespace TeendokLista.API.Controllers
 
         // GET: api/Felhasznalok
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Felhasznalo>>> Getfelhasznalok()
+        public async Task<ActionResult<IEnumerable<FelhasznaloDTO>>> Getfelhasznalok()
         {
-            return await _context.felhasznalok.ToListAsync();
+            var list = await _context.felhasznalok.Include(x => x.szerepkor).ToListAsync();
+            return list.toDTO();
         }
 
         // GET: api/Felhasznalok/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Felhasznalo>> GetFelhasznalo(int id)
+        public async Task<ActionResult<FelhasznaloDTO>> GetFelhasznalo(int id)
         {
             var felhasznalo = await _context.felhasznalok.FindAsync(id);
 
@@ -41,7 +44,7 @@ namespace TeendokLista.API.Controllers
                 return NotFound();
             }
 
-            return felhasznalo;
+            return felhasznalo.toDTO();
         }
 
         // PUT: api/Felhasznalok/5

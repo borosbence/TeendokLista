@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TeendokLista.API.Data;
+using TeendokLista.API.DTOs;
 using TeendokLista.API.Models;
 
 namespace TeendokLista.API.Controllers
@@ -24,7 +25,7 @@ namespace TeendokLista.API.Controllers
 
         [AllowAnonymous]
         [HttpPost("Login")]
-        public async Task<ActionResult<JwtToken>> Login(UserLogin userLogin)
+        public async Task<ActionResult<LoginDTO>> Login(UserLogin userLogin)
         {
             // Felhasználó kikeresése
             var dbUser = await _context.felhasznalok
@@ -33,7 +34,7 @@ namespace TeendokLista.API.Controllers
             // Ha nem létezik a felhasználó
             if (dbUser == null)
             {
-                return Unauthorized();
+                return Unauthorized("A felhasználónév nincs regisztrálva.");
             }
             // Jelszó hashelés
             // string password = BCrypt.Net.BCrypt.HashPassword(userLogin.Password);
@@ -46,11 +47,11 @@ namespace TeendokLista.API.Controllers
             // Új Token generálása
             var jwtToken = _jwtManager.GenerateToken(dbUser.felhasznalonev, dbUser.szerepkor.nev);
             // Refresh token elmentése az adatbázisba
-            _context.tokenek.Add(new Token(jwtToken.Refresh_Token, dbUser.id));
+            _context.login_tokenek.Add(new LoginToken(jwtToken.Refresh_Token, dbUser.id));
             _context.SaveChanges();
 
-            // Token visszaadása
-            return jwtToken;
+            // Felhasználóni adatok és token visszaadása
+            return new LoginDTO(dbUser.id, dbUser.felhasznalonev, dbUser.szerepkor.nev, jwtToken);
         }
 
         [AllowAnonymous]
@@ -60,27 +61,33 @@ namespace TeendokLista.API.Controllers
         {
             // Felhasználói adatok kinyerése a tokenből
             var principal = _jwtManager.GetPrincipalFromExpiredToken(jwtToken.Access_Token);
-            var username = principal.Identity.Name;
+            var username = principal.Identity?.Name;
             var dbUser = await _context.felhasznalok
                 .Include(x => x.szerepkor)
                 .FirstOrDefaultAsync(x => x.felhasznalonev == username );
             if (dbUser == null)
             {
-                return Unauthorized();
+                return Unauthorized("A felhasználónév nincs regisztrálva.");
             }
             // Token kikeresése
-            var refreshToken = await _context.tokenek
+            var oldToken = await _context.login_tokenek
                 .FirstOrDefaultAsync(x => x.felhasznalo_id == dbUser.id && x.token == jwtToken.Refresh_Token);
-            // Ha nem egyezik a refresh token vagy már lejárt
-            if (refreshToken.token != jwtToken.Refresh_Token || refreshToken.lejarat_datum <= DateTime.Now)
+            if (oldToken == null)
             {
-                return Unauthorized();
+                return BadRequest("Érvénytelen token.");
+            }
+            // Ha nem egyezik a refresh token vagy már lejárt
+            if (oldToken.token != jwtToken.Refresh_Token || oldToken.lejarat_datum <= DateTime.Now)
+            {
+                return Unauthorized("Lejárt vagy érvénytelen token.");
             }
 
+            // Régi token törlése
+            _context.login_tokenek.Remove(oldToken);
             // Új token generálása
             var newToken = _jwtManager.GenerateToken(username, dbUser.szerepkor.nev);
             // Refresh token elmentése az adatbázisba
-            _context.tokenek.Add(new Token(newToken.Refresh_Token, dbUser.id));
+            _context.login_tokenek.Add(new LoginToken(newToken.Refresh_Token, dbUser.id));
             _context.SaveChanges();
 
             return newToken;
@@ -97,11 +104,11 @@ namespace TeendokLista.API.Controllers
                 .FirstOrDefaultAsync(x => x.felhasznalonev == username);
             if (dbUser != null)
             {
-                var token = await _context.tokenek
+                var token = await _context.login_tokenek
                     .FirstOrDefaultAsync(x => x.felhasznalo_id == dbUser.id && x.token == jwtToken.Refresh_Token);
                 if (token != null)
                 {
-                    _context.tokenek.Remove(token);
+                    _context.login_tokenek.Remove(token);
                     _context.SaveChanges();
                 }
             }

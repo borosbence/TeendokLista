@@ -2,6 +2,6 @@
 {
     public interface IFelhasznaloRepository
     {
-        string Authenticate(string username, string password);
+        Task<string> AuthenticateAsync(string username, string password);
     }
 }

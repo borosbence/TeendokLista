@@ -20,7 +20,7 @@ namespace TeendokLista.API.Data
         public virtual DbSet<Feladat> feladatok { get; set; } = null!;
         public virtual DbSet<Felhasznalo> felhasznalok { get; set; } = null!;
         public virtual DbSet<Szerepkor> szerepkorok { get; set; } = null!;
-        public virtual DbSet<Token> tokenek { get; set; } = null!;
+        public virtual DbSet<LoginToken> login_tokenek { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -52,12 +52,12 @@ namespace TeendokLista.API.Data
                     .HasConstraintName("felhasznalok_ibfk_1");
             });
 
-            modelBuilder.Entity<Token>(entity =>
+            modelBuilder.Entity<LoginToken>(entity =>
             {
                 entity.HasOne(d => d.felhasznalo)
                     .WithMany(p => p.tokenek)
                     .HasForeignKey(d => d.felhasznalo_id)
-                    .HasConstraintName("tokenek_ibfk_1");
+                    .HasConstraintName("login_tokenek_ibfk_1");
             });
 
             OnModelCreatingPartial(modelBuilder);

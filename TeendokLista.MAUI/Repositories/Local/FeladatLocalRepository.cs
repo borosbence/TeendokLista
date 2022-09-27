@@ -8,7 +8,7 @@ namespace TeendokLista.MAUI.Repositories.Local
         public FeladatLocalRepository()
         {
             feladatok = new List<Feladat>();
-            feladatok.Add(new Feladat { Id = 1, Cim = "1. feladat", Tartalom = "Első", Teljesitve = true });
+            feladatok.Add(new Feladat { Id = 1, Cim = "1. feladat", Tartalom = "Első", Teljesitve = true, FelhasznaloId = 1 });
             feladatok.Add(new Feladat
             {
                 Id = 2,
@@ -17,7 +17,8 @@ namespace TeendokLista.MAUI.Repositories.Local
 Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.
 Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.
 Aenean nec lorem. In porttitor. Donec laoreet nonummy augue.
-Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend. Ut nonummy."
+Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend. Ut nonummy.",
+                FelhasznaloId = 1
             });
         }
 

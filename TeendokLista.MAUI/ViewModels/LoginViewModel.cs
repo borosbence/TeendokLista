@@ -43,7 +43,7 @@ namespace TeendokLista.MAUI.ViewModels
 
         private async Task Login()
         {
-            string response = _repository.Authenticate(_username, _password);
+            string response = await _repository.AuthenticateAsync(_username, _password);
             if (response == "Sikeres bejelentkezés.")
             {
                 Username = null;

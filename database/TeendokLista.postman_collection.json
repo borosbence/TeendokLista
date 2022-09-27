@@ -21,13 +21,40 @@
 					}
 				},
 				"url": {
-					"raw": "{{localhost}}/Token/Login",
+					"raw": "{{hostname}}/Token/Login",
 					"host": [
-						"{{localhost}}"
+						"{{hostname}}"
 					],
 					"path": [
 						"Token",
 						"Login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Felhasznalok",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hostname}}/Felhasznalok",
+					"host": [
+						"{{hostname}}"
+					],
+					"path": [
+						"Felhasznalok"
 					]
 				}
 			},
@@ -48,9 +75,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{localhost}}/Token/Refresh",
+					"raw": "{{hostname}}/Token/Refresh",
 					"host": [
-						"{{localhost}}"
+						"{{hostname}}"
 					],
 					"path": [
 						"Token",
@@ -96,40 +123,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{localhost}}/Token/Logout",
+					"raw": "{{hostname}}/Token/Logout",
 					"host": [
-						"{{localhost}}"
+						"{{hostname}}"
 					],
 					"path": [
 						"Token",
 						"Logout"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Felhasznalok-JWT",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{access_token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{localhost}}/Felhasznalok",
-					"host": [
-						"{{localhost}}"
-					],
-					"path": [
-						"Felhasznalok"
 					]
 				}
 			},

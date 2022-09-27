@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TeendokLista.API.Models
 {
-    [Table("tokenek")]
+    [Table("login_tokenek")]
     [Index("felhasznalo_id", Name = "felhasznalo_id")]
-    public partial class Token
+    public partial class LoginToken
     {
-        public Token(string token, int felhasznalo_id)
+        public LoginToken(string token, int felhasznalo_id)
         {
             this.token = token;
             lejarat_datum = DateTime.Now.AddDays(7);

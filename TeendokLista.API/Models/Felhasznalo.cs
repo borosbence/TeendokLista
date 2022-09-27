@@ -15,7 +15,7 @@ namespace TeendokLista.API.Models
         public Felhasznalo()
         {
             feladatok = new HashSet<Feladat>();
-            tokenek = new HashSet<Token>();
+            tokenek = new HashSet<LoginToken>();
         }
 
         [Key]
@@ -23,23 +23,21 @@ namespace TeendokLista.API.Models
         public int id { get; set; }
         [StringLength(50)]
         public string felhasznalonev { get; set; } = null!;
-        [JsonIgnore]
         [StringLength(255)]
         public string jelszo { get; set; } = null!;
         [Column(TypeName = "int(11)")]
         public int szerepkor_id { get; set; }
 
-        [JsonIgnore]
+        
         [ForeignKey("szerepkor_id")]
         [InverseProperty("felhasznalok")]
-        public virtual Szerepkor szerepkor { get; set; } = null!;
-
+        // public virtual Szerepkor szerepkor { get; set; } = null!;
         [JsonIgnore]
+        public virtual Szerepkor? szerepkor { get; set; } = null!;
+
         [InverseProperty("felhasznalo")]
         public virtual ICollection<Feladat> feladatok { get; set; }
-
-        [JsonIgnore]
         [InverseProperty("felhasznalo")]
-        public virtual ICollection<Token> tokenek { get; set; }
+        public virtual ICollection<LoginToken> tokenek { get; set; }
     }
 }
