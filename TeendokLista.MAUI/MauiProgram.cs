@@ -1,4 +1,6 @@
-﻿using TeendokLista.MAUI.Models;
+﻿using ApiClient.MAUI.Handlers;
+using ApiClient.Repositories;
+using TeendokLista.MAUI.Models;
 using TeendokLista.MAUI.Repositories;
 using TeendokLista.MAUI.Repositories.API;
 using TeendokLista.MAUI.Repositories.Local;
@@ -20,12 +22,17 @@ namespace TeendokLista.MAUI
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-            // builder.Services.AddHttpClient();
-            builder.Services.AddScoped<IFelhasznaloRepository, FelhasznaloAPIRepository>();
+            builder.Services.AddScoped<IFelhasznaloRepository, FelhasznaloAPIRepository>(x =>
+            {
+                return new ("api/token");
+            });
             builder.Services.AddSingleton<LoginViewModel>();
             builder.Services.AddSingleton<LoginPage>();
 
-            builder.Services.AddScoped<IGenericRepository<Feladat>, GenericAPIRepository<Feladat>>();
+            builder.Services.AddScoped<IGenericRepository<Feladat>, GenericAPIRepository<Feladat>>(x => 
+            {
+                return new ("api/feladatok", handler: new TokenAuthHandler("api/token"));
+            });
             builder.Services.AddTransient<MainViewModel>();
             builder.Services.AddTransient<MainPage>();
 

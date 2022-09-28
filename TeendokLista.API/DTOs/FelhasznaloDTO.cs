@@ -1,4 +1,4 @@
-﻿using JWTSecurity.Models;
+﻿using JwtSecurity.Models;
 
 namespace TeendokLista.API.DTOs
 {

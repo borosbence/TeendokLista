@@ -1,5 +1,5 @@
-﻿using JWTSecurity.Models;
-using JWTSecurity.Services;
+﻿using JwtSecurity.Models;
+using JwtSecurity.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

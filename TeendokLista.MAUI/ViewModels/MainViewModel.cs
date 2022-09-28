@@ -1,8 +1,8 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using ApiClient.Repositories;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using TeendokLista.MAUI.Models;
-using TeendokLista.MAUI.Repositories;
 using TeendokLista.MAUI.Views;
 
 namespace TeendokLista.MAUI.ViewModels

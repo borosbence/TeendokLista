@@ -1,6 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using ApiClient.Models;
+using CommunityToolkit.Mvvm.ComponentModel;
 using System.Text.Json.Serialization;
-using TeendokLista.MAUI.Services;
 
 namespace TeendokLista.MAUI.Models
 {
@@ -9,7 +9,7 @@ namespace TeendokLista.MAUI.Models
         public Feladat()
         {
             Hatarido = DateTime.Now;
-            FelhasznaloId = CurrentUser.Id;
+            FelhasznaloId = LoggedUser.Current.Id;
         }
 
         private int id;

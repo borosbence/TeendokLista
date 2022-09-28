@@ -1,4 +1,4 @@
-﻿namespace TeendokLista.MAUI.Repositories
+﻿namespace ApiClient.Repositories
 {
     public interface IGenericRepository<T>
     {

@@ -1,4 +1,4 @@
-﻿using JWTSecurity.Models;
+﻿using JwtSecurity.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -6,7 +6,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace JWTSecurity.Services
+namespace JwtSecurity.Services
 {
     public class JwtManagerService
     {
@@ -42,7 +42,7 @@ namespace JWTSecurity.Services
         /// Generate a random refresh token.
         /// </summary>
         /// <returns>BASE64 Encoded random number</returns>
-        public string GenerateRefreshToken()
+        public static string GenerateRefreshToken()
         {
             return Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
         }
@@ -66,8 +66,7 @@ namespace JWTSecurity.Services
                 IssuerSigningKey = new SymmetricSecurityKey(key),
             };
 
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var principal = tokenHandler.ValidateToken(accessToken, tokenValidationParameters, out SecurityToken securityToken);
+            var principal = new JwtSecurityTokenHandler().ValidateToken(accessToken, tokenValidationParameters, out SecurityToken securityToken);
             if (securityToken is not JwtSecurityToken jwtSecurityToken ||
                 !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256Signature, StringComparison.InvariantCultureIgnoreCase))
             {

@@ -1,4 +1,4 @@
-using JWTSecurity.Extensions;
+using JwtSecurity.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

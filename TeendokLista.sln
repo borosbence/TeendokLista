@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeendokLista.MAUI", "Teendo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeendokLista.API", "TeendokLista.API\TeendokLista.API.csproj", "{B8A5268F-83D0-47E4-93D3-927896130631}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JWTSecurity", "JWTSecurity\JWTSecurity.csproj", "{9812777D-4664-468A-B8D2-86B7805BE428}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JwtSecurity", "JWTSecurity\JwtSecurity.csproj", "{9812777D-4664-468A-B8D2-86B7805BE428}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiClient", "ApiClient\ApiClient.csproj", "{4E9AB869-62C0-4331-9415-52E97450BE09}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{9812777D-4664-468A-B8D2-86B7805BE428}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9812777D-4664-468A-B8D2-86B7805BE428}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9812777D-4664-468A-B8D2-86B7805BE428}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E9AB869-62C0-4331-9415-52E97450BE09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E9AB869-62C0-4331-9415-52E97450BE09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E9AB869-62C0-4331-9415-52E97450BE09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E9AB869-62C0-4331-9415-52E97450BE09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

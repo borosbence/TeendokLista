@@ -1,4 +1,4 @@
-﻿using JWTSecurity.Services;
+﻿using JwtSecurity.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -7,7 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 
-namespace JWTSecurity.Extensions
+namespace JwtSecurity.Extensions
 {
     public static class WebAppBuilder
     {

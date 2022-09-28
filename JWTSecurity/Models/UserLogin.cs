@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace JWTSecurity.Models
+namespace JwtSecurity.Models
 {
     public class UserLogin
     {
