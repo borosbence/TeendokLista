@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using TeendokLista.API.Data;
 using TeendokLista.API.DTOs;
 using TeendokLista.API.Models;
@@ -44,8 +45,10 @@ namespace TeendokLista.API.Controllers
                 return Unauthorized("Hibás felhasználónév vagy jelszó.");
             }
 
+            // Követelési szintek létrehozása
+            var claims = GetClaimsFromUser(dbUser);
             // Új Token generálása
-            var jwtToken = _jwtManager.GenerateToken(dbUser.felhasznalonev, dbUser.szerepkor.nev);
+            var jwtToken = _jwtManager.GenerateToken(claims);
             // Refresh token elmentése az adatbázisba
             _context.login_tokenek.Add(new LoginToken(jwtToken.Refresh_Token, dbUser.id));
             _context.SaveChanges();
@@ -61,10 +64,12 @@ namespace TeendokLista.API.Controllers
         {
             // Felhasználói adatok kinyerése a tokenből
             var principal = _jwtManager.GetPrincipalFromExpiredToken(jwtToken.Access_Token);
-            var username = principal.Identity?.Name;
+            var claimId = principal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+            int.TryParse(claimId.Value, out int userId);
+
             var dbUser = await _context.felhasznalok
                 .Include(x => x.szerepkor)
-                .FirstOrDefaultAsync(x => x.felhasznalonev == username );
+                .FirstOrDefaultAsync(x => x.id == userId );
             if (dbUser == null)
             {
                 return Unauthorized("A felhasználónév nincs regisztrálva.");
@@ -85,7 +90,8 @@ namespace TeendokLista.API.Controllers
             // Régi token törlése
             _context.login_tokenek.Remove(oldToken);
             // Új token generálása
-            var newToken = _jwtManager.GenerateToken(username, dbUser.szerepkor.nev);
+            var claims = GetClaimsFromUser(dbUser);
+            var newToken = _jwtManager.GenerateToken(claims);
             // Refresh token elmentése az adatbázisba
             _context.login_tokenek.Add(new LoginToken(newToken.Refresh_Token, dbUser.id));
             _context.SaveChanges();
@@ -99,9 +105,11 @@ namespace TeendokLista.API.Controllers
         [Route("Logout")]
         public async Task<IActionResult> Logout(JwtToken jwtToken)
         {
-            var username = User.Identity.Name;
+            var claimId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+            int.TryParse(claimId.Value, out int userId);
+
             var dbUser = await _context.felhasznalok
-                .FirstOrDefaultAsync(x => x.felhasznalonev == username);
+                .FirstOrDefaultAsync(x => x.id == userId);
             if (dbUser != null)
             {
                 var token = await _context.login_tokenek
@@ -112,7 +120,19 @@ namespace TeendokLista.API.Controllers
                     _context.SaveChanges();
                 }
             }
+
             return NoContent();
+        }
+
+        // Követelési szintek létrehozása
+        private List<Claim> GetClaimsFromUser(Felhasznalo felhasznalo)
+        {
+            return new List<Claim>()
+            {
+                new Claim(ClaimTypes.NameIdentifier, felhasznalo.id.ToString()),
+                new Claim(ClaimTypes.Name, felhasznalo.felhasznalonev),
+                new Claim(ClaimTypes.Role, felhasznalo.szerepkor.nev)
+            };
         }
     }
 }

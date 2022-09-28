@@ -19,26 +19,19 @@ namespace JWTSecurity.Services
         }
 
         /// <summary>
-        /// Generate a JWT token with the username, and one specific role.
+        /// Generate a JWT token with claims.
         /// </summary>
-        /// <param name="userName">username</param>
-        /// <param name="role">user role</param>
+        /// <param name="claims">Claims</param>
         /// <returns>JwtToken</returns>
-        public JwtToken GenerateToken(string userName, string role = null)
+        public JwtToken GenerateToken(List<Claim> claims)
         {
             var key = Encoding.UTF8.GetBytes(_configuration["JWT:Key"]);
-            var claims = new Claim[]
-            {
-                new Claim(ClaimTypes.Name, userName),
-                new Claim(ClaimTypes.Role, role)
-            };
             var signIn = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature);
             var token = new JwtSecurityToken(
                         _configuration["Jwt:Issuer"],
                         _configuration["Jwt:Audience"],
                         claims,
-                        // expires: DateTime.UtcNow.AddMinutes(10),
-                        expires: DateTime.UtcNow.AddMinutes(1),
+                        expires: DateTime.UtcNow.AddMinutes(30),
                         signingCredentials: signIn);
             var accessToken = new JwtSecurityTokenHandler().WriteToken(token);
             var refreshToken = GenerateRefreshToken();
