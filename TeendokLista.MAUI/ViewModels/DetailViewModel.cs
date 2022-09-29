@@ -9,6 +9,7 @@ namespace TeendokLista.MAUI.ViewModels
     public class DetailViewModel : ObservableObject
     {
         private IGenericRepository<Feladat> _repository;
+
         public DetailViewModel(IGenericRepository<Feladat> repository)
         {
             _repository = repository;

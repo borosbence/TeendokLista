@@ -1,7 +1,7 @@
-﻿using ApiClient.Models;
-using ApiClient.Repositories;
+﻿using ApiClient.Repositories;
 using System.Net.Http.Json;
 using System.Text.Json.Nodes;
+using TeendokLista.MAUI.Services;
 
 namespace TeendokLista.MAUI.Repositories.API
 {

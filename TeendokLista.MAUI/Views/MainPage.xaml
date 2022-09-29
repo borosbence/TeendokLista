@@ -11,7 +11,8 @@
                      Order="Primary" Priority="0"
                      Command="{Binding NewCommandAsync}"/>
         <ToolbarItem Text="Kijelentkezés" IconImageSource="exit.png"
-                     Order="Primary" 
+                     Order="Primary"
+                     Command="{Binding LogoutCommandAsync}"
                      Priority="1"/>
     </ContentPage.ToolbarItems>
     <ScrollView>

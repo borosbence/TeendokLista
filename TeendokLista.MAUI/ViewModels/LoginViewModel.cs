@@ -7,12 +7,14 @@ namespace TeendokLista.MAUI.ViewModels
 {
     public class LoginViewModel : ObservableObject
     {
-
         private IFelhasznaloRepository _repository;
+
         public LoginViewModel(IFelhasznaloRepository repository)
         {
             _repository = repository;
             LoginCommand = new AsyncRelayCommand(Login, CanLogin);
+            // TODO: 
+            // Logout api meghívása, ha van tokenünk
         }
 
         private string _username;

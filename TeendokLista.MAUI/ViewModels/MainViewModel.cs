@@ -10,12 +10,14 @@ namespace TeendokLista.MAUI.ViewModels
     public class MainViewModel : ObservableObject
     {
         private IGenericRepository<Feladat> _repository;
+
         public MainViewModel(IGenericRepository<Feladat> repository)
         {
             _repository = repository;
             Task.Run(async () => await LoadData()).Wait();
             NewCommandAsync = new AsyncRelayCommand(AddItem);
             SelectCommandAsync = new AsyncRelayCommand<Feladat>(f => ShowItem(f));
+            LogoutCommandAsync = new AsyncRelayCommand(Logout);
             UpdateView();
         }
 
@@ -28,6 +30,7 @@ namespace TeendokLista.MAUI.ViewModels
 
         public IAsyncRelayCommand<Feladat> SelectCommandAsync { get; set; }
         public IAsyncRelayCommand NewCommandAsync { get; set; }
+        public IAsyncRelayCommand LogoutCommandAsync { get; set; }
 
         private async Task LoadData()
         {
@@ -59,6 +62,11 @@ namespace TeendokLista.MAUI.ViewModels
                 { "Feladat", new Feladat() }
             };
             await Shell.Current.GoToAsync(nameof(DetailPage), navigationParameter);
+        }
+
+        private async Task Logout()
+        {
+            await Shell.Current.GoToAsync("..");
         }
     }
 }
