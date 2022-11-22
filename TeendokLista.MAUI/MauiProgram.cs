@@ -3,7 +3,6 @@ using ApiClient.Repositories;
 using TeendokLista.MAUI.Models;
 using TeendokLista.MAUI.Repositories;
 using TeendokLista.MAUI.Repositories.API;
-using TeendokLista.MAUI.Repositories.Local;
 using TeendokLista.MAUI.Services;
 using TeendokLista.MAUI.ViewModels;
 using TeendokLista.MAUI.Views;
@@ -32,7 +31,7 @@ namespace TeendokLista.MAUI
 
             builder.Services.AddScoped<IGenericRepository<Feladat>, GenericAPIRepository<Feladat>>(x => 
             {
-                return new("api/feladatok", handler: new TokenAuthHandler("api/token", LoggedUser.Current));
+                return new("api/feladatok", handler: new TokenAuthHandler("api/token", CurrentUser.Access_Token, CurrentUser.Refresh_Token));
             });
             builder.Services.AddTransient<MainViewModel>();
             builder.Services.AddTransient<MainPage>();

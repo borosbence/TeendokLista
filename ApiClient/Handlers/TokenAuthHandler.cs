@@ -10,13 +10,14 @@ namespace ApiClient.MAUI.Handlers
     public class TokenAuthHandler : DelegatingHandler
     {
         private readonly string _path = "api/token/refresh";
-        private readonly IUser _user;
+        private string _accessToken;
+        private string _refreshToken;
 
-        // TODO: user, mint referenciaként?
-        public TokenAuthHandler(string path, IUser user)
+        public TokenAuthHandler(string path, string accessToken, string refreshToken)
         {
             _path = path;
-            _user = user;
+            _accessToken = accessToken;
+            _refreshToken = refreshToken;
             InnerHandler = new HttpClientHandler();
         }
         
@@ -25,7 +26,7 @@ namespace ApiClient.MAUI.Handlers
             // Ha nem tartalmazza a hitelesítési fejlécet, akkor adja hozzá
             if (!request.Headers.Contains("Bearer"))
             {
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _user.Access_Token);
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken);
             }
             var response = await base.SendAsync(request, cancellationToken);
 
@@ -34,7 +35,7 @@ namespace ApiClient.MAUI.Handlers
             {
                 // Küld egy új kérést, hogy megkapja a tokent
                 var refreshReqMessage = new HttpRequestMessage(HttpMethod.Post, _path);
-                var oldToken = new JwtToken(_user.Access_Token, _user.Refresh_Token);
+                var oldToken = new JwtToken(_accessToken, _refreshToken);
                 refreshReqMessage.Content = new StringContent(JsonSerializer.Serialize(oldToken), Encoding.UTF8, "application/json");
 
                 // Token válasz a szervertől
@@ -43,8 +44,8 @@ namespace ApiClient.MAUI.Handlers
 
                 if (jwtToken != null)
                 {
-                    _user.Access_Token = jwtToken.Access_Token;
-                    _user.Refresh_Token = jwtToken.Refresh_Token;
+                    _accessToken = jwtToken.Access_Token;
+                    _refreshToken = jwtToken.Refresh_Token;
 
                     // Jelenlegi fejléc cseréje
                     request.Headers.Remove("Authorization");

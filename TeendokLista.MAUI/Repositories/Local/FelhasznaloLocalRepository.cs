@@ -9,9 +9,9 @@ namespace TeendokLista.MAUI.Repositories.Local
         {
             if (username == "admin" && password == "admin")
             {
-                LoggedUser.Current.Id = 1;
-                LoggedUser.Current.FelhasznaloNev = "admin";
-                LoggedUser.Current.Szerepkor = "admin";
+                CurrentUser.Id = 1;
+                CurrentUser.FelhasznaloNev = "admin";
+                CurrentUser.Szerepkor = "admin";
                 return Task.FromResult("Sikeres bejelentkezés.");
             }
             return Task.FromResult("Hibás felhasználónév vagy jelszó.");

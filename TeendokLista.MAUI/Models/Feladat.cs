@@ -10,7 +10,7 @@ namespace TeendokLista.MAUI.Models
         public Feladat()
         {
             Hatarido = DateTime.Now;
-            FelhasznaloId = LoggedUser.Current.Id;
+            FelhasznaloId = CurrentUser.Id;
         }
 
         private int id;

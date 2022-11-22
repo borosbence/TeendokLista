@@ -20,19 +20,17 @@ namespace TeendokLista.MAUI.Repositories.API
             {
                 var response = await request.Content.ReadFromJsonAsync<JsonObject>();
 
-                LoggedUser.Current.Id = int.Parse(response.FirstOrDefault(x => x.Key == "id").Value.ToString());
-                LoggedUser.Current.FelhasznaloNev = response.FirstOrDefault(x => x.Key == "felhasznaloNev").Value.ToString();
-                LoggedUser.Current.Szerepkor = response.FirstOrDefault(x => x.Key == "szerepkor").Value.ToString();
-                LoggedUser.Current.Access_Token = response.FirstOrDefault(x => x.Key == "access_Token").Value.ToString();
-                LoggedUser.Current.Refresh_Token = response.FirstOrDefault(x => x.Key == "refresh_Token").Value.ToString();
+                CurrentUser.Id = int.Parse(response.FirstOrDefault(x => x.Key == "id").Value.ToString());
+                CurrentUser.FelhasznaloNev = response.FirstOrDefault(x => x.Key == "felhasznaloNev").Value.ToString();
+                CurrentUser.Szerepkor = response.FirstOrDefault(x => x.Key == "szerepkor").Value.ToString();
+                CurrentUser.Access_Token = response.FirstOrDefault(x => x.Key == "access_Token").Value.ToString();
+                CurrentUser.Refresh_Token = response.FirstOrDefault(x => x.Key == "refresh_Token").Value.ToString();
 
                 return "Sikeres bejelentkezés.";
             }
 
             return "Hibás felhasználónév vagy jelszó.";
         }
-
-        // TODO: Logout
     }
 
 }

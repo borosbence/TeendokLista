@@ -1,11 +1,10 @@
-﻿using TeendokLista.API.DTOs;
-using TeendokLista.API.Models;
+﻿using TeendokLista.API.Models;
 
-namespace TeendokLista.API.Extensions
+namespace TeendokLista.API.DTOs
 {
-    public static class DTOConversions
+    public static class Conversions
     {
-        public static FelhasznaloDTO toDTO(this Felhasznalo source)
+        public static FelhasznaloDTO ToDTO(this Felhasznalo source)
         {
             return new FelhasznaloDTO
             {
@@ -15,7 +14,7 @@ namespace TeendokLista.API.Extensions
             };
         }
 
-        public static List<FelhasznaloDTO> toDTO(this IEnumerable<Felhasznalo> source)
+        public static List<FelhasznaloDTO> ToDTO(this IEnumerable<Felhasznalo> source)
         {
             return source.Select(src => new FelhasznaloDTO
             {
