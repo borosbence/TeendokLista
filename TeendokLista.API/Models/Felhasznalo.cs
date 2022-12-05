@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
-using Microsoft.EntityFrameworkCore;
 
 namespace TeendokLista.API.Models
 {
@@ -28,11 +26,11 @@ namespace TeendokLista.API.Models
         [Column(TypeName = "int(11)")]
         public int szerepkor_id { get; set; }
 
-        
+
         [ForeignKey("szerepkor_id")]
         [InverseProperty("felhasznalok")]
-        // public virtual Szerepkor szerepkor { get; set; } = null!;
         [JsonIgnore]
+        // public virtual Szerepkor szerepkor { get; set; } = null!;
         public virtual Szerepkor? szerepkor { get; set; } = null!;
 
         [InverseProperty("felhasznalo")]

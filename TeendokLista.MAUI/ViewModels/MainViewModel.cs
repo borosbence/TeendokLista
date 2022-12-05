@@ -18,7 +18,7 @@ namespace TeendokLista.MAUI.ViewModels
             NewCommandAsync = new AsyncRelayCommand(AddItem);
             SelectCommandAsync = new AsyncRelayCommand<Feladat>(f => ShowItem(f));
             LogoutCommandAsync = new AsyncRelayCommand(Logout);
-            UpdateView();
+            RegisterUpdate();
         }
 
         private ObservableCollection<Feladat> _feladatok = new();
@@ -38,7 +38,7 @@ namespace TeendokLista.MAUI.ViewModels
             Feladatok = new ObservableCollection<Feladat>(result);
         }
 
-        private void UpdateView()
+        private void RegisterUpdate()
         {
             MessagingCenter.Subscribe<DetailViewModel, Feladat>(this, "UpdateView", async (sender, feladat) =>
             {

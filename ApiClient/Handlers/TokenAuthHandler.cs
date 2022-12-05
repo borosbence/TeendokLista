@@ -20,7 +20,7 @@ namespace ApiClient.MAUI.Handlers
             _refreshToken = refreshToken;
             InnerHandler = new HttpClientHandler();
         }
-        
+
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             // Ha nem tartalmazza a hitelesítési fejlécet, akkor adja hozzá

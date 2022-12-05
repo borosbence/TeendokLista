@@ -1,5 +1,4 @@
-﻿using ApiClient.Models;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Text.Json.Serialization;
 using TeendokLista.MAUI.Services;
 

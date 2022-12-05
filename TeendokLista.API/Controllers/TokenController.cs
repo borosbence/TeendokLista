@@ -1,7 +1,6 @@
 ﻿using JwtSecurity.Models;
 using JwtSecurity.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
@@ -69,7 +68,7 @@ namespace TeendokLista.API.Controllers
 
             var dbUser = await _context.felhasznalok
                 .Include(x => x.szerepkor)
-                .FirstOrDefaultAsync(x => x.id == userId );
+                .FirstOrDefaultAsync(x => x.id == userId);
             if (dbUser == null)
             {
                 return Unauthorized("A felhasználónév nincs regisztrálva.");

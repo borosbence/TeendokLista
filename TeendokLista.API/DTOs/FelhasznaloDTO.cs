@@ -5,8 +5,8 @@ namespace TeendokLista.API.DTOs
     public class FelhasznaloDTO
     {
         public int Id { get; set; }
-        public string FelhasznaloNev { get; set; } = string.Empty;
-        public string Szerepkor { get; set; } = string.Empty;
+        public string? FelhasznaloNev { get; set; }
+        public string? Szerepkor { get; set; }
     }
 
     public class LoginDTO : FelhasznaloDTO
@@ -20,7 +20,7 @@ namespace TeendokLista.API.DTOs
             Refresh_Token = jwtToken.Refresh_Token;
         }
 
-        public string Access_Token { get; set; } = string.Empty;
-        public string Refresh_Token { get; set; } = string.Empty;
+        public string? Access_Token { get; set; }
+        public string? Refresh_Token { get; set; }
     }
 }

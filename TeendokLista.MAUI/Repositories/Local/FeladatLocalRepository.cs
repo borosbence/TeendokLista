@@ -46,8 +46,9 @@ Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Ma
         }
         public Task UpdateAsync(int id, Feladat entity)
         {
-            int index = feladatok.FindIndex(x => x.Id == id);
-            feladatok[index] = entity;
+            var feladat = feladatok.FirstOrDefault(x => x.Id == id);
+            feladat = entity;
+            // feladatok[index] = entity;
             return Task.CompletedTask;
         }
         public Task DeleteAsync(int id)

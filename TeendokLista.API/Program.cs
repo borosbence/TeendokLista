@@ -1,10 +1,5 @@
 using JwtSecurity.Extensions;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using System.Configuration;
-using System.Text;
 using TeendokLista.API.Data;
 
 namespace TeendokLista.API

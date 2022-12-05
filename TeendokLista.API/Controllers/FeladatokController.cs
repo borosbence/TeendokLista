@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TeendokLista.API.Data;
@@ -27,10 +22,10 @@ namespace TeendokLista.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Feladat>>> Getfeladatok()
         {
-          if (_context.feladatok == null)
-          {
-              return NotFound();
-          }
+            if (_context.feladatok == null)
+            {
+                return NotFound();
+            }
             var result = await _context.feladatok.OrderBy(x => x.hatarido).ToListAsync();
             return result;
         }
@@ -39,10 +34,10 @@ namespace TeendokLista.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Feladat>> GetFeladat(int id)
         {
-          if (_context.feladatok == null)
-          {
-              return NotFound();
-          }
+            if (_context.feladatok == null)
+            {
+                return NotFound();
+            }
             var feladat = await _context.feladatok.FindAsync(id);
 
             if (feladat == null)
@@ -89,10 +84,10 @@ namespace TeendokLista.API.Controllers
         [HttpPost]
         public async Task<ActionResult<Feladat>> PostFeladat(Feladat feladat)
         {
-          if (_context.feladatok == null)
-          {
-              return Problem("Entity set 'TeendokContext.feladatok'  is null.");
-          }
+            if (_context.feladatok == null)
+            {
+                return Problem("Entity set 'TeendokContext.feladatok'  is null.");
+            }
             _context.feladatok.Add(feladat);
             await _context.SaveChangesAsync();
 

@@ -67,7 +67,7 @@ namespace JwtSecurity.Extensions
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.Http,
                 });
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement 
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
                         new OpenApiSecurityScheme

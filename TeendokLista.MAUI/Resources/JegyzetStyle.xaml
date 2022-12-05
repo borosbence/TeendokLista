@@ -14,8 +14,9 @@
     <Style x:Key="tartalomStyle" TargetType="Editor">
         <Setter Property="FontSize" Value="14" />
         <Setter Property="HeightRequest" Value="250" />
-        <!--!BUG miatt kell beállítani -->
-        <Setter Property="MinimumWidthRequest" Value="400" />
+        <Setter Property="AutoSize" Value="TextChanges" />
+        <!--!BUG miatt kell beállítani 
+        <Setter Property="MinimumWidthRequest" Value="400" />-->
     </Style>
 
     <Style x:Key="gombStyle" TargetType="Button">

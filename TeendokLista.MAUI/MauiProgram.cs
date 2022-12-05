@@ -29,7 +29,7 @@ namespace TeendokLista.MAUI
             builder.Services.AddSingleton<LoginViewModel>();
             builder.Services.AddSingleton<LoginPage>();
 
-            builder.Services.AddScoped<IGenericRepository<Feladat>, GenericAPIRepository<Feladat>>(x => 
+            builder.Services.AddScoped<IGenericRepository<Feladat>, GenericAPIRepository<Feladat>>(x =>
             {
                 return new("api/feladatok", handler: new TokenAuthHandler("api/token", CurrentUser.Access_Token, CurrentUser.Refresh_Token));
             });

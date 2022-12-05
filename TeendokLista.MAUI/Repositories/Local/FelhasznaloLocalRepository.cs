@@ -1,5 +1,4 @@
-﻿using ApiClient.Models;
-using TeendokLista.MAUI.Services;
+﻿using TeendokLista.MAUI.Services;
 
 namespace TeendokLista.MAUI.Repositories.Local
 {
