@@ -15,12 +15,12 @@ namespace TeendokLista.API.Controllers
     public class TokenController : ControllerBase
     {
         private readonly TeendokContext _context;
-        private readonly JwtManagerService _jwtManager;
+        private readonly JwtManagerService _jwtManagerService;
 
-        public TokenController(TeendokContext context, JwtManagerService jwtManagerRepository)
+        public TokenController(TeendokContext context, JwtManagerService jwtManagerService)
         {
             _context = context;
-            _jwtManager = jwtManagerRepository;
+            _jwtManagerService = jwtManagerService;
         }
 
         [AllowAnonymous]
@@ -47,12 +47,12 @@ namespace TeendokLista.API.Controllers
             // Követelési szintek létrehozása
             var claims = GetClaimsFromUser(dbUser);
             // Új Token generálása
-            var jwtToken = _jwtManager.GenerateToken(claims);
+            var jwtToken = _jwtManagerService.GenerateToken(claims);
             // Refresh token elmentése az adatbázisba
             _context.login_tokenek.Add(new LoginToken(jwtToken.Refresh_Token, dbUser.id));
             _context.SaveChanges();
 
-            // Felhasználóni adatok és token visszaadása
+            // Felhasználói adatok és token visszaadása
             return new LoginDTO(dbUser.id, dbUser.felhasznalonev, dbUser.szerepkor.nev, jwtToken);
         }
 
@@ -62,7 +62,7 @@ namespace TeendokLista.API.Controllers
         public async Task<ActionResult<JwtToken>> Refresh(JwtToken jwtToken)
         {
             // Felhasználói adatok kinyerése a tokenből
-            var principal = _jwtManager.GetPrincipalFromExpiredToken(jwtToken.Access_Token);
+            var principal = _jwtManagerService.GetPrincipalFromExpiredToken(jwtToken.Access_Token);
             var claimId = principal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
             int.TryParse(claimId.Value, out int userId);
 
@@ -90,7 +90,7 @@ namespace TeendokLista.API.Controllers
             _context.login_tokenek.Remove(oldToken);
             // Új token generálása
             var claims = GetClaimsFromUser(dbUser);
-            var newToken = _jwtManager.GenerateToken(claims);
+            var newToken = _jwtManagerService.GenerateToken(claims);
             // Refresh token elmentése az adatbázisba
             _context.login_tokenek.Add(new LoginToken(newToken.Refresh_Token, dbUser.id));
             _context.SaveChanges();

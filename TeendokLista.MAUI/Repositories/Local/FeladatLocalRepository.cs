@@ -29,33 +29,36 @@ Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Ma
             var result = feladatok.OrderBy(x => x.Teljesitve).ThenBy(x => x.Hatarido).ToList();
             return Task.FromResult(result);
         }
-        public Task<Feladat> GetByIdAsync(int id)
+        public async Task<Feladat> GetByIdAsync(int id)
         {
             var result = feladatok.FirstOrDefault(x => x.Id == id);
-            return Task.FromResult(result);
+            return await Task.FromResult(result);
         }
-        public Task<bool> ExistsAsync(int id)
+        public async Task<bool> ExistsAsync(int id)
         {
             var result = feladatok.Any(x => x.Id == id);
-            return Task.FromResult(result);
+            return await Task.FromResult(result);
         }
-        public Task InsertAsync(Feladat entity)
+        public async Task InsertAsync(Feladat entity)
         {
             feladatok.Add(entity);
-            return Task.CompletedTask;
+            // return Task.CompletedTask;
+            return;
         }
-        public Task UpdateAsync(int id, Feladat entity)
+        public async Task UpdateAsync(int id, Feladat entity)
         {
             var feladat = feladatok.FirstOrDefault(x => x.Id == id);
             feladat = entity;
             // feladatok[index] = entity;
-            return Task.CompletedTask;
+            // return Task.CompletedTask;
+            return;
         }
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
             var result = feladatok.FirstOrDefault(x => x.Id == id);
             feladatok.Remove(result);
-            return Task.CompletedTask;
+            // return Task.CompletedTask;
+            return;
         }
     }
 }

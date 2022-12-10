@@ -3,17 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TeendokLista.MAUI.Views.LoginPage"
              Title="Jegyzetek">
-    <VerticalStackLayout Margin="10"
-                         Spacing="10"
-                         HorizontalOptions="Center" >
+    <VerticalStackLayout Margin="10" Spacing="10" HorizontalOptions="Center" >
         <Label Text="Bejelentkezés" FontSize="18" FontAttributes="Bold"/>
         <Label Text="Felhasználónév" />
         <Entry Text="{Binding Username}" WidthRequest="250" />
         <Label Text="Jelszó" />
         <Entry Text="{Binding Password}" IsPassword="True" WidthRequest="250" />
         <Label Text="{Binding ErrorMessage}" TextColor="Red" />
-        <Button Text="Bejelentkezés"
-            Command="{Binding LoginCommand}"
-            HorizontalOptions="Center" />
+        <Button Text="Bejelentkezés" HorizontalOptions="Center" Command="{Binding LoginCommand}" />
     </VerticalStackLayout>
 </ContentPage>

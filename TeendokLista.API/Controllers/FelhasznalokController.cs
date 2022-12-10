@@ -50,7 +50,7 @@ namespace TeendokLista.API.Controllers
             {
                 return BadRequest();
             }
-
+            felhasznalo.jelszo = BCrypt.Net.BCrypt.HashPassword(felhasznalo.jelszo);
             _context.Entry(felhasznalo).State = EntityState.Modified;
 
             try
@@ -78,6 +78,7 @@ namespace TeendokLista.API.Controllers
         public async Task<ActionResult<Felhasznalo>> PostFelhasznalo(Felhasznalo felhasznalo)
         {
             _context.felhasznalok.Add(felhasznalo);
+            felhasznalo.jelszo = BCrypt.Net.BCrypt.HashPassword(felhasznalo.jelszo);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetFelhasznalo", new { id = felhasznalo.id }, felhasznalo);
