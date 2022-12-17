@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using TeendokLista.API.Data;
 using TeendokLista.API.Models;
 
@@ -18,6 +19,13 @@ namespace TeendokLista.API.Controllers
             _context = context;
         }
 
+        private int GetUserId()
+        {
+            var claimId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+            int.TryParse(claimId.Value, out int userId);
+            return userId;
+        }
+
         // GET: api/Feladatok
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Feladat>>> Getfeladatok()
@@ -26,7 +34,10 @@ namespace TeendokLista.API.Controllers
             {
                 return NotFound();
             }
-            var result = await _context.feladatok.OrderBy(x => x.hatarido).ToListAsync();
+            var result = await _context.feladatok
+                .Where(x => x.felhasznalo_id == GetUserId())
+                .OrderBy(x => x.hatarido)
+                .ToListAsync();
             return result;
         }
 
@@ -38,7 +49,9 @@ namespace TeendokLista.API.Controllers
             {
                 return NotFound();
             }
-            var feladat = await _context.feladatok.FindAsync(id);
+            var feladat = await _context.feladatok
+                .Where(x => x.felhasznalo_id == GetUserId())
+                .FirstOrDefaultAsync(x => x.id == id);
 
             if (feladat == null)
             {
@@ -54,6 +67,10 @@ namespace TeendokLista.API.Controllers
         public async Task<IActionResult> PutFeladat(int id, Feladat feladat)
         {
             if (id != feladat.id)
+            {
+                return BadRequest();
+            }
+            if (feladat.felhasznalo_id != GetUserId())
             {
                 return BadRequest();
             }
@@ -88,6 +105,10 @@ namespace TeendokLista.API.Controllers
             {
                 return Problem("Entity set 'TeendokContext.feladatok'  is null.");
             }
+            if (feladat.felhasznalo_id != GetUserId())
+            {
+                return BadRequest();
+            }
             _context.feladatok.Add(feladat);
             await _context.SaveChangesAsync();
 
@@ -102,7 +123,9 @@ namespace TeendokLista.API.Controllers
             {
                 return NotFound();
             }
-            var feladat = await _context.feladatok.FindAsync(id);
+            var feladat = await _context.feladatok
+                .Where(x => x.felhasznalo_id == GetUserId())
+                .FirstOrDefaultAsync(x => x.id == id);
             if (feladat == null)
             {
                 return NotFound();

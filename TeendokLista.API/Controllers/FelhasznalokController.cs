@@ -75,13 +75,15 @@ namespace TeendokLista.API.Controllers
         // POST: api/Felhasznalok
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Felhasznalo>> PostFelhasznalo(Felhasznalo felhasznalo)
+        public async Task<ActionResult<FelhasznaloDTO>> PostFelhasznalo(Felhasznalo felhasznalo)
         {
             _context.felhasznalok.Add(felhasznalo);
             felhasznalo.jelszo = BCrypt.Net.BCrypt.HashPassword(felhasznalo.jelszo);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetFelhasznalo", new { id = felhasznalo.id }, felhasznalo);
+            felhasznalo.szerepkor = await _context.szerepkorok.FindAsync(felhasznalo.szerepkor_id);
+
+            return CreatedAtAction("GetFelhasznalo", new { felhasznalo.id }, felhasznalo.ToDTO());
         }
 
         // DELETE: api/Felhasznalok/5
