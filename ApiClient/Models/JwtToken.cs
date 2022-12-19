@@ -2,6 +2,10 @@
 {
     public class JwtToken
     {
+        public JwtToken()
+        {
+
+        }
         public JwtToken(string accessToken, string refreshToken)
         {
             Access_Token = accessToken;

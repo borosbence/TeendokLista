@@ -1,4 +1,5 @@
 ﻿using ApiClient.Models;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
@@ -10,14 +11,17 @@ namespace ApiClient.MAUI.Handlers
     public class TokenAuthHandler : DelegatingHandler
     {
         private string _path = "api/token/refresh";
+        private string? _baseUrl;
         private string _accessToken;
         private string _refreshToken;
 
-        public TokenAuthHandler(string path, string accessToken, string refreshToken)
+        public TokenAuthHandler(string path, string accessToken, string refreshToken, string? baseUrl = null)
         {
             _path = path;
             _accessToken = accessToken;
             _refreshToken = refreshToken;
+            // Ha nincs a paraméternek értéke, akkor automatikusan ezt vesz fel
+            _baseUrl = baseUrl ?? "http://localhost:5000/";
             InnerHandler = new HttpClientHandler();
         }
 
@@ -31,10 +35,10 @@ namespace ApiClient.MAUI.Handlers
             var response = await base.SendAsync(request, cancellationToken);
 
             // Ha válaszul 401-es státuszkódot kap
-            if (response.StatusCode == HttpStatusCode.Unauthorized && request.Headers.Contains("Bearer"))
+            if (response.StatusCode == HttpStatusCode.Unauthorized && request.Headers.Authorization != null)
             {
                 // Küld egy új kérést, hogy megkapja a tokent
-                var refreshReqMessage = new HttpRequestMessage(HttpMethod.Post, _path);
+                var refreshReqMessage = new HttpRequestMessage(HttpMethod.Post, _baseUrl + _path);
                 var oldToken = new JwtToken(_accessToken, _refreshToken);
                 refreshReqMessage.Content = new StringContent(JsonSerializer.Serialize(oldToken), Encoding.UTF8, "application/json");
 
@@ -44,6 +48,7 @@ namespace ApiClient.MAUI.Handlers
 
                 if (jwtToken != null)
                 {
+                    // TODO: átalakítani referencia paraméterként
                     _accessToken = jwtToken.Access_Token;
                     _refreshToken = jwtToken.Refresh_Token;
 

@@ -25,7 +25,6 @@ Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Ma
 
         public Task<List<Feladat>> GetAllAsync()
         {
-            // TODO: Teljesitve == true rendezésnél, de miért?
             var result = feladatok.OrderBy(x => x.Teljesitve).ThenBy(x => x.Hatarido).ToList();
             return Task.FromResult(result);
         }

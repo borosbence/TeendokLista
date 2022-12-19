@@ -69,7 +69,9 @@ namespace TeendokLista.MAUI.ViewModels
 
         private async Task Logout()
         {
-            await Shell.Current.GoToAsync("..");
+            // await Shell.Current.GoToAsync("..");
+            // Hibajavítás miatt:
+            await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
         }
     }
 }

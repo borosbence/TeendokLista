@@ -14,8 +14,7 @@ namespace TeendokLista.MAUI.ViewModels
             _repository = repository;
             // Akkor engedélyezze, ha nem üres a felhasználónév, jelszó
             LoginCommand = new AsyncRelayCommand(Login, CanLogin);
-            // TODO: 
-            // Logout api meghívása, ha van tokenünk
+            // TODO: Logout api meghívása, ha van tokenünk
         }
 
         private string _username;

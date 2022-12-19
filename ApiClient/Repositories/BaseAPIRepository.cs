@@ -11,18 +11,19 @@ namespace ApiClient.Repositories
 
         public BaseAPIRepository(string baseUrl = null, string path = null, DelegatingHandler? handler = null)
         {
+            // Ha nincs a paraméternek értéke, akkor automatikusan ezt vesz fel
             _baseUrl = baseUrl ?? "http://localhost:5000/";
             _path = path;
             _handler = handler;
 
             // HTTP handler hozzáadása, ha létezik
-            client = handler == null ? new HttpClient() : new HttpClient(handler);
+            client = handler == null ? new HttpClient() : new HttpClient(handler) { BaseAddress = new Uri(_baseUrl)};
             // alap URL beállítása
             if (!string.IsNullOrEmpty(_baseUrl))
             {
                 client.BaseAddress = new Uri(_baseUrl);
             }
-            client.DefaultRequestHeaders.Clear();
+            // client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
     }

@@ -25,7 +25,7 @@ namespace TeendokLista.MAUI
 
             // Az egymástól függő osztályok regisztrálása
             //builder.Services.AddTransient<IFelhasznaloRepository, FelhasznaloLocalRepository>();
-            builder.Services.AddTransient<IFelhasznaloRepository, FelhasznaloAPIRepository>(x =>
+            builder.Services.AddScoped<IFelhasznaloRepository, FelhasznaloAPIRepository>(x =>
             {
                 return new("api/token");
             });

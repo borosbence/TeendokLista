@@ -9,6 +9,7 @@ namespace TeendokLista.API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            // Ezzel kívülrõl is elérhetõ az API
             builder.WebHost.UseUrls("http://localhost:5000", "http://0.0.0.0:5000");
 
             // DbContext

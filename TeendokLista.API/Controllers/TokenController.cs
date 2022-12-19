@@ -59,7 +59,7 @@ namespace TeendokLista.API.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("Refresh")]
-        public async Task<ActionResult<LoginDTO>> Refresh(JwtToken jwtToken)
+        public async Task<ActionResult<JwtToken>> Refresh(JwtToken jwtToken)
         {
             // Felhasználói adatok kinyerése a tokenből
             var principal = _jwtManagerService.GetPrincipalFromExpiredToken(jwtToken.Access_Token);
@@ -87,7 +87,8 @@ namespace TeendokLista.API.Controllers
             }
 
             // Régi token törlése
-            _context.login_tokenek.Remove(oldToken);
+            // TODO: MAUI program még a régi refresh tokent küldi
+            // _context.login_tokenek.Remove(oldToken);
             // Új token generálása
             var claims = GetClaimsFromUser(dbUser);
             var newToken = _jwtManagerService.GenerateToken(claims);
@@ -95,8 +96,8 @@ namespace TeendokLista.API.Controllers
             _context.login_tokenek.Add(new LoginToken(newToken.Refresh_Token, dbUser.id));
             await _context.SaveChangesAsync();
 
-            // Felhasználói adatok és token visszaadása
-            return new LoginDTO(dbUser.id, dbUser.felhasznalonev, dbUser.szerepkor.nev, jwtToken);
+            // Új token érték visszaadása
+            return newToken;
         }
 
 
