@@ -6,6 +6,7 @@ namespace TeendokLista.MAUI.Repositories.Local
     {
         public Task<string> AuthenticateAsync(string username, string password)
         {
+            // Tesztelés céljából
             if (username == "admin" && password == "admin")
             {
                 CurrentUser.Id = 1;

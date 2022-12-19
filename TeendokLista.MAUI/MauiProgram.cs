@@ -23,6 +23,7 @@ namespace TeendokLista.MAUI
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            // Az egymástól függő osztályok regisztrálása
             //builder.Services.AddTransient<IFelhasznaloRepository, FelhasznaloLocalRepository>();
             builder.Services.AddTransient<IFelhasznaloRepository, FelhasznaloAPIRepository>(x =>
             {
@@ -33,7 +34,7 @@ namespace TeendokLista.MAUI
             //builder.Services.AddTransient<IGenericRepository<Feladat>, FeladatLocalRepository>();
             builder.Services.AddTransient<IGenericRepository<Feladat>, GenericAPIRepository<Feladat>>(x =>
             {
-                return new("api/feladatok", handler: new TokenAuthHandler("api/token", CurrentUser.Access_Token, CurrentUser.Refresh_Token));
+                return new("api/feladatok", handler: new TokenAuthHandler("api/token/refresh", CurrentUser.Access_Token, CurrentUser.Refresh_Token));
             });
             builder.Services.AddTransient<MainViewModel>();
             builder.Services.AddTransient<MainPage>();

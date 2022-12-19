@@ -1,9 +1,15 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
 using TeendokLista.API.Data;
 using TeendokLista.API.Models;
+using TeendokLista.API.Services;
 
 namespace TeendokLista.API.Controllers
 {
@@ -19,38 +25,21 @@ namespace TeendokLista.API.Controllers
             _context = context;
         }
 
-        private int GetUserId()
-        {
-            var claimId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
-            int.TryParse(claimId.Value, out int userId);
-            return userId;
-        }
-
         // GET: api/Feladatok
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Feladat>>> Getfeladatok()
         {
-            if (_context.feladatok == null)
-            {
-                return NotFound();
-            }
-            var result = await _context.feladatok
-                .Where(x => x.felhasznalo_id == GetUserId())
-                .OrderBy(x => x.hatarido)
+            return await _context.feladatok
+                .Where(x => x.felhasznalo_id == UserService.GetUserId(User))
                 .ToListAsync();
-            return result;
         }
 
         // GET: api/Feladatok/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Feladat>> GetFeladat(int id)
         {
-            if (_context.feladatok == null)
-            {
-                return NotFound();
-            }
             var feladat = await _context.feladatok
-                .Where(x => x.felhasznalo_id == GetUserId())
+                .Where(x => x.felhasznalo_id == UserService.GetUserId(User))
                 .FirstOrDefaultAsync(x => x.id == id);
 
             if (feladat == null)
@@ -70,7 +59,7 @@ namespace TeendokLista.API.Controllers
             {
                 return BadRequest();
             }
-            if (feladat.felhasznalo_id != GetUserId())
+            if (feladat.felhasznalo_id != UserService.GetUserId(User))
             {
                 return BadRequest();
             }
@@ -101,11 +90,7 @@ namespace TeendokLista.API.Controllers
         [HttpPost]
         public async Task<ActionResult<Feladat>> PostFeladat(Feladat feladat)
         {
-            if (_context.feladatok == null)
-            {
-                return Problem("Entity set 'TeendokContext.feladatok'  is null.");
-            }
-            if (feladat.felhasznalo_id != GetUserId())
+            if (feladat.felhasznalo_id != UserService.GetUserId(User))
             {
                 return BadRequest();
             }
@@ -119,12 +104,8 @@ namespace TeendokLista.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteFeladat(int id)
         {
-            if (_context.feladatok == null)
-            {
-                return NotFound();
-            }
             var feladat = await _context.feladatok
-                .Where(x => x.felhasznalo_id == GetUserId())
+                .Where(x => x.felhasznalo_id == UserService.GetUserId(User))
                 .FirstOrDefaultAsync(x => x.id == id);
             if (feladat == null)
             {
@@ -139,7 +120,7 @@ namespace TeendokLista.API.Controllers
 
         private bool FeladatExists(int id)
         {
-            return (_context.feladatok?.Any(e => e.id == id)).GetValueOrDefault();
+            return _context.feladatok.Any(e => e.id == id);
         }
     }
 }

@@ -1,9 +1,16 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TeendokLista.API.Data;
 using TeendokLista.API.DTOs;
 using TeendokLista.API.Models;
+using TeendokLista.API.Services;
 
 namespace TeendokLista.API.Controllers
 {
@@ -23,33 +30,44 @@ namespace TeendokLista.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FelhasznaloDTO>>> Getfelhasznalok()
         {
-            var list = await _context.felhasznalok.Include(x => x.szerepkor).ToListAsync();
-            return list.ToDTO();
+            var data = await _context.felhasznalok.Include(x => x.szerepkor).ToListAsync();
+            return data.ToDTO();
         }
 
         // GET: api/Felhasznalok/5
         [HttpGet("{id}")]
         public async Task<ActionResult<FelhasznaloDTO>> GetFelhasznalo(int id)
         {
-            var felhasznalo = await _context.felhasznalok.FindAsync(id);
+            var felhasznalo = await _context.felhasznalok
+                .Include(x => x.szerepkor)
+                .FirstOrDefaultAsync(x => x.id == id);
 
             if (felhasznalo == null)
             {
                 return NotFound();
             }
 
+            // return new FelhasznaloDTO(felhasznalo.id, felhasznalo.felhasznalonev, felhasznalo.szerepkor.nev);
+            // return Conversions.ToDTO(felhasznalo);
             return felhasznalo.ToDTO();
         }
 
         // PUT: api/Felhasznalok/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutFelhasznalo(int id, Felhasznalo felhasznalo)
         {
             if (id != felhasznalo.id)
             {
                 return BadRequest();
             }
+            if (felhasznalo.id != UserService.GetUserId(User))
+            {
+                return BadRequest();
+            }
+
+            // Jelszó hashelése
             felhasznalo.jelszo = BCrypt.Net.BCrypt.HashPassword(felhasznalo.jelszo);
             _context.Entry(felhasznalo).State = EntityState.Modified;
 
@@ -74,16 +92,19 @@ namespace TeendokLista.API.Controllers
 
         // POST: api/Felhasznalok
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [AllowAnonymous]
         [HttpPost]
         public async Task<ActionResult<FelhasznaloDTO>> PostFelhasznalo(Felhasznalo felhasznalo)
         {
-            _context.felhasznalok.Add(felhasznalo);
+            // Jelszó hashelése
             felhasznalo.jelszo = BCrypt.Net.BCrypt.HashPassword(felhasznalo.jelszo);
+            _context.felhasznalok.Add(felhasznalo);
             await _context.SaveChangesAsync();
 
+            // Miután elmentette a DB-be, kérdezze le a hozzá tartozó szerepkör nevét
             felhasznalo.szerepkor = await _context.szerepkorok.FindAsync(felhasznalo.szerepkor_id);
 
-            return CreatedAtAction("GetFelhasznalo", new { felhasznalo.id }, felhasznalo.ToDTO());
+            return CreatedAtAction("GetFelhasznalo", new { id = felhasznalo.id }, felhasznalo.ToDTO());
         }
 
         // DELETE: api/Felhasznalok/5

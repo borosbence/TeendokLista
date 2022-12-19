@@ -38,6 +38,8 @@ namespace TeendokLista.MAUI.ViewModels
             Feladatok = new ObservableCollection<Feladat>(result);
         }
 
+        // Regisztrálás az üzenetközpont üzenetire
+        // Ha jön üzenet a DetailViewModeltől, pl. egy Feladat objektum, akkor frissítse a meglévő listát
         private void RegisterUpdate()
         {
             MessagingCenter.Subscribe<DetailViewModel, Feladat>(this, "UpdateView", async (sender, feladat) =>
@@ -52,6 +54,7 @@ namespace TeendokLista.MAUI.ViewModels
             {
                 { "Feladat", feladat }
             };
+            // Navigáció a másik Page-re
             await Shell.Current.GoToAsync(nameof(DetailPage), navigationParameter);
         }
 

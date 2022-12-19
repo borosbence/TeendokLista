@@ -50,7 +50,7 @@ namespace TeendokLista.API.Controllers
             var jwtToken = _jwtManagerService.GenerateToken(claims);
             // Refresh token elmentése az adatbázisba
             _context.login_tokenek.Add(new LoginToken(jwtToken.Refresh_Token, dbUser.id));
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             // Felhasználói adatok és token visszaadása
             return new LoginDTO(dbUser.id, dbUser.felhasznalonev, dbUser.szerepkor.nev, jwtToken);
@@ -59,7 +59,7 @@ namespace TeendokLista.API.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("Refresh")]
-        public async Task<ActionResult<JwtToken>> Refresh(JwtToken jwtToken)
+        public async Task<ActionResult<LoginDTO>> Refresh(JwtToken jwtToken)
         {
             // Felhasználói adatok kinyerése a tokenből
             var principal = _jwtManagerService.GetPrincipalFromExpiredToken(jwtToken.Access_Token);
@@ -93,9 +93,10 @@ namespace TeendokLista.API.Controllers
             var newToken = _jwtManagerService.GenerateToken(claims);
             // Refresh token elmentése az adatbázisba
             _context.login_tokenek.Add(new LoginToken(newToken.Refresh_Token, dbUser.id));
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
-            return newToken;
+            // Felhasználói adatok és token visszaadása
+            return new LoginDTO(dbUser.id, dbUser.felhasznalonev, dbUser.szerepkor.nev, jwtToken);
         }
 
 
@@ -116,7 +117,7 @@ namespace TeendokLista.API.Controllers
                 if (token != null)
                 {
                     _context.login_tokenek.Remove(token);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                 }
             }
 

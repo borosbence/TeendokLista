@@ -34,7 +34,7 @@ Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Ma
             var result = feladatok.FirstOrDefault(x => x.Id == id);
             return await Task.FromResult(result);
         }
-        public async Task<bool> ExistsAsync(int id)
+        public async Task<bool> ExistsByIdAsync(int id)
         {
             var result = feladatok.Any(x => x.Id == id);
             return await Task.FromResult(result);

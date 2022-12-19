@@ -18,7 +18,7 @@ namespace ApiClient.Repositories
             return await client.GetFromJsonAsync<T>(_path + "/" + id);
         }
 
-        public async Task<bool> ExistsAsync(int id)
+        public async Task<bool> ExistsByIdAsync(int id)
         {
             HttpResponseMessage responseMessage = await client.GetAsync(_path + "/" + id);
             return responseMessage.IsSuccessStatusCode;
