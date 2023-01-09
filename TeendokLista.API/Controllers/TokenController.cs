@@ -83,12 +83,11 @@ namespace TeendokLista.API.Controllers
             // Ha nem egyezik a refresh token vagy már lejárt
             if (oldToken.token != jwtToken.Refresh_Token || oldToken.lejarat_datum <= DateTime.Now)
             {
+                // Régi lejárt token törlése
+                // _context.login_tokenek.Remove(oldToken);
                 return Unauthorized("Lejárt vagy érvénytelen token.");
             }
-
-            // Régi token törlése
             // TODO: MAUI program még a régi refresh tokent küldi
-            // _context.login_tokenek.Remove(oldToken);
             // Új token generálása
             var claims = GetClaimsFromUser(dbUser);
             var newToken = _jwtManagerService.GenerateToken(claims);

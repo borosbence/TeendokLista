@@ -16,12 +16,7 @@ namespace TeendokLista.API.DTOs
 
         public static List<FelhasznaloDTO> ToDTO(this IEnumerable<Felhasznalo> source)
         {
-            return source.Select(src => new FelhasznaloDTO
-            {
-                Id = src.id,
-                FelhasznaloNev = src.felhasznalonev,
-                Szerepkor = src.szerepkor.nev
-            }).ToList();
+            return source.Select(src => src.ToDTO()).ToList();
         }
     }
 }
