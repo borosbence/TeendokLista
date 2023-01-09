@@ -14,7 +14,7 @@ namespace TeendokLista.MAUI.ViewModels
         public MainViewModel(IGenericRepository<Feladat> repository)
         {
             _repository = repository;
-            Task.Run(async () => await LoadData()).Wait();
+            LoadData();
             NewCommandAsync = new AsyncRelayCommand(AddItem);
             SelectCommandAsync = new AsyncRelayCommand<Feladat>(f => ShowItem(f));
             LogoutCommandAsync = new AsyncRelayCommand(Logout);
