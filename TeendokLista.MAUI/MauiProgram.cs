@@ -1,12 +1,4 @@
-﻿using ApiClient.MAUI.Handlers;
-using ApiClient.Repositories;
-using TeendokLista.MAUI.Models;
-using TeendokLista.MAUI.Repositories;
-using TeendokLista.MAUI.Repositories.API;
-using TeendokLista.MAUI.Repositories.Local;
-using TeendokLista.MAUI.Services;
-using TeendokLista.MAUI.ViewModels;
-using TeendokLista.MAUI.Views;
+﻿using Microsoft.Extensions.Logging;
 
 namespace TeendokLista.MAUI
 {
@@ -23,24 +15,9 @@ namespace TeendokLista.MAUI
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-            // Az egymástól függő osztályok regisztrálása
-            //builder.Services.AddTransient<IFelhasznaloRepository, FelhasznaloLocalRepository>();
-            builder.Services.AddScoped<IFelhasznaloRepository, FelhasznaloAPIRepository>(x =>
-            {
-                return new("api/token");
-            });
-            builder.Services.AddSingleton<LoginViewModel>();
-            builder.Services.AddSingleton<LoginPage>();
-            //builder.Services.AddTransient<IGenericRepository<Feladat>, FeladatLocalRepository>();
-            builder.Services.AddTransient<IGenericRepository<Feladat>, GenericAPIRepository<Feladat>>(x =>
-            {
-                return new("api/feladatok", handler: new TokenAuthHandler("api/token/refresh", CurrentUser.Access_Token, CurrentUser.Refresh_Token));
-            });
-            builder.Services.AddTransient<MainViewModel>();
-            builder.Services.AddTransient<MainPage>();
-
-            builder.Services.AddTransient<DetailViewModel>();
-            builder.Services.AddTransient<DetailPage>();
+#if DEBUG
+    		builder.Logging.AddDebug();
+#endif
 
             return builder.Build();
         }

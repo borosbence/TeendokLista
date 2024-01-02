@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TeendokLista.MAUI.Resources.JegyzetStyle">
+
+    <!--<Style TargetType="Shell" ApplyToDerivedTypes="True">
+        <Setter Property="Shell.BackgroundColor" Value="#EEE" />
+    </Style>-->
+
+    <Style x:Key="cimStyle" TargetType="Entry">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontAttributes" Value="Bold,Italic" />
+    </Style>
+    <Style x:Key="tartalomStyle" TargetType="Editor">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="HeightRequest" Value="250" />
+        <Setter Property="AutoSize" Value="TextChanges" />
+        <!--!BUG miatt kell beállítani 
+        <Setter Property="MinimumWidthRequest" Value="400" />-->
+    </Style>
+
+    <Style x:Key="gombStyle" TargetType="Button">
+        <Setter Property="WidthRequest" Value="120" />
+    </Style>
+
+    <LinearGradientBrush x:Key="teljesitveFalse">
+        <GradientStop Color="LightGoldenrodYellow" Offset="0" />
+        <GradientStop Color="Yellow" Offset="1" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="teljesitveTrue" Color="LightGray"  />
+
+    <Style x:Key="rPage" TargetType="ContentPage" >
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Feladat.Teljesitve}" TargetType="ContentPage" Value="False">
+                <Setter Property="Background" Value="{StaticResource teljesitveFalse}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Feladat.Teljesitve}" TargetType="ContentPage" Value="True">
+                <Setter Property="Background" Value="{StaticResource teljesitveTrue}"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>

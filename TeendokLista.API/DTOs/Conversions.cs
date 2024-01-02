@@ -10,7 +10,7 @@ namespace TeendokLista.API.DTOs
             {
                 Id = source.id,
                 FelhasznaloNev = source.felhasznalonev,
-                Szerepkor = source.szerepkor.nev
+                Szerepkor = source.szerepkor!.nev
             };
         }
 

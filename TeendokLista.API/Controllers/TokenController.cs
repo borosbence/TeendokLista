@@ -25,7 +25,7 @@ namespace TeendokLista.API.Controllers
 
         [AllowAnonymous]
         [HttpPost("Login")]
-        public async Task<ActionResult<LoginDTO>> Login(UserLogin userLogin)
+        public async Task<ActionResult<LoginResultDTO>> Login(LoginDTO userLogin)
         {
             // Felhasználó kikeresése
             var dbUser = await _context.felhasznalok
@@ -49,22 +49,22 @@ namespace TeendokLista.API.Controllers
             // Új Token generálása
             var jwtToken = _jwtManagerService.GenerateToken(claims);
             // Refresh token elmentése az adatbázisba
-            _context.login_tokenek.Add(new LoginToken(jwtToken.Refresh_Token, dbUser.id));
+            _context.login_tokenek.Add(new LoginToken(jwtToken.RefreshToken, dbUser.id));
             await _context.SaveChangesAsync();
 
             // Felhasználói adatok és token visszaadása
-            return new LoginDTO(dbUser.id, dbUser.felhasznalonev, dbUser.szerepkor.nev, jwtToken);
+            return new LoginResultDTO(dbUser.id, dbUser.felhasznalonev, dbUser.szerepkor!.nev, jwtToken.AccessToken, jwtToken.RefreshToken);
         }
 
         [AllowAnonymous]
         [HttpPost]
         [Route("Refresh")]
-        public async Task<ActionResult<JwtToken>> Refresh(JwtToken jwtToken)
+        public async Task<ActionResult<JWTModel>> Refresh(JWTModel jwtToken)
         {
             // Felhasználói adatok kinyerése a tokenből
-            var principal = _jwtManagerService.GetPrincipalFromExpiredToken(jwtToken.Access_Token);
+            var principal = _jwtManagerService.GetPrincipalFromExpiredToken(jwtToken.AccessToken);
             var claimId = principal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
-            int.TryParse(claimId.Value, out int userId);
+            int.TryParse(claimId!.Value, out int userId);
 
             var dbUser = await _context.felhasznalok
                 .Include(x => x.szerepkor)
@@ -75,13 +75,13 @@ namespace TeendokLista.API.Controllers
             }
             // Token kikeresése
             var oldToken = await _context.login_tokenek
-                .FirstOrDefaultAsync(x => x.felhasznalo_id == dbUser.id && x.token == jwtToken.Refresh_Token);
+                .FirstOrDefaultAsync(x => x.felhasznalo_id == dbUser.id && x.token == jwtToken.RefreshToken);
             if (oldToken == null)
             {
                 return BadRequest("Érvénytelen token.");
             }
             // Ha nem egyezik a refresh token vagy már lejárt
-            if (oldToken.token != jwtToken.Refresh_Token || oldToken.lejarat_datum <= DateTime.Now)
+            if (oldToken.token != jwtToken.RefreshToken || oldToken.lejarat_datum <= DateTime.Now)
             {
                 // Régi lejárt token törlése
                 // _context.login_tokenek.Remove(oldToken);
@@ -92,7 +92,7 @@ namespace TeendokLista.API.Controllers
             var claims = GetClaimsFromUser(dbUser);
             var newToken = _jwtManagerService.GenerateToken(claims);
             // Refresh token elmentése az adatbázisba
-            _context.login_tokenek.Add(new LoginToken(newToken.Refresh_Token, dbUser.id));
+            _context.login_tokenek.Add(new LoginToken(newToken.RefreshToken, dbUser.id));
             await _context.SaveChangesAsync();
 
             // Új token érték visszaadása
@@ -103,17 +103,17 @@ namespace TeendokLista.API.Controllers
         [Authorize]
         [HttpPost]
         [Route("Logout")]
-        public async Task<IActionResult> Logout(JwtToken jwtToken)
+        public async Task<IActionResult> Logout(JWTModel jwtToken)
         {
             var claimId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
-            int.TryParse(claimId.Value, out int userId);
+            int.TryParse(claimId!.Value, out int userId);
 
             var dbUser = await _context.felhasznalok
                 .FirstOrDefaultAsync(x => x.id == userId);
             if (dbUser != null)
             {
                 var token = await _context.login_tokenek
-                    .FirstOrDefaultAsync(x => x.felhasznalo_id == dbUser.id && x.token == jwtToken.Refresh_Token);
+                    .FirstOrDefaultAsync(x => x.felhasznalo_id == dbUser.id && x.token == jwtToken.RefreshToken);
                 if (token != null)
                 {
                     _context.login_tokenek.Remove(token);
@@ -131,7 +131,7 @@ namespace TeendokLista.API.Controllers
             {
                 new Claim(ClaimTypes.NameIdentifier, felhasznalo.id.ToString()),
                 new Claim(ClaimTypes.Name, felhasznalo.felhasznalonev),
-                new Claim(ClaimTypes.Role, felhasznalo.szerepkor.nev)
+                new Claim(ClaimTypes.Role, felhasznalo.szerepkor!.nev)
             };
         }
     }

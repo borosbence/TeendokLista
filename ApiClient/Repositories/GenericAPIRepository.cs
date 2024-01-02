@@ -8,12 +8,12 @@ namespace ApiClient.Repositories
         {
         }
 
-        public async Task<List<T>> GetAllAsync()
+        public async Task<List<T>?> GetAllAsync()
         {
             return await client.GetFromJsonAsync<List<T>>(_path);
         }
 
-        public async Task<T> GetByIdAsync(int id)
+        public async Task<T?> GetByIdAsync(int id)
         {
             return await client.GetFromJsonAsync<T>(_path + "/" + id);
         }

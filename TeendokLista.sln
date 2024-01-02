@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeendokLista.MAUI", "TeendokLista.MAUI\TeendokLista.MAUI.csproj", "{02C153A9-9664-43E5-A8C3-32520595E49E}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeendokLista.API", "TeendokLista.API\TeendokLista.API.csproj", "{B8A5268F-83D0-47E4-93D3-927896130631}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JwtSecurity", "JWTSecurity\JwtSecurity.csproj", "{9812777D-4664-468A-B8D2-86B7805BE428}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiClient", "ApiClient\ApiClient.csproj", "{4E9AB869-62C0-4331-9415-52E97450BE09}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiClient", "ApiClient\ApiClient.csproj", "{4E9AB869-62C0-4331-9415-52E97450BE09}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeendokLista.MAUI", "TeendokLista.MAUI2\TeendokLista.MAUI.csproj", "{8F5E0D35-8B28-4910-99FE-B4EF0C5B710E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,12 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{02C153A9-9664-43E5-A8C3-32520595E49E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{02C153A9-9664-43E5-A8C3-32520595E49E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{02C153A9-9664-43E5-A8C3-32520595E49E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{02C153A9-9664-43E5-A8C3-32520595E49E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{02C153A9-9664-43E5-A8C3-32520595E49E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{02C153A9-9664-43E5-A8C3-32520595E49E}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{B8A5268F-83D0-47E4-93D3-927896130631}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B8A5268F-83D0-47E4-93D3-927896130631}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8A5268F-83D0-47E4-93D3-927896130631}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -35,6 +29,12 @@ Global
 		{4E9AB869-62C0-4331-9415-52E97450BE09}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E9AB869-62C0-4331-9415-52E97450BE09}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E9AB869-62C0-4331-9415-52E97450BE09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F5E0D35-8B28-4910-99FE-B4EF0C5B710E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F5E0D35-8B28-4910-99FE-B4EF0C5B710E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F5E0D35-8B28-4910-99FE-B4EF0C5B710E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{8F5E0D35-8B28-4910-99FE-B4EF0C5B710E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F5E0D35-8B28-4910-99FE-B4EF0C5B710E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F5E0D35-8B28-4910-99FE-B4EF0C5B710E}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

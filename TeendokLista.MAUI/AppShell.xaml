@@ -3,12 +3,13 @@
     x:Class="TeendokLista.MAUI.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:view="clr-namespace:TeendokLista.MAUI.Views"
-    Shell.FlyoutBehavior="Disabled">
+    xmlns:local="clr-namespace:TeendokLista.MAUI"
+    Shell.FlyoutBehavior="Disabled"
+    Title="TeendokLista.MAUI">
 
     <ShellContent
-        Title="Jegyzetek"
-        ContentTemplate="{DataTemplate view:LoginPage}"
-        Route="LoginPage" />
+        Title="Home"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
 
 </Shell>

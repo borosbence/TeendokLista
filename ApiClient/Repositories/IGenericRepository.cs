@@ -6,13 +6,13 @@
         /// Lekérdezi az összes elemet
         /// </summary>
         /// <returns></returns>
-        Task<List<T>> GetAllAsync();
+        Task<List<T>?> GetAllAsync();
         /// <summary>
         /// Lekérdez egy elemet azonosító alapján
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<T> GetByIdAsync(int id);
+        Task<T?> GetByIdAsync(int id);
         /// <summary>
         /// Létezik-e az elem, azonosító alapján
         /// </summary>
