@@ -29,7 +29,7 @@
         </ScrollView>
         <StackLayout Grid.Row="1" Padding="10" BackgroundColor="{StaticResource Secondary}">
             <HorizontalStackLayout HorizontalOptions="End">
-                <Label Text="{Binding CurrentUser}" />
+                <Label Text="{Binding DisplayName}" />
             </HorizontalStackLayout>
         </StackLayout>
     </Grid>

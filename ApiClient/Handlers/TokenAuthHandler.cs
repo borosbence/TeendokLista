@@ -47,9 +47,9 @@ namespace ApiClient.MAUI.Handlers
 
                 if (jwtToken != null)
                 {
-                    // TODO: átalakítani referencia paraméterként
-                    _accessToken = jwtToken.AccessToken;
-                    _refreshToken = jwtToken.RefreshToken;
+                    // TODO: Ha vissza kell adni a tokeneket, akkor ezt kell tovább fejleszteni
+                    //_accessToken = jwtToken.AccessToken;
+                    //_refreshToken = jwtToken.RefreshToken;
 
                     // Jelenlegi fejléc cseréje
                     request.Headers.Remove("Authorization");

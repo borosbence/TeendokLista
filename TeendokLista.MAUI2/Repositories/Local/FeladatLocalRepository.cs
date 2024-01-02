@@ -1,20 +1,19 @@
 ﻿using ApiClient.Repositories;
 using TeendokLista.MAUI.Models;
+using TeendokLista.MAUI.Services;
 
 namespace TeendokLista.MAUI.Repositories.Local
 {
     public class FeladatLocalRepository : IGenericRepository<Feladat>
     {
         private List<Feladat> _feladatok;
-        private int _felhasznaloId;
 
-        public FeladatLocalRepository(CurrentUser currentUser)
+        public FeladatLocalRepository()
         {
-            _felhasznaloId = currentUser.Id;
             _feladatok = new List<Feladat>
             {
-                new Feladat(_felhasznaloId) { Id = 1, Cim = "1. feladat", Tartalom = "Első", Teljesitve = true },
-                new Feladat(_felhasznaloId)
+                new Feladat() { Id = 1, Cim = "1. feladat", Tartalom = "Első", Teljesitve = true, FelhasznaloId = CurrentUser.Id },
+                new Feladat()
                 {
                     Id = 2,
                     Cim = "2. feladat",
@@ -23,6 +22,7 @@ Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.
 Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.
 Aenean nec lorem. In porttitor. Donec laoreet nonummy augue.
 Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend. Ut nonummy.",
+                    FelhasznaloId = CurrentUser.Id
                 }
             };
         }

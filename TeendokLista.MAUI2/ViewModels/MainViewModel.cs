@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using TeendokLista.MAUI.Models;
+using TeendokLista.MAUI.Services;
 using TeendokLista.MAUI.Views;
 
 namespace TeendokLista.MAUI.ViewModels
@@ -10,12 +11,10 @@ namespace TeendokLista.MAUI.ViewModels
     public class MainViewModel : ObservableObject
     {
         private readonly IGenericRepository<Feladat> _repository;
-        private readonly CurrentUser _currentUser;
 
-        public MainViewModel(IGenericRepository<Feladat> repository, CurrentUser currentUser)
+        public MainViewModel(IGenericRepository<Feladat> repository)
         {
             _repository = repository;
-            _currentUser = currentUser;
             LoadData();
             NewCommandAsync = new AsyncRelayCommand(AddItem);
             SelectCommandAsync = new AsyncRelayCommand<Feladat>(f => ShowItem(f));
@@ -23,7 +22,7 @@ namespace TeendokLista.MAUI.ViewModels
             RegisterUpdate();
         }
 
-        public string? CurrentUser => _currentUser.FelhasznaloNev;
+        public string? DisplayName => CurrentUser.FelhasznaloNev;
 
         private ObservableCollection<Feladat> _feladatok = new();
         public ObservableCollection<Feladat> Feladatok
@@ -36,7 +35,7 @@ namespace TeendokLista.MAUI.ViewModels
         public IAsyncRelayCommand NewCommandAsync { get; set; }
         public IAsyncRelayCommand LogoutCommandAsync { get; set; }
 
-        private async Task LoadData()
+        public async Task LoadData()
         {
             var result = await _repository.GetAllAsync();
             Feladatok = result != null ? new ObservableCollection<Feladat>(result) : new ObservableCollection<Feladat>();
@@ -66,7 +65,7 @@ namespace TeendokLista.MAUI.ViewModels
         {
             var navigationParameter = new Dictionary<string, object>
             {
-                { "Feladat", new Feladat(_currentUser.Id) }
+                { "Feladat", new Feladat() }
             };
             await Shell.Current.GoToAsync(nameof(DetailPage), navigationParameter);
         }

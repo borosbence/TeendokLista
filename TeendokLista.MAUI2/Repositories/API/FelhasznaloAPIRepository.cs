@@ -2,16 +2,15 @@
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json.Nodes;
-using TeendokLista.MAUI.Models;
+using TeendokLista.MAUI.Services;
 
 namespace TeendokLista.MAUI.Repositories.API
 {
     public class FelhasznaloAPIRepository : BaseAPIRepository, IFelhasznaloRepository
     {
-        private CurrentUser _currentUser;
-        public FelhasznaloAPIRepository(CurrentUser currentuser, string path, string? baseUrl = null) : base(baseUrl, path)
+        public FelhasznaloAPIRepository(string path, string? baseUrl = null) : base(baseUrl, path)
         {
-            _currentUser = currentuser;
+            
         }
 
         public async Task<string> AuthenticateAsync(string username, string password)
@@ -21,20 +20,15 @@ namespace TeendokLista.MAUI.Repositories.API
             if (response.IsSuccessStatusCode)
             {
                 // Nincs megadva pontosan, hogy milyen objektummá alakítja a JSON választ
-                var data = await response.Content.ReadFromJsonAsync<CurrentUser>();
+                var data = await response.Content.ReadFromJsonAsync<JsonObject>();
                 if (data != null)
-                { 
-                    _currentUser = data;
+                {
+                    CurrentUser.Id = int.Parse(data.FirstOrDefault(x => x.Key == "id").Value!.ToString());
+                    CurrentUser.FelhasznaloNev = data.FirstOrDefault(x => x.Key == "felhasznaloNev").Value!.ToString();
+                    CurrentUser.Szerepkor = data.FirstOrDefault(x => x.Key == "szerepkor").Value!.ToString();
+                    CurrentUser.AccessToken = data.FirstOrDefault(x => x.Key == "accessToken").Value!.ToString();
+                    CurrentUser.RefreshToken = data.FirstOrDefault(x => x.Key == "refreshToken").Value!.ToString();
                 }
-                // var data = await response.Content.ReadFromJsonAsync<JsonObject>();
-                //if (data != null)
-                //{
-                //    _currentUser.Id = int.Parse(data.FirstOrDefault(x => x.Key == "id").Value.ToString());
-                //    _currentUser.FelhasznaloNev = data.FirstOrDefault(x => x.Key == "felhasznaloNev").Value.ToString();
-                //    _currentUser.Szerepkor = data.FirstOrDefault(x => x.Key == "szerepkor").Value.ToString();
-                //    _currentUser.AccessToken = data.FirstOrDefault(x => x.Key == "accessToken").Value.ToString();
-                //    _currentUser.RefreshToken = data.FirstOrDefault(x => x.Key == "refreshToken").Value.ToString();
-                //}
                 return "Sikeres bejelentkezés.";
             }
             // hibakeresés

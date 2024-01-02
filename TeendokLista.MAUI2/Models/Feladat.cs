@@ -1,13 +1,15 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Text.Json.Serialization;
+using TeendokLista.MAUI.Services;
 
 namespace TeendokLista.MAUI.Models
 {
     public class Feladat : ObservableObject
     {
-        public Feladat(int felhasznaloId)
+        public Feladat()
         {
-            FelhasznaloId = felhasznaloId;
+            Id = CurrentUser.Id;
+            Hatarido = DateTime.Now;
         }
 
         private int id;
@@ -31,7 +33,7 @@ namespace TeendokLista.MAUI.Models
             set { SetProperty(ref tartalom, value); }
         }
 
-        private DateTime hatarido = DateTime.Now;
+        private DateTime hatarido;
         public DateTime Hatarido
         {
             get { return hatarido; }
