@@ -5,7 +5,7 @@
              xmlns:vm="clr-namespace:TeendokLista.MAUI.ViewModels"
              x:Class="TeendokLista.MAUI.Resources.ListTemplate">
 
-    <DataTemplate x:Key="jegyzetListTmpl" x:DataType="model:Feladat">
+    <DataTemplate x:Key="jegyzetListTmpl" x:DataType="model:FeladatModel">
         <AbsoluteLayout>
             <Grid>
                 <Grid.GestureRecognizers>

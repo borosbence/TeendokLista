@@ -10,7 +10,6 @@ namespace TeendokLista.MAUI.Repositories.API
     {
         public FelhasznaloAPIRepository(string path, string? baseUrl = null) : base(baseUrl, path)
         {
-            
         }
 
         public async Task<string> AuthenticateAsync(string username, string password)

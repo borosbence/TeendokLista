@@ -4,16 +4,16 @@ using TeendokLista.MAUI.Services;
 
 namespace TeendokLista.MAUI.Repositories.Local
 {
-    public class FeladatLocalRepository : IGenericRepository<Feladat>
+    public class FeladatLocalRepository : IGenericRepository<FeladatModel>
     {
-        private List<Feladat> _feladatok;
+        private List<FeladatModel> _feladatok;
 
         public FeladatLocalRepository()
         {
-            _feladatok = new List<Feladat>
+            _feladatok = new List<FeladatModel>
             {
-                new Feladat() { Id = 1, Cim = "1. feladat", Tartalom = "Első", Teljesitve = true, FelhasznaloId = CurrentUser.Id },
-                new Feladat()
+                new FeladatModel() { Id = 1, Cim = "1. feladat", Tartalom = "Első", Teljesitve = true, FelhasznaloId = CurrentUser.Id },
+                new FeladatModel()
                 {
                     Id = 2,
                     Cim = "2. feladat",
@@ -27,12 +27,12 @@ Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Ma
             };
         }
 
-        public Task<List<Feladat>?> GetAllAsync()
+        public async Task<List<FeladatModel>?> GetAllAsync()
         {
             var result = _feladatok.OrderBy(x => x.Teljesitve).ThenBy(x => x.Hatarido).ToList();
-            return Task.FromResult(result);
+            return await Task.FromResult(result);
         }
-        public async Task<Feladat?> GetByIdAsync(int id)
+        public async Task<FeladatModel?> GetByIdAsync(int id)
         {
             var result = _feladatok.FirstOrDefault(x => x.Id == id);
             return await Task.FromResult(result);
@@ -42,26 +42,28 @@ Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Ma
             var result = _feladatok.Any(x => x.Id == id);
             return await Task.FromResult(result);
         }
-        public async Task InsertAsync(Feladat entity)
+        public async Task InsertAsync(FeladatModel entity)
         {
             _feladatok.Add(entity);
-            // return Task.CompletedTask;
-            return;
+            await Task.CompletedTask;
         }
-        public async Task UpdateAsync(int id, Feladat entity)
+        public async Task UpdateAsync(int id, FeladatModel entity)
         {
             var feladat = _feladatok.FirstOrDefault(x => x.Id == id);
-            feladat = entity;
-            // feladatok[index] = entity;
-            // return Task.CompletedTask;
-            return;
+            if (feladat != null)
+            {
+                feladat = entity;
+            }
+            await Task.CompletedTask;
         }
         public async Task DeleteAsync(int id)
         {
             var result = _feladatok.FirstOrDefault(x => x.Id == id);
-            _feladatok.Remove(result);
-            // return Task.CompletedTask;
-            return;
+            if (result != null)
+            {
+                _feladatok.Remove(result);
+            }
+            await Task.CompletedTask;
         }
     }
 }

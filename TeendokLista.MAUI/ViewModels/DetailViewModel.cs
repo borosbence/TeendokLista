@@ -9,9 +9,9 @@ namespace TeendokLista.MAUI.ViewModels
     [QueryProperty(nameof(Feladat), "Feladat")]
     public class DetailViewModel : ObservableObject
     {
-        private IGenericRepository<Feladat> _repository;
+        private IGenericRepository<FeladatModel> _repository;
 
-        public DetailViewModel(IGenericRepository<Feladat> repository)
+        public DetailViewModel(IGenericRepository<FeladatModel> repository)
         {
             _repository = repository;
             SaveCommandAsync = new AsyncRelayCommand(Save);
@@ -19,8 +19,8 @@ namespace TeendokLista.MAUI.ViewModels
         }
 
         // Ennek a feladatnak a részleivel töltjük ki az űrlapot
-        private Feladat _feladat;
-        public Feladat Feladat
+        private FeladatModel _feladat = new();
+        public FeladatModel Feladat
         {
             get { return _feladat; }
             set { SetProperty(ref _feladat, value); }

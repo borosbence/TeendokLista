@@ -4,9 +4,9 @@ using TeendokLista.MAUI.Services;
 
 namespace TeendokLista.MAUI.Models
 {
-    public class Feladat : ObservableObject
+    public class FeladatModel : ObservableObject
     {
-        public Feladat()
+        public FeladatModel()
         {
             Id = CurrentUser.Id;
             Hatarido = DateTime.Now;

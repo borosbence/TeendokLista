@@ -10,48 +10,47 @@ namespace TeendokLista.MAUI.ViewModels
 {
     public class MainViewModel : ObservableObject
     {
-        private readonly IGenericRepository<Feladat> _repository;
+        private readonly IGenericRepository<FeladatModel> _repository;
 
-        public MainViewModel(IGenericRepository<Feladat> repository)
+        public MainViewModel(IGenericRepository<FeladatModel> repository)
         {
             _repository = repository;
-            LoadData();
             NewCommandAsync = new AsyncRelayCommand(AddItem);
-            SelectCommandAsync = new AsyncRelayCommand<Feladat>(f => ShowItem(f));
+            SelectCommandAsync = new AsyncRelayCommand<FeladatModel>(ShowItem);
             LogoutCommandAsync = new AsyncRelayCommand(Logout);
             RegisterUpdate();
         }
 
         public string? DisplayName => CurrentUser.FelhasznaloNev;
 
-        private ObservableCollection<Feladat> _feladatok = new();
-        public ObservableCollection<Feladat> Feladatok
+        private ObservableCollection<FeladatModel>? _feladatok;
+        public ObservableCollection<FeladatModel>? Feladatok
         {
             get { return _feladatok; }
             set { SetProperty(ref _feladatok, value); }
         }
 
-        public IAsyncRelayCommand<Feladat> SelectCommandAsync { get; set; }
+        public IAsyncRelayCommand<FeladatModel> SelectCommandAsync { get; set; }
         public IAsyncRelayCommand NewCommandAsync { get; set; }
         public IAsyncRelayCommand LogoutCommandAsync { get; set; }
 
         public async Task LoadData()
         {
             var result = await _repository.GetAllAsync();
-            Feladatok = result != null ? new ObservableCollection<Feladat>(result) : new ObservableCollection<Feladat>();
+            Feladatok = result != null ? new ObservableCollection<FeladatModel>(result) : new ObservableCollection<FeladatModel>();
         }
 
         // Regisztrálás az üzenetközpont üzenetire
         // Ha jön üzenet a DetailViewModeltől, pl. egy Feladat objektum, akkor frissítse a meglévő listát
         private void RegisterUpdate()
         {
-            MessagingCenter.Subscribe<DetailViewModel, Feladat>(this, "UpdateView", async (sender, feladat) =>
+            MessagingCenter.Subscribe<DetailViewModel, FeladatModel>(this, "UpdateView", async (sender, feladat) =>
             {
                 await LoadData();
             });
         }
 
-        private async Task ShowItem(Feladat feladat)
+        private async Task ShowItem(FeladatModel feladat)
         {
             var navigationParameter = new Dictionary<string, object>
             {
@@ -65,15 +64,13 @@ namespace TeendokLista.MAUI.ViewModels
         {
             var navigationParameter = new Dictionary<string, object>
             {
-                { "Feladat", new Feladat() }
+                { "Feladat", new FeladatModel() }
             };
             await Shell.Current.GoToAsync(nameof(DetailPage), navigationParameter);
         }
 
         private async Task Logout()
         {
-            // await Shell.Current.GoToAsync("..");
-            // Hibajavítás miatt:
             await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
         }
     }
