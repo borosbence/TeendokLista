@@ -23,7 +23,7 @@ namespace JwtSecurity.Services
         /// </summary>
         /// <param name="claims">Claims</param>
         /// <returns>JwtToken</returns>
-        public JWTModel GenerateToken(List<Claim> claims)
+        public JwtModel GenerateToken(List<Claim> claims)
         {
             byte[] key = Encoding.UTF8.GetBytes(_configuration["JWT:Key"] ?? string.Empty);
             var signIn = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature);
@@ -34,7 +34,7 @@ namespace JwtSecurity.Services
                         expires: DateTime.UtcNow.AddMinutes(30),
                         signingCredentials: signIn);
             var accessToken = new JwtSecurityTokenHandler().WriteToken(token);
-            return new JWTModel(accessToken, GenerateRefreshToken());
+            return new JwtModel(accessToken, GenerateRefreshToken());
         }
 
         /// <summary>

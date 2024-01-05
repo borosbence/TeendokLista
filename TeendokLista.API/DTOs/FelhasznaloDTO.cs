@@ -9,7 +9,7 @@ namespace TeendokLista.API.DTOs
         public string Szerepkor { get; set; } = null!;
     }
 
-    public class LoginResultDTO : FelhasznaloDTO, IJWTModel
+    public class LoginResultDTO : FelhasznaloDTO, IJwtModel
     {
         public LoginResultDTO(int id, string felhasznalonev, string szerepkor, string accessToken, string refreshToken)
         {

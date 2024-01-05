@@ -42,10 +42,14 @@ Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Ma
             var result = _feladatok.Any(x => x.Id == id);
             return await Task.FromResult(result);
         }
-        public async Task InsertAsync(FeladatModel entity)
+        public async Task<FeladatModel?> InsertAsync(FeladatModel entity)
         {
+            // ID növelése
+            var maxId = _feladatok.Max(x => x.Id);
+            entity.Id = maxId + 1;
             _feladatok.Add(entity);
             await Task.CompletedTask;
+            return entity;
         }
         public async Task UpdateAsync(int id, FeladatModel entity)
         {

@@ -9,8 +9,8 @@ namespace ApiClient.MAUI.Handlers
 {
     public class TokenAuthHandler : DelegatingHandler
     {
-        private string _path = "api/token/refresh";
-        private string? _baseUrl;
+        private readonly string _path = "api/token/refresh";
+        private readonly string? _baseUrl;
         private string _accessToken;
         private string _refreshToken;
 

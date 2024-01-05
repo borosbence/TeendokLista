@@ -24,9 +24,11 @@ namespace ApiClient.Repositories
             return responseMessage.IsSuccessStatusCode;
         }
 
-        public async Task InsertAsync(T entity)
+        public async Task<T?> InsertAsync(T entity)
         {
-            await client.PostAsJsonAsync(_path, entity);
+            var result = await client.PostAsJsonAsync(_path, entity);
+            var newEntity = await result.Content.ReadFromJsonAsync<T>();
+            return newEntity;
         }
 
         public async Task UpdateAsync(int id, T entity)

@@ -1,14 +1,14 @@
 ﻿namespace JwtSecurity.Models
 {
-    public interface IJWTModel
+    public interface IJwtModel
     {
         string AccessToken { get; set; }
         string RefreshToken { get; set; }
     }
 
-    public class JWTModel : IJWTModel
+    public class JwtModel : IJwtModel
     {
-        public JWTModel(string accessToken, string refreshToken)
+        public JwtModel(string accessToken, string refreshToken)
         {
             AccessToken = accessToken;
             RefreshToken = refreshToken;

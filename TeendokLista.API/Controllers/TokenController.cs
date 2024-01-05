@@ -59,7 +59,7 @@ namespace TeendokLista.API.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("Refresh")]
-        public async Task<ActionResult<JWTModel>> Refresh(JWTModel jwtToken)
+        public async Task<ActionResult<JwtModel>> Refresh(JwtModel jwtToken)
         {
             // Felhasználói adatok kinyerése a tokenből
             var principal = _jwtManagerService.GetPrincipalFromExpiredToken(jwtToken.AccessToken);
@@ -99,11 +99,10 @@ namespace TeendokLista.API.Controllers
             return newToken;
         }
 
-
         [Authorize]
         [HttpPost]
         [Route("Logout")]
-        public async Task<IActionResult> Logout(JWTModel jwtToken)
+        public async Task<IActionResult> Logout(JwtModel jwtToken)
         {
             var claimId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
             int.TryParse(claimId!.Value, out int userId);

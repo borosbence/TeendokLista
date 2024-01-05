@@ -18,7 +18,6 @@ namespace ApiClient.Repositories
 
             client = handler == null ? new HttpClient() : new HttpClient(handler);
             client.BaseAddress = new Uri(_baseUrl);
-            // client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
     }
