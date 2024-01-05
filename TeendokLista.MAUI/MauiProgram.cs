@@ -22,19 +22,22 @@ namespace TeendokLista.MAUI
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+            
 
             // Az egymástól függő osztályok regisztrálása
-            //builder.Services.AddTransient<IFelhasznaloRepository, FelhasznaloLocalRepository>();
-            builder.Services.AddScoped<IFelhasznaloRepository, FelhasznaloAPIRepository>(x =>
+            // builder.Services.AddScoped<IFelhasznaloRepository, FelhasznaloLocalRepository>();
+            builder.Services.AddTransient<IFelhasznaloRepository, FelhasznaloAPIRepository>(x =>
             {
                 return new("api/token");
             });
             builder.Services.AddSingleton<LoginViewModel>();
             builder.Services.AddSingleton<LoginPage>();
-            //builder.Services.AddTransient<IGenericRepository<Feladat>, FeladatLocalRepository>();
-            builder.Services.AddTransient<IGenericRepository<Feladat>, GenericAPIRepository<Feladat>>(x =>
+
+            // A tesztelés miatt kell a Singleton a FeladatLocalRepository-nál!
+            //builder.Services.AddSingleton<IGenericRepository<Feladat>, FeladatLocalRepository>();
+            builder.Services.AddTransient<IGenericRepository<FeladatModel>, GenericAPIRepository<FeladatModel>>(x =>
             {
-                return new("api/feladatok", handler: new TokenAuthHandler("api/token/refresh", CurrentUser.Access_Token, CurrentUser.Refresh_Token));
+                return new("api/feladatok", handler: new TokenAuthHandler("api/token/refresh", CurrentUser.AccessToken!, CurrentUser.RefreshToken!));
             });
             builder.Services.AddTransient<MainViewModel>();
             builder.Services.AddTransient<MainPage>();

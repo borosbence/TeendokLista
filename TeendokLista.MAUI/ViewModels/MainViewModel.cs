@@ -1,54 +1,66 @@
 ﻿using ApiClient.Repositories;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
+using TeendokLista.MAUI.Messages;
 using TeendokLista.MAUI.Models;
+using TeendokLista.MAUI.Services;
 using TeendokLista.MAUI.Views;
 
 namespace TeendokLista.MAUI.ViewModels
 {
     public class MainViewModel : ObservableObject
     {
-        private IGenericRepository<Feladat> _repository;
+        private readonly IGenericRepository<FeladatModel> _repository;
 
-        public MainViewModel(IGenericRepository<Feladat> repository)
+        public MainViewModel(IGenericRepository<FeladatModel> repository)
         {
             _repository = repository;
-            LoadData();
             NewCommandAsync = new AsyncRelayCommand(AddItem);
-            SelectCommandAsync = new AsyncRelayCommand<Feladat>(f => ShowItem(f));
+            SelectCommandAsync = new AsyncRelayCommand<FeladatModel>(ShowItem);
             LogoutCommandAsync = new AsyncRelayCommand(Logout);
             RegisterUpdate();
         }
 
-        private ObservableCollection<Feladat> _feladatok = new();
-        public ObservableCollection<Feladat> Feladatok
+        public string? DisplayName => CurrentUser.FelhasznaloNev;
+
+        private ObservableCollection<FeladatModel> _feladatok = [];
+        public ObservableCollection<FeladatModel> Feladatok
         {
             get { return _feladatok; }
             set { SetProperty(ref _feladatok, value); }
         }
 
-        public IAsyncRelayCommand<Feladat> SelectCommandAsync { get; set; }
+        public IAsyncRelayCommand<FeladatModel> SelectCommandAsync { get; set; }
         public IAsyncRelayCommand NewCommandAsync { get; set; }
         public IAsyncRelayCommand LogoutCommandAsync { get; set; }
 
-        private async Task LoadData()
+        public async Task LoadData()
         {
             var result = await _repository.GetAllAsync();
-            Feladatok = new ObservableCollection<Feladat>(result);
+            Feladatok = result != null ? new ObservableCollection<FeladatModel>(result) : [];
         }
 
         // Regisztrálás az üzenetközpont üzenetire
         // Ha jön üzenet a DetailViewModeltől, pl. egy Feladat objektum, akkor frissítse a meglévő listát
         private void RegisterUpdate()
         {
-            MessagingCenter.Subscribe<DetailViewModel, Feladat>(this, "UpdateView", async (sender, feladat) =>
+            WeakReferenceMessenger.Default.Register<MainPageMessage>(this, (r, m) =>
             {
-                await LoadData();
+                var message = m.Value;
+                if (message.Action == ListAction.Add && message.Item.Id > 0)
+                {
+                    Feladatok.Add(message.Item);
+                }
+                else if (message.Action == ListAction.Delete)
+                {
+                    Feladatok.Remove(message.Item);
+                }
             });
         }
 
-        private async Task ShowItem(Feladat feladat)
+        private async Task ShowItem(FeladatModel feladat)
         {
             var navigationParameter = new Dictionary<string, object>
             {
@@ -62,15 +74,13 @@ namespace TeendokLista.MAUI.ViewModels
         {
             var navigationParameter = new Dictionary<string, object>
             {
-                { "Feladat", new Feladat() }
+                { "Feladat", new FeladatModel() }
             };
             await Shell.Current.GoToAsync(nameof(DetailPage), navigationParameter);
         }
 
         private async Task Logout()
         {
-            // await Shell.Current.GoToAsync("..");
-            // Hibajavítás miatt:
             await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
         }
     }

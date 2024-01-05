@@ -8,12 +8,12 @@ namespace ApiClient.Repositories
         {
         }
 
-        public async Task<List<T>> GetAllAsync()
+        public async Task<List<T>?> GetAllAsync()
         {
             return await client.GetFromJsonAsync<List<T>>(_path);
         }
 
-        public async Task<T> GetByIdAsync(int id)
+        public async Task<T?> GetByIdAsync(int id)
         {
             return await client.GetFromJsonAsync<T>(_path + "/" + id);
         }
@@ -24,9 +24,11 @@ namespace ApiClient.Repositories
             return responseMessage.IsSuccessStatusCode;
         }
 
-        public async Task InsertAsync(T entity)
+        public async Task<T?> InsertAsync(T entity)
         {
-            await client.PostAsJsonAsync(_path, entity);
+            var result = await client.PostAsJsonAsync(_path, entity);
+            var newEntity = await result.Content.ReadFromJsonAsync<T>();
+            return newEntity;
         }
 
         public async Task UpdateAsync(int id, T entity)

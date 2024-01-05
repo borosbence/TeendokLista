@@ -5,22 +5,33 @@
              x:Class="TeendokLista.MAUI.Views.MainPage"
              Title="Jegyzetek" 
              NavigationPage.HasBackButton="False">
-<ContentPage.ToolbarItems>
-    <ToolbarItem Text="Új +" IconImageSource="add.png"
-                    Order="Primary" Priority="0"
-                    Command="{Binding NewCommandAsync}"/>
-    <ToolbarItem Text="Kijelentkezés" IconImageSource="exit.png"
-                    Order="Primary"
-                    Command="{Binding LogoutCommandAsync}"
-                    Priority="1"/>
-</ContentPage.ToolbarItems>
-<ScrollView>
-    <FlexLayout Wrap="Wrap"
-                AlignItems="Start"
-                AlignContent="Start"
-                BindableLayout.ItemsSource="{Binding Feladatok}"
-                BindableLayout.ItemTemplate="{StaticResource jegyzetListTmpl}">
-    </FlexLayout>
-</ScrollView>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Új +" IconImageSource="add.png"
+                        Order="Primary" Priority="0"
+                        Command="{Binding NewCommandAsync}"/>
+        <ToolbarItem Text="Kijelentkezés" IconImageSource="exit.png"
+                        Order="Primary"
+                        Command="{Binding LogoutCommandAsync}"
+                        Priority="1"/>
+    </ContentPage.ToolbarItems>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <ScrollView Grid.Row="0">
+            <FlexLayout Wrap="Wrap"
+                        AlignItems="Start"
+                        AlignContent="Start"
+                        BindableLayout.ItemsSource="{Binding Feladatok}"
+                        BindableLayout.ItemTemplate="{StaticResource jegyzetListTmpl}">
+            </FlexLayout>
+        </ScrollView>
+        <StackLayout Grid.Row="1" Padding="10" BackgroundColor="{StaticResource Secondary}">
+            <HorizontalStackLayout HorizontalOptions="End">
+                <Label Text="{Binding DisplayName}" />
+            </HorizontalStackLayout>
+        </StackLayout>
+    </Grid>
 
 </ContentPage>

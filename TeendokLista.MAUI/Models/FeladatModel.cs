@@ -4,24 +4,22 @@ using TeendokLista.MAUI.Services;
 
 namespace TeendokLista.MAUI.Models
 {
-    public class Feladat : ObservableObject
+    public class FeladatModel : ObservableObject
     {
-        public Feladat()
+        public FeladatModel()
         {
+            Id = CurrentUser.Id;
             Hatarido = DateTime.Now;
-            FelhasznaloId = CurrentUser.Id;
         }
 
         private int id;
-        [JsonPropertyName("id")]
         public int Id
         {
             get { return id; }
             set { SetProperty(ref id, value); }
         }
 
-        private string cim;
-        [JsonPropertyName("cim")]
+        private string cim = string.Empty;
         public string Cim
         {
             get { return cim; }
@@ -29,7 +27,6 @@ namespace TeendokLista.MAUI.Models
         }
 
         private string? tartalom;
-        [JsonPropertyName("tartalom")]
         public string? Tartalom
         {
             get { return tartalom; }
@@ -37,7 +34,6 @@ namespace TeendokLista.MAUI.Models
         }
 
         private DateTime hatarido;
-        [JsonPropertyName("hatarido")]
         public DateTime Hatarido
         {
             get { return hatarido; }
@@ -45,7 +41,6 @@ namespace TeendokLista.MAUI.Models
         }
 
         private bool teljesitve;
-        [JsonPropertyName("teljesitve")]
         public bool Teljesitve
         {
             get { return teljesitve; }

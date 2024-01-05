@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TeendokLista.MAUI.Resources.JegyzetStyle">
 
-    <Style TargetType="Shell" ApplyToDerivedTypes="True">
+    <!--<Style TargetType="Shell" ApplyToDerivedTypes="True">
         <Setter Property="Shell.BackgroundColor" Value="#EEE" />
-    </Style>
+    </Style>-->
 
     <Style x:Key="cimStyle" TargetType="Entry">
         <Setter Property="FontSize" Value="16" />

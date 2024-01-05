@@ -7,7 +7,7 @@ namespace TeendokLista.MAUI.ViewModels
 {
     public class LoginViewModel : ObservableObject
     {
-        private IFelhasznaloRepository _repository;
+        private readonly IFelhasznaloRepository _repository;
 
         public LoginViewModel(IFelhasznaloRepository repository)
         {
@@ -17,8 +17,8 @@ namespace TeendokLista.MAUI.ViewModels
             // TODO: Logout api meghívása, ha van tokenünk
         }
 
-        private string _username;
-        public string Username
+        private string? _username;
+        public string? Username
         {
             get { return _username; }
             set { 
@@ -26,16 +26,18 @@ namespace TeendokLista.MAUI.ViewModels
                 // Értesíti a LoginCommandot, hogy újra ellenőrizze le, hogy lefuttatható-e
                 LoginCommand.NotifyCanExecuteChanged(); }
         }
-        private string _password;
-        public string Password
+
+        private string? _password;
+        public string? Password
         {
             get { return _password; }
             set { 
                 SetProperty(ref _password, value); 
                 LoginCommand.NotifyCanExecuteChanged(); }
         }
-        private string _errorMessage;
-        public string ErrorMessage
+
+        private string? _errorMessage;
+        public string? ErrorMessage
         {
             get { return _errorMessage; }
             set { SetProperty(ref _errorMessage, value); }
@@ -51,7 +53,7 @@ namespace TeendokLista.MAUI.ViewModels
 
         private async Task Login()
         {
-            string response = await _repository.AuthenticateAsync(_username, _password);
+            string response = await _repository.AuthenticateAsync(_username!, _password!);
             if (response == "Sikeres bejelentkezés.")
             {
                 Username = null;

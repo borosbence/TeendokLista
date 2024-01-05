@@ -1,6 +1,6 @@
-﻿namespace JwtSecurity.Models
+﻿namespace TeendokLista.API.DTOs
 {
-    public class UserLogin
+    public class LoginDTO
     {
         public string Username { get; set; } = null!;
         public string Password { get; set; } = null!;
