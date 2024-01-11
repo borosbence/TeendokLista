@@ -8,7 +8,7 @@ namespace TeendokLista.MAUI.Models
     {
         public FeladatModel()
         {
-            Id = CurrentUser.Id;
+            FelhasznaloId = CurrentUser.Id;
             Hatarido = DateTime.Now;
         }
 
