@@ -4,7 +4,6 @@
              x:Class="TeendokLista.MAUI.Views.DetailPage"
              Title="Részletek" 
              Style="{StaticResource rPage}">
-
     <ScrollView>
         <VerticalStackLayout Margin="10">
             <VerticalStackLayout.Resources>
@@ -51,6 +50,4 @@
             </HorizontalStackLayout>
         </VerticalStackLayout>
     </ScrollView>
-    
-    
 </ContentPage>

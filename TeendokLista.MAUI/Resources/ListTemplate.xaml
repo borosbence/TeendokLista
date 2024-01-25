@@ -4,7 +4,6 @@
              xmlns:model="clr-namespace:TeendokLista.MAUI.Models"
              xmlns:vm="clr-namespace:TeendokLista.MAUI.ViewModels"
              x:Class="TeendokLista.MAUI.Resources.ListTemplate">
-
     <DataTemplate x:Key="jegyzetListTmpl" x:DataType="model:FeladatModel">
         <AbsoluteLayout>
             <Grid>
@@ -17,32 +16,27 @@
                         <Shadow Brush="Black" Radius="5" 
                                 Offset="6,6" Opacity="0.75" />
                     </Rectangle.Shadow>
-                    <Rectangle.Style>
-                        <Style TargetType="{x:Type Rectangle}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Teljesitve}" Value="False" TargetType="Rectangle">
-                                    <Setter Property="Fill">
-                                        <Setter.Value>
-                                            <LinearGradientBrush>
-                                                <GradientStop Color="LightGoldenrodYellow" Offset="0"/>
-                                                <GradientStop Color="Yellow" Offset="1" />
-                                            </LinearGradientBrush>
-                                        </Setter.Value>
-                                    </Setter>
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding Teljesitve}" Value="True" TargetType="Rectangle">
-                                    <Setter Property="Fill" Value="LightGray" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Rectangle.Style>
+                    <Rectangle.Triggers>
+                        <DataTrigger Binding="{Binding Teljesitve}" Value="False" TargetType="Rectangle">
+                            <Setter Property="Fill">
+                                <Setter.Value>
+                                    <LinearGradientBrush>
+                                        <GradientStop Color="LightGoldenrodYellow" Offset="0"/>
+                                        <GradientStop Color="Yellow" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Teljesitve}" Value="True" TargetType="Rectangle">
+                            <Setter Property="Fill" Value="LightGray" />
+                        </DataTrigger>
+                    </Rectangle.Triggers>
                 </Rectangle>
                 <VerticalStackLayout WidthRequest="140" HeightRequest="140" Spacing="5">
                     <Label Text="{Binding Cim}" FontSize="16" FontAttributes="Bold,Italic" MaxLines="1" />
-                    <Label Text="{Binding Tartalom}" FontSize="16" FontAttributes="Italic" MaxLines="5"/>
+                    <Label Text="{Binding Tartalom}" FontSize="14" FontAttributes="Italic" MaxLines="6"/>
                 </VerticalStackLayout>
             </Grid>
         </AbsoluteLayout>
     </DataTemplate>
-
 </ResourceDictionary>
