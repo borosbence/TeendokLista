@@ -4,16 +4,9 @@ namespace TeendokLista.MAUI.Views;
 
 public partial class MainPage : ContentPage
 {
-    private readonly MainViewModel _vm;
-    public MainPage(MainViewModel mainViewModel)
+    public MainPage(MainViewModel vm)
     {
-        _vm = mainViewModel;
-        BindingContext = _vm;
+        BindingContext = vm;
         InitializeComponent();
-    }
-
-    protected override async void OnAppearing()
-    {
-        await _vm.LoadData();
     }
 }

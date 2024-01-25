@@ -1,8 +1,7 @@
 ﻿using ApiClient.Repositories;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
-using TeendokLista.MAUI.Messages;
+using System.Collections.ObjectModel;
 using TeendokLista.MAUI.Models;
 using TeendokLista.MAUI.Services;
 using TeendokLista.MAUI.Views;
@@ -17,18 +16,16 @@ namespace TeendokLista.MAUI.ViewModels
         {
             _repository = repository;
             NewCommandAsync = new AsyncRelayCommand(AddItem);
-            SelectCommandAsync = new AsyncRelayCommand<FeladatModel>(ShowItem);
+            SelectCommandAsync = new AsyncRelayCommand<FeladatModel>(ShowItem!);
             LogoutCommandAsync = new AsyncRelayCommand(Logout);
-            RegisterUpdate();
+            Task.Run(LoadData);
         }
 
-        public string? DisplayName => CurrentUser.FelhasznaloNev;
-
-        // korábban ObservableCollection<FeladatModel>
-        private List<FeladatModel> _feladatok = [];
-        public List<FeladatModel> Feladatok
+        private ObservableCollection<FeladatModel> _feladatok = [];
+        public ObservableCollection<FeladatModel> Feladatok
         {
             get { return _feladatok; }
+            // aszinkron feltöltés miatt kell
             set { SetProperty(ref _feladatok, value); }
         }
 
@@ -39,25 +36,7 @@ namespace TeendokLista.MAUI.ViewModels
         public async Task LoadData()
         {
             var result = await _repository.GetAllAsync();
-            Feladatok = result != null ? new List<FeladatModel>(result) : [];
-        }
-
-        // Regisztrálás az üzenetközpont üzenetire
-        // Ha jön üzenet a DetailViewModeltől, pl. egy Feladat objektum, akkor frissítse a meglévő listát
-        private void RegisterUpdate()
-        {
-            WeakReferenceMessenger.Default.Register<MainPageMessage>(this, (r, m) =>
-            {
-                var message = m.Value;
-                if (message.Action == ListAction.Add && message.Item.Id > 0)
-                {
-                    Feladatok.Add(message.Item);
-                }
-                else if (message.Action == ListAction.Delete)
-                {
-                    Feladatok.Remove(message.Item);
-                }
-            });
+            Feladatok = result != null ? new ObservableCollection<FeladatModel>(result) : [];
         }
 
         private async Task ShowItem(FeladatModel feladat)

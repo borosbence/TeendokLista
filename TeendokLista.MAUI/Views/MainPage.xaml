@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:model="clr-namespace:TeendokLista.MAUI.Models"
+             xmlns:service="clr-namespace:TeendokLista.MAUI.Services"
              x:Class="TeendokLista.MAUI.Views.MainPage"
              Title="Jegyzetek" 
              NavigationPage.HasBackButton="False">
@@ -29,7 +30,7 @@
         </ScrollView>
         <StackLayout Grid.Row="1" Padding="10" BackgroundColor="{StaticResource Secondary}">
             <HorizontalStackLayout HorizontalOptions="End">
-                <Label Text="{Binding DisplayName}" />
+                <Label Text="{Binding Source={x:Static service:CurrentUser.FelhasznaloNev}}" />
             </HorizontalStackLayout>
         </StackLayout>
     </Grid>

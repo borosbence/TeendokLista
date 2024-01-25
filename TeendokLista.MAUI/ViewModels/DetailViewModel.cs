@@ -1,8 +1,6 @@
 ﻿using ApiClient.Repositories;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
-using TeendokLista.MAUI.Messages;
 using TeendokLista.MAUI.Models;
 using TeendokLista.MAUI.Views;
 
@@ -45,8 +43,6 @@ namespace TeendokLista.MAUI.ViewModels
                 var dbFeladat = await _repository.InsertAsync(Feladat);
                 // Id lekérdezése
                 Feladat.Id = dbFeladat?.Id ?? 0;
-                // Üzenet küldése a fő ablaknak, ami feliratkozott az UpdateView csatornára
-                WeakReferenceMessenger.Default.Send(new MainPageMessage(new FeladatModelMessage(Feladat)));
             }
             // Visszaugrik a szülő ablakra
             await Shell.Current.GoToAsync(nameof(MainPage));
@@ -59,7 +55,6 @@ namespace TeendokLista.MAUI.ViewModels
             {
                 await _repository.DeleteAsync(_feladat.Id);
             }
-            WeakReferenceMessenger.Default.Send(new MainPageMessage(new FeladatModelMessage(Feladat, ListAction.Delete)));
             await Shell.Current.GoToAsync(nameof(MainPage));
         }
     }

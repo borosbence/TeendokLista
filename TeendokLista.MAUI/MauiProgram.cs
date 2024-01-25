@@ -22,10 +22,10 @@ namespace TeendokLista.MAUI
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
-            
+
 
             // Az egymástól függő osztályok regisztrálása
-            // builder.Services.AddScoped<IFelhasznaloRepository, FelhasznaloLocalRepository>();
+            // builder.Services.AddTransient<IFelhasznaloRepository, FelhasznaloLocalRepository>();
             builder.Services.AddTransient<IFelhasznaloRepository, FelhasznaloAPIRepository>(x =>
             {
                 return new("api/token");
