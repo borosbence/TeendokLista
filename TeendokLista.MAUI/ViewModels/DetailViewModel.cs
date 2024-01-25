@@ -40,9 +40,7 @@ namespace TeendokLista.MAUI.ViewModels
             else
             {
                 // Új elem beillesztése
-                var dbFeladat = await _repository.InsertAsync(Feladat);
-                // Id lekérdezése
-                Feladat.Id = dbFeladat?.Id ?? 0;
+                 await _repository.InsertAsync(Feladat);
             }
             // Visszaugrik a szülő ablakra
             await Shell.Current.GoToAsync(nameof(MainPage));

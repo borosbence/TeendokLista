@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using TeendokLista.MAUI.Models;
-using TeendokLista.MAUI.Services;
 using TeendokLista.MAUI.Views;
 
 namespace TeendokLista.MAUI.ViewModels
@@ -33,7 +32,7 @@ namespace TeendokLista.MAUI.ViewModels
         public IAsyncRelayCommand NewCommandAsync { get; set; }
         public IAsyncRelayCommand LogoutCommandAsync { get; set; }
 
-        public async Task LoadData()
+        private async Task LoadData()
         {
             var result = await _repository.GetAllAsync();
             Feladatok = result != null ? new ObservableCollection<FeladatModel>(result) : [];

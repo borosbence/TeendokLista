@@ -24,7 +24,7 @@
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        Task<T?> InsertAsync(T entity);
+        Task InsertAsync(T entity);
         /// <summary>
         /// Módosít egy meglévő elemet azonosító alapján
         /// </summary>
