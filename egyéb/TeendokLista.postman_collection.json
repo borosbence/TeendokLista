@@ -1,139 +1,262 @@
 {
 	"info": {
-		"_postman_id": "2889664e-a254-4f75-ae5f-c44aaa0ebfdc",
-		"name": "TeendokLista",
+		"_postman_id": "a4f0f635-354f-480f-8d65-e78c8e6f1b5f",
+		"name": "TeendőkLista",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "17404630"
+		"_exporter_id": "17404630",
+		"_collection_link": "https://vp-szoft.postman.co/workspace/Backend-programoz%C3%A1s---C%23~cb952c85-4262-43ac-8101-008e0d40d89e/collection/17404630-a4f0f635-354f-480f-8d65-e78c8e6f1b5f?action=share&source=collection_link&creator=17404630"
 	},
 	"item": [
 		{
-			"name": "Token/Login",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"username\" : \"admin\",\r\n    \"password\" : \"admin\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{hostname}}/Token/Login",
-					"host": [
-						"{{hostname}}"
-					],
-					"path": [
-						"Token",
-						"Login"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Felhasznalok",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{access_token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{hostname}}/Felhasznalok",
-					"host": [
-						"{{hostname}}"
-					],
-					"path": [
-						"Felhasznalok"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Token/Refresh",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"access_token\": \"{{access_token}}\",\r\n    \"refresh_token\": \"{{refresh_token}}\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{hostname}}/Token/Refresh",
-					"host": [
-						"{{hostname}}"
-					],
-					"path": [
-						"Token",
-						"Refresh"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Token/Logout",
-			"event": [
+			"name": "Felhasználók",
+			"item": [
 				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{access_token}}",
-							"type": "string"
+					"name": "Felhasznalok",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostname}}/Felhasznalok",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"Felhasznalok"
+							]
 						}
-					]
+					},
+					"response": []
 				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"access_token\": \"{{access_token}}\",\r\n    \"refresh_token\": \"{{refresh_token}}\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "Felhasznalo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostname}}/Felhasznalok/2",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"Felhasznalok",
+								"2"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{hostname}}/Token/Logout",
-					"host": [
-						"{{hostname}}"
-					],
-					"path": [
-						"Token",
-						"Logout"
-					]
+				{
+					"name": "Regisztrálás",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"felhasznalonev\": \"admin4\",\r\n    \"jelszo\": \"jelszo\",\r\n    \"szerepkor_id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostname}}/Felhasznalok",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"Felhasznalok"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Módosítás",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\" : 2,\r\n    \"felhasznalonev\": \"user\",\r\n    \"jelszo\": \"user\",\r\n    \"szerepkor_id\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostname}}/Felhasznalok/2",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"Felhasznalok",
+								"2"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		},
+		{
+			"name": "Token",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Username\" : \"admin\",\r\n    \"Password\" : \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostname}}/Token/Login",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"Token",
+								"Login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Access_Token\" : \"{{access_token}}\",\r\n    \"Refresh_Token\" : \"{{refresh_token}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostname}}/Token/Refresh",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"Token",
+								"Refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Access_Token\" : \"{{access_token}}\",\r\n    \"Refresh_Token\" : \"{{refresh_token}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostname}}/Token/Logout",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"Token",
+								"Logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Feladatok",
+			"item": [
+				{
+					"name": "Feladatok",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostname}}/Feladatok",
+							"host": [
+								"{{hostname}}"
+							],
+							"path": [
+								"Feladatok"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [

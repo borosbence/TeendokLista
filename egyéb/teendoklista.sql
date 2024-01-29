@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2022. Nov 23. 18:19
--- Kiszolgáló verziója: 10.4.24-MariaDB
--- PHP verzió: 8.1.6
+-- Létrehozás ideje: 2024. Jan 29. 16:58
+-- Kiszolgáló verziója: 10.4.28-MariaDB
+-- PHP verzió: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Adatbázis: `teendoklista`
 --
+CREATE DATABASE IF NOT EXISTS `teendoklista` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `teendoklista`;
 
 -- --------------------------------------------------------
 
@@ -34,7 +36,7 @@ CREATE TABLE `feladatok` (
   `hatarido` datetime NOT NULL,
   `teljesitve` tinyint(1) NOT NULL DEFAULT 0,
   `felhasznalo_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- A tábla adatainak kiíratása `feladatok`
@@ -42,7 +44,10 @@ CREATE TABLE `feladatok` (
 
 INSERT INTO `feladatok` (`id`, `cim`, `tartalom`, `hatarido`, `teljesitve`, `felhasznalo_id`) VALUES
 (1, '1. feladat', 'Tervezés!', '2022-09-15 00:00:00', 0, 1),
-(2, '2. feladat', 'Megvalósítás', '2022-09-15 00:00:00', 1, 1);
+(2, '2. feladat!', 'Megvalósítás', '2022-09-15 00:00:00', 1, 1),
+(3, '3. tesztelés', 'Hurrá!!', '2022-12-20 00:00:00', 0, 1),
+(4, 'Hosszú', 'Első\rMásodik\rHarmadik\rNegyedik\rÖtödik\rHatodik\rHetedik.', '2024-01-25 01:04:25', 0, 1),
+(5, 'felhasználói jegyzet', 'Teszt', '2022-12-17 00:00:00', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -55,15 +60,15 @@ CREATE TABLE `felhasznalok` (
   `felhasznalonev` varchar(50) NOT NULL,
   `jelszo` varchar(255) NOT NULL,
   `szerepkor_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- A tábla adatainak kiíratása `felhasznalok`
 --
 
 INSERT INTO `felhasznalok` (`id`, `felhasznalonev`, `jelszo`, `szerepkor_id`) VALUES
-(1, 'admin', '$2a$11$qMm9YjV65tftQwUKL7HJd.YVZ.wW430F/0U76KcSJUFAY41awwW3y', 1),
-(2, 'user', '$2a$11$qMm9YjV65tftQwUKL7HJd.YVZ.wW430F/0U76KcSJUFAY41awwW3y', 2);
+(1, 'admin', '$2a$11$jwcR.j3iuJTMhvhYg97TmOUVFOdarXfFHUoXLd0PcgCM3b6Qhenge', 1),
+(2, 'user', '$2a$04$TFhjSyKZtUNA5aEugdRt/OmrVVG2wpMmWmNJDYYeypRabf6O2irkK', 2);
 
 -- --------------------------------------------------------
 
@@ -76,7 +81,7 @@ CREATE TABLE `login_tokenek` (
   `token` varchar(50) NOT NULL,
   `lejarat_datum` datetime NOT NULL,
   `felhasznalo_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -87,7 +92,7 @@ CREATE TABLE `login_tokenek` (
 CREATE TABLE `szerepkorok` (
   `id` int(11) NOT NULL,
   `nev` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- A tábla adatainak kiíratása `szerepkorok`
@@ -138,13 +143,13 @@ ALTER TABLE `szerepkorok`
 -- AUTO_INCREMENT a táblához `feladatok`
 --
 ALTER TABLE `feladatok`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT a táblához `felhasznalok`
 --
 ALTER TABLE `felhasznalok`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT a táblához `login_tokenek`
