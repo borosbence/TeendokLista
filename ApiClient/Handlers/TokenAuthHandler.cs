@@ -38,12 +38,12 @@ namespace ApiClient.MAUI.Handlers
             {
                 // Küld egy új kérést, hogy megkapja a tokent
                 var refreshReqMessage = new HttpRequestMessage(HttpMethod.Post, _baseUrl + _path);
-                var oldToken = new JWTModel(_accessToken, _refreshToken);
+                var oldToken = new JwtModel(_accessToken, _refreshToken);
                 refreshReqMessage.Content = new StringContent(JsonSerializer.Serialize(oldToken), Encoding.UTF8, "application/json");
 
                 // Token válasz a szervertől
                 var refreshRequest = await base.SendAsync(refreshReqMessage, cancellationToken);
-                var jwtToken = await refreshRequest.Content.ReadFromJsonAsync<JWTModel>();
+                var jwtToken = await refreshRequest.Content.ReadFromJsonAsync<JwtModel>();
 
                 if (jwtToken != null)
                 {

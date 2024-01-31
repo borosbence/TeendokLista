@@ -10,7 +10,6 @@
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
                 <ResourceDictionary Source="Resources/JegyzetStyle.xaml" />
                 <ResourceDictionary Source="Resources/ListTemplate.xaml" />
-                <ResourceDictionary Source="Resources/StringResource.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

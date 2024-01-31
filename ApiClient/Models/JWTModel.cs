@@ -1,12 +1,12 @@
 ﻿namespace ApiClient.Models
 {
-    public class JWTModel
+    public class JwtModel
     {
-        public JWTModel()
+        public JwtModel()
         {
             
         }
-        public JWTModel(string accessToken, string refreshToken)
+        public JwtModel(string accessToken, string refreshToken)
         {
             AccessToken = accessToken;
             RefreshToken = refreshToken;

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TeendokLista.API.Data;
@@ -31,6 +25,8 @@ namespace TeendokLista.API.Controllers
         {
             return await _context.feladatok
                 .Where(x => x.felhasznalo_id == UserService.GetUserId(User))
+                .OrderBy(x => !x.teljesitve)
+                .ThenBy(x => x.hatarido)
                 .ToListAsync();
         }
 
@@ -39,8 +35,7 @@ namespace TeendokLista.API.Controllers
         public async Task<ActionResult<Feladat>> GetFeladat(int id)
         {
             var feladat = await _context.feladatok
-                .Where(x => x.felhasznalo_id == UserService.GetUserId(User))
-                .FirstOrDefaultAsync(x => x.id == id);
+                .FirstOrDefaultAsync(x => x.id == id && x.felhasznalo_id == UserService.GetUserId(User));
 
             if (feladat == null)
             {
@@ -105,8 +100,7 @@ namespace TeendokLista.API.Controllers
         public async Task<IActionResult> DeleteFeladat(int id)
         {
             var feladat = await _context.feladatok
-                .Where(x => x.felhasznalo_id == UserService.GetUserId(User))
-                .FirstOrDefaultAsync(x => x.id == id);
+                .FirstOrDefaultAsync(x => x.id == id && x.felhasznalo_id == UserService.GetUserId(User));
             if (feladat == null)
             {
                 return NotFound();
