@@ -58,8 +58,8 @@ namespace JwtSecurity.Services
             var tokenValidationParameters = new TokenValidationParameters
             {
                 ClockSkew = TimeSpan.Zero,
-                ValidAudience = _configuration["JWT:Audience"],
                 ValidIssuer = _configuration["JWT:Issuer"],
+                ValidAudience = _configuration["JWT:Audience"],
                 ValidateLifetime = false,
                 IssuerSigningKey = new SymmetricSecurityKey(key),
             };

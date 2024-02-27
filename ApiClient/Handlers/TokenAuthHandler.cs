@@ -9,18 +9,17 @@ namespace ApiClient.MAUI.Handlers
 {
     public class TokenAuthHandler : DelegatingHandler
     {
-        private readonly string _path = "api/token/refresh";
+        private readonly string _path;
         private readonly string? _baseUrl;
         private string _accessToken;
         private string _refreshToken;
 
-        public TokenAuthHandler(string path, string accessToken, string refreshToken, string? baseUrl = null)
+        public TokenAuthHandler(string accessToken, string refreshToken, string path = "api/token/refresh", string baseUrl = "http://localhost:5000/")
         {
-            _path = path;
             _accessToken = accessToken;
             _refreshToken = refreshToken;
-            // Ha nincs a paraméternek értéke, akkor automatikusan ezt vesz fel
-            _baseUrl = baseUrl ?? "http://localhost:5000/";
+            _path = path;
+            _baseUrl = baseUrl;
             InnerHandler = new HttpClientHandler();
         }
 

@@ -4,7 +4,7 @@ namespace ApiClient.Repositories
 {
     public class GenericAPIRepository<T> : BaseAPIRepository, IGenericRepository<T>
     {
-        public GenericAPIRepository(string path, string? baseUrl = null, DelegatingHandler? handler = null) : base(baseUrl, path, handler)
+        public GenericAPIRepository(string path, string? baseUrl = null, DelegatingHandler? handler = null) : base(path, baseUrl, handler)
         {
         }
 

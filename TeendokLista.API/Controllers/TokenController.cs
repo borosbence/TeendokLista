@@ -24,7 +24,8 @@ namespace TeendokLista.API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("Login")]
+        [HttpPost]
+        [Route("Login")]
         public async Task<ActionResult<LoginResultDTO>> Login(LoginDTO userLogin)
         {
             // Felhasználó kikeresése
@@ -80,14 +81,14 @@ namespace TeendokLista.API.Controllers
             {
                 return BadRequest("Érvénytelen token.");
             }
-            // Ha nem egyezik a refresh token vagy már lejárt
-            if (oldToken.token != jwtToken.RefreshToken || oldToken.lejarat_datum <= DateTime.Now)
+            // Ha a refresh token már lejárt
+            if ( oldToken.lejarat_datum <= DateTime.Now)
             {
                 // Régi lejárt token törlése
-                // _context.login_tokenek.Remove(oldToken);
+                _context.login_tokenek.Remove(oldToken);
+                await _context.SaveChangesAsync();
                 return Unauthorized("Lejárt vagy érvénytelen token.");
             }
-            // TODO: MAUI program még a régi refresh tokent küldi
             // Új token generálása
             var claims = GetClaimsFromUser(dbUser);
             var newToken = _jwtManagerService.GenerateToken(claims);
@@ -107,17 +108,12 @@ namespace TeendokLista.API.Controllers
             var claimId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
             int.TryParse(claimId!.Value, out int userId);
 
-            var dbUser = await _context.felhasznalok
-                .FirstOrDefaultAsync(x => x.id == userId);
-            if (dbUser != null)
+            var token = await _context.login_tokenek
+                    .FirstOrDefaultAsync(x => x.felhasznalo_id == userId && x.token == jwtToken.RefreshToken);
+            if (token != null)
             {
-                var token = await _context.login_tokenek
-                    .FirstOrDefaultAsync(x => x.felhasznalo_id == dbUser.id && x.token == jwtToken.RefreshToken);
-                if (token != null)
-                {
-                    _context.login_tokenek.Remove(token);
-                    await _context.SaveChangesAsync();
-                }
+                _context.login_tokenek.Remove(token);
+                await _context.SaveChangesAsync();
             }
 
             return NoContent();

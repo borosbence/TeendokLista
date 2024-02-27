@@ -8,13 +8,6 @@ namespace TeendokLista.API.Models
     [Index("felhasznalo_id", Name = "felhasznalo_id")]
     public partial class LoginToken
     {
-        public LoginToken(string token, int felhasznalo_id)
-        {
-            this.token = token;
-            lejarat_datum = DateTime.Now.AddDays(7);
-            this.felhasznalo_id = felhasznalo_id;
-        }
-
         [Key]
         [Column(TypeName = "int(11)")]
         public int id { get; set; }

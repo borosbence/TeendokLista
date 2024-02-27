@@ -28,7 +28,7 @@ namespace TeendokLista.MAUI
             // builder.Services.AddTransient<IFelhasznaloRepository, FelhasznaloLocalRepository>();
             builder.Services.AddTransient<IFelhasznaloRepository, FelhasznaloAPIRepository>(x =>
             {
-                return new("api/token");
+                return new("api/token/login");
             });
             builder.Services.AddSingleton<LoginViewModel>();
             builder.Services.AddSingleton<LoginPage>();
@@ -37,7 +37,7 @@ namespace TeendokLista.MAUI
             //builder.Services.AddSingleton<IGenericRepository<Feladat>, FeladatLocalRepository>();
             builder.Services.AddTransient<IGenericRepository<FeladatModel>, GenericAPIRepository<FeladatModel>>(x =>
             {
-                return new("api/feladatok", handler: new TokenAuthHandler("api/token/refresh", CurrentUser.AccessToken!, CurrentUser.RefreshToken!));
+                return new("api/feladatok", handler: new TokenAuthHandler(CurrentUser.AccessToken!, CurrentUser.RefreshToken!));
             });
             builder.Services.AddTransient<MainViewModel>();
             builder.Services.AddTransient<MainPage>();

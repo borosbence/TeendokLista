@@ -8,13 +8,15 @@ namespace TeendokLista.MAUI.Repositories.API
 {
     public class FelhasznaloAPIRepository : BaseAPIRepository, IFelhasznaloRepository
     {
-        public FelhasznaloAPIRepository(string path, string? baseUrl = null) : base(baseUrl, path)
+        public FelhasznaloAPIRepository(string path = "api/token/login", string? baseUrl = null) : base(path, baseUrl)
         {
         }
 
         public async Task<string> AuthenticateAsync(string username, string password)
         {
-            var response = await client.PostAsJsonAsync(_path + "/login", new { Username = username, Password = password }); 
+            // anoním objektum létrehozása
+            var loginData = new { Username = username, Password = password };
+            var response = await client.PostAsJsonAsync(_path, loginData); 
             // Sikeres státuszkód esetén
             if (response.IsSuccessStatusCode)
             {
