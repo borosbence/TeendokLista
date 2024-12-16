@@ -5,7 +5,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 
-namespace ApiClient.MAUI.Handlers
+namespace ApiClient.Handlers
 {
     public class TokenAuthHandler : DelegatingHandler
     {
@@ -36,13 +36,13 @@ namespace ApiClient.MAUI.Handlers
             if (response.StatusCode == HttpStatusCode.Unauthorized && request.Headers.Authorization != null)
             {
                 // Küld egy új kérést, hogy megkapja a tokent
-                var refreshReqMessage = new HttpRequestMessage(HttpMethod.Post, _baseUrl + _path);
-                var oldToken = new JwtModel(_accessToken, _refreshToken);
+                HttpRequestMessage refreshReqMessage = new(HttpMethod.Post, _baseUrl + _path);
+                JwtModel oldToken = new(_accessToken, _refreshToken);
                 refreshReqMessage.Content = new StringContent(JsonSerializer.Serialize(oldToken), Encoding.UTF8, "application/json");
 
                 // Token válasz a szervertől
                 var refreshRequest = await base.SendAsync(refreshReqMessage, cancellationToken);
-                var jwtToken = await refreshRequest.Content.ReadFromJsonAsync<JwtModel>();
+                JwtModel? jwtToken = await refreshRequest.Content.ReadFromJsonAsync<JwtModel>();
 
                 if (jwtToken != null)
                 {

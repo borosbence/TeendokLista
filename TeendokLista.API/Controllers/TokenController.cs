@@ -82,7 +82,7 @@ namespace TeendokLista.API.Controllers
                 return BadRequest("Érvénytelen token.");
             }
             // Ha a refresh token már lejárt
-            if ( oldToken.lejarat_datum <= DateTime.Now)
+            if (oldToken.lejarat_datum <= DateTime.Now)
             {
                 // Régi lejárt token törlése
                 _context.login_tokenek.Remove(oldToken);
@@ -122,12 +122,12 @@ namespace TeendokLista.API.Controllers
         // Követelési szintek létrehozása
         private List<Claim> GetClaimsFromUser(Felhasznalo felhasznalo)
         {
-            return new List<Claim>()
-            {
-                new Claim(ClaimTypes.NameIdentifier, felhasznalo.id.ToString()),
-                new Claim(ClaimTypes.Name, felhasznalo.felhasznalonev),
-                new Claim(ClaimTypes.Role, felhasznalo.szerepkor!.nev)
-            };
+            return
+            [
+                new(ClaimTypes.NameIdentifier, felhasznalo.id.ToString()),
+                new(ClaimTypes.Name, felhasznalo.felhasznalonev),
+                new(ClaimTypes.Role, felhasznalo.szerepkor!.nev)
+            ];
         }
     }
 }

@@ -8,8 +8,8 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
-                <ResourceDictionary Source="Resources/JegyzetStyle.xaml" />
-                <ResourceDictionary Source="Resources/ListTemplate.xaml" />
+                <ResourceDictionary Source="Resources/Styles/FeladatTmp.xaml" />
+                <ResourceDictionary Source="Resources/Styles/FeladatListTmp.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

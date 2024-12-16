@@ -1,8 +1,8 @@
 namespace TeendokLista.MAUI.Resources;
 
-public partial class JegyzetStyle : ResourceDictionary
+public partial class FeladatTmp : ResourceDictionary
 {
-    public JegyzetStyle()
+    public FeladatTmp()
     {
         InitializeComponent();
     }

@@ -1,4 +1,4 @@
-﻿using ApiClient.MAUI.Handlers;
+﻿using ApiClient.Handlers;
 using ApiClient.Repositories;
 using TeendokLista.MAUI.Models;
 using TeendokLista.MAUI.Repositories;

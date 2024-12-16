@@ -22,9 +22,9 @@
         <ScrollView Grid.Row="0">
             <FlexLayout Wrap="Wrap" AlignItems="Start" AlignContent="Start"
                         BindableLayout.ItemsSource="{Binding Feladatok}"
-                        BindableLayout.ItemTemplate="{StaticResource jegyzetListTmpl}" />
+                        BindableLayout.ItemTemplate="{StaticResource FeladatListTmp}" />
         </ScrollView>
-        <StackLayout Grid.Row="1" Padding="10" BackgroundColor="{StaticResource Secondary}">
+        <StackLayout Grid.Row="1" Padding="10" BackgroundColor="{StaticResource SecondaryDarkText}">
             <HorizontalStackLayout HorizontalOptions="End">
                 <Label Text="{Binding Source={x:Static service:CurrentUser.FelhasznaloNev}}" />
             </HorizontalStackLayout>

@@ -8,7 +8,7 @@ using TeendokLista.API.Services;
 
 namespace TeendokLista.API.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "Adminisztrátor")]
     [Route("api/[controller]")]
     [ApiController]
     public class FelhasznalokController : ControllerBase

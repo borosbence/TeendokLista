@@ -19,6 +19,7 @@
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
 
 		<!-- Display name -->
 		<ApplicationTitle>TeendokLista.MAUI</ApplicationTitle>
@@ -57,10 +58,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Resources\JegyzetStyle.xaml">
+	  <MauiXaml Update="Resources\Styles\FeladatListTmp.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Resources\ListTemplate.xaml">
+	  <MauiXaml Update="Resources\Styles\FeladatTmp.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\DetailPage.xaml">
@@ -75,10 +76,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.100" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.100" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>

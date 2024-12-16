@@ -1,8 +1,8 @@
 namespace TeendokLista.MAUI.Resources;
 
-public partial class ListTemplate : ResourceDictionary
+public partial class FeladatListTmp : ResourceDictionary
 {
-    public ListTemplate()
+    public FeladatListTmp()
     {
         InitializeComponent();
     }
