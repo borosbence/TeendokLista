@@ -42,7 +42,7 @@ namespace TeendokLista.MAUI.ViewModels
         {
             var navigationParameter = new Dictionary<string, object>
             {
-                { "Feladat", feladat }
+                { "Reszletek", feladat }
             };
             // Navigáció a másik Page-re
             await Shell.Current.GoToAsync(nameof(DetailPage), navigationParameter);
@@ -52,7 +52,7 @@ namespace TeendokLista.MAUI.ViewModels
         {
             var navigationParameter = new Dictionary<string, object>
             {
-                { "Feladat", new FeladatModel() }
+                { "Reszletek", new FeladatModel() }
             };
             await Shell.Current.GoToAsync(nameof(DetailPage), navigationParameter);
         }

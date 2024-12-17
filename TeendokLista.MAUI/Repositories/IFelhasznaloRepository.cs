@@ -1,6 +1,4 @@
-﻿using TeendokLista.MAUI.Models;
-
-namespace TeendokLista.MAUI.Repositories
+﻿namespace TeendokLista.MAUI.Repositories
 {
     public interface IFelhasznaloRepository
     {

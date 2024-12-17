@@ -6,7 +6,7 @@ using TeendokLista.MAUI.Views;
 
 namespace TeendokLista.MAUI.ViewModels
 {
-    [QueryProperty(nameof(Feladat), "Feladat")]
+    [QueryProperty(nameof(Feladat), "Reszletek")]
     public class DetailViewModel : ObservableObject
     {
         private readonly IGenericRepository<FeladatModel> _repository;
