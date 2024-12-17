@@ -5,7 +5,7 @@ namespace TeendokLista.API.DTOs
     public class FelhasznaloDTO
     {
         public int Id { get; set; }
-        public string FelhasznaloNev { get; set; } = null!;
+        public string Felhasznalonev { get; set; } = null!;
         public string Szerepkor { get; set; } = null!;
     }
 
@@ -14,7 +14,7 @@ namespace TeendokLista.API.DTOs
         public LoginResultDTO(int id, string felhasznalonev, string szerepkor, string accessToken, string refreshToken)
         {
             Id = id;
-            FelhasznaloNev = felhasznalonev;
+            Felhasznalonev = felhasznalonev;
             Szerepkor = szerepkor;
             AccessToken = accessToken;
             RefreshToken = refreshToken;

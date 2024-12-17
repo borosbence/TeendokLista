@@ -26,7 +26,7 @@
         </ScrollView>
         <StackLayout Grid.Row="1" Padding="10" BackgroundColor="{StaticResource SecondaryDarkText}">
             <HorizontalStackLayout HorizontalOptions="End">
-                <Label Text="{Binding Source={x:Static service:CurrentUser.FelhasznaloNev}}" />
+                <Label Text="{Binding Source={x:Static service:CurrentUser.Felhasznalonev}}" />
             </HorizontalStackLayout>
         </StackLayout>
     </Grid>

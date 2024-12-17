@@ -10,7 +10,7 @@ namespace TeendokLista.MAUI.Repositories.Local
             if (username == "admin" && password == "admin")
             {
                 CurrentUser.Id = 1;
-                CurrentUser.FelhasznaloNev = "admin";
+                CurrentUser.Felhasznalonev = "admin";
                 CurrentUser.Szerepkor = "admin";
                 return Task.FromResult("Sikeres bejelentkezés.");
             }

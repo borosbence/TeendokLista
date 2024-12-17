@@ -3,7 +3,7 @@
     public static class CurrentUser
     {
         public static int Id { get; set; }
-        public static string? FelhasznaloNev { get; set; }
+        public static string? Felhasznalonev { get; set; }
         public static string? Szerepkor { get; set; }
 
         // Ez az értékéket TokenAuthHandler már nem használja

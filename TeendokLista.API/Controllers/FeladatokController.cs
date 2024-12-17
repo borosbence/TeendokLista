@@ -25,7 +25,7 @@ namespace TeendokLista.API.Controllers
         {
             return await _context.feladatok
                 .Where(x => x.felhasznalo_id == UserService.GetUserId(User))
-                .OrderBy(x => !x.teljesitve)
+                .OrderBy(x => x.teljesitve)
                 .ThenBy(x => x.hatarido)
                 .ToListAsync();
         }

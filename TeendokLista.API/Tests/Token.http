@@ -1,0 +1,33 @@
+@hostname = http://localhost:5000/api
+
+# @name login
+POST {{hostname}}/Token/Login
+Content-Type: application/json
+
+{
+  "Username" : "admin",
+  "Password" : "admin"
+}
+
+
+###
+POST {{hostname}}/Token/Refresh
+Content-Type: application/json
+
+{
+  "AccessToken" : "{{login.response.body.$.AccessToken}}",
+  "RefreshToken" : "{{login.response.body.$.RefreshToken}}"
+}
+
+###
+
+POST {{hostname}}/Token/Logout
+Authorization: Bearer {{login.response.body.$.AccessToken}}
+Content-Type: application/json
+
+{
+  "AccessToken" : "{{login.response.body.$.AccessToken}}",
+  "RefreshToken" : "{{login.response.body.$.RefreshToken}}"
+}
+
+###

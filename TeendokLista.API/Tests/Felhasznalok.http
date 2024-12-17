@@ -1,0 +1,52 @@
+@hostname = http://localhost:5000/api
+
+# @name login
+POST {{hostname}}/Token/Login
+Content-Type: application/json
+
+{
+  "Username" : "admin",
+  "Password" : "admin"
+}
+
+###
+
+GET {{hostname}}/Felhasznalok
+Authorization: Bearer {{login.response.body.$.AccessToken}}
+
+###
+
+GET {{hostname}}/Felhasznalok/1
+Authorization: Bearer {{login.response.body.$.AccessToken}}
+
+###
+
+POST {{hostname}}/Felhasznalok
+Authorization: Bearer {{login.response.body.$.AccessToken}}
+Content-Type: application/json
+
+{
+  "felhasznalonev": "test",
+  "jelszo": "jelszo",
+  "szerepkor_id": 1
+}
+
+###
+
+PUT {{hostname}}/Felhasznalok/2
+Authorization: Bearer {{login.response.body.$.AccessToken}}
+Content-Type: application/json
+
+{
+  "id" : 2,
+  "felhasznalonev": "user",
+  "jelszo": "user",
+  "szerepkor_id": 2
+}
+
+###
+
+DELETE {{hostname}}/Felhasznalok/3
+Authorization: Bearer {{login.response.body.$.AccessToken}}
+
+###

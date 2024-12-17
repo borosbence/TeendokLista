@@ -1,0 +1,56 @@
+@hostname = http://localhost:5000/api
+
+# @name login
+POST {{hostname}}/Token/Login
+Content-Type: application/json
+
+{
+  "Username" : "admin",
+  "Password" : "admin"
+}
+
+###
+
+GET {{hostname}}/Feladatok
+Authorization: Bearer {{login.response.body.$.AccessToken}}
+
+###
+
+GET {{hostname}}/Feladatok/1
+Authorization: Bearer {{login.response.body.$.AccessToken}}
+
+###
+
+POST {{hostname}}/Feladatok
+Authorization: Bearer {{login.response.body.$.AccessToken}}
+Content-Type: application/json
+
+{
+  "cim": "Teszt bejegyzés",
+  "tartalom": "Teszt tartalom",
+  "hatarido": "{{$datetime iso8601}}",
+  "teljesitve": false,
+  "felhasznalo_id": 1
+}
+
+###
+
+PUT {{hostname}}/Feladatok/6
+Authorization: Bearer {{login.response.body.$.AccessToken}}
+Content-Type: application/json
+
+{
+  "id": 6,
+  "cim": "Teszt bejegyzés",
+  "tartalom": "Teszt tartalom",
+  "hatarido": "{{$datetime iso8601}}",
+  "teljesitve": true,
+  "felhasznalo_id": 1
+}
+
+###
+
+DELETE {{hostname}}/Feladatok/6
+Authorization: Bearer {{login.response.body.$.AccessToken}}
+
+###

@@ -56,9 +56,11 @@ namespace TeendokLista.API.Controllers
             {
                 return BadRequest();
             }
-            if (felhasznalo.id != UserService.GetUserId(User))
+
+            // Ha nem adminisztrátor, akkor csak a saját fiókját módosíthatja
+            if (!User.IsInRole("Adminisztrátor") && felhasznalo.id != UserService.GetUserId(User))
             {
-                return BadRequest();
+                return BadRequest("Nincs jogosultsága más fiókját módosítani.");
             }
 
             // Jelszó hashelése

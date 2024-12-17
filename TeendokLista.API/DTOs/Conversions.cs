@@ -9,7 +9,7 @@ namespace TeendokLista.API.DTOs
             return new FelhasznaloDTO
             {
                 Id = source.id,
-                FelhasznaloNev = source.felhasznalonev,
+                Felhasznalonev = source.felhasznalonev,
                 Szerepkor = source.szerepkor!.nev
             };
         }

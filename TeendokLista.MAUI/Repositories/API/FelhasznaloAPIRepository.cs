@@ -25,7 +25,7 @@ namespace TeendokLista.MAUI.Repositories.API
                 if (data != null)
                 {
                     CurrentUser.Id = int.Parse(data.FirstOrDefault(x => x.Key == "id").Value!.ToString());
-                    CurrentUser.FelhasznaloNev = data.FirstOrDefault(x => x.Key == "felhasznaloNev").Value!.ToString();
+                    CurrentUser.Felhasznalonev = data.FirstOrDefault(x => x.Key == "felhasznalonev").Value!.ToString();
                     CurrentUser.Szerepkor = data.FirstOrDefault(x => x.Key == "szerepkor").Value!.ToString();
                     CurrentUser.AccessToken = data.FirstOrDefault(x => x.Key == "accessToken").Value!.ToString();
                     CurrentUser.RefreshToken = data.FirstOrDefault(x => x.Key == "refreshToken").Value!.ToString();

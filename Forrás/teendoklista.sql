@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2024. Jan 29. 16:58
+-- Létrehozás ideje: 2024. Dec 17. 10:21
 -- Kiszolgáló verziója: 10.4.28-MariaDB
 -- PHP verzió: 8.2.4
 
@@ -43,9 +43,9 @@ CREATE TABLE `feladatok` (
 --
 
 INSERT INTO `feladatok` (`id`, `cim`, `tartalom`, `hatarido`, `teljesitve`, `felhasznalo_id`) VALUES
-(1, '1. feladat', 'Tervezés!', '2022-09-15 00:00:00', 0, 1),
-(2, '2. feladat!', 'Megvalósítás', '2022-09-15 00:00:00', 1, 1),
-(3, '3. tesztelés', 'Hurrá!!', '2022-12-20 00:00:00', 0, 1),
+(1, '1. feladat', 'Tervezés', '2022-09-15 00:00:00', 1, 1),
+(2, '2. feladat', 'Megvalósítás', '2022-09-15 00:00:00', 0, 1),
+(3, '3. feladat', 'Tesztelés', '2022-12-20 00:00:00', 0, 1),
 (4, 'Hosszú', 'Első\rMásodik\rHarmadik\rNegyedik\rÖtödik\rHatodik\rHetedik.', '2024-01-25 01:04:25', 0, 1),
 (5, 'felhasználói jegyzet', 'Teszt', '2022-12-17 00:00:00', 1, 2);
 
@@ -67,8 +67,8 @@ CREATE TABLE `felhasznalok` (
 --
 
 INSERT INTO `felhasznalok` (`id`, `felhasznalonev`, `jelszo`, `szerepkor_id`) VALUES
-(1, 'admin', '$2a$11$jwcR.j3iuJTMhvhYg97TmOUVFOdarXfFHUoXLd0PcgCM3b6Qhenge', 1),
-(2, 'user', '$2a$04$TFhjSyKZtUNA5aEugdRt/OmrVVG2wpMmWmNJDYYeypRabf6O2irkK', 2);
+(1, 'admin', '$2y$04$2roNffFN9MgJEzHplqDdH.Dp4Rma.kheyAQ2IQl53tw/MoKTy1ANy', 1),
+(2, 'user', '$2y$04$JJrdWcW4RT6AiICqcJRGzOPa6x7bSoxHAeML7pxaCdnd5Gy8eq/tK', 2);
 
 -- --------------------------------------------------------
 
@@ -99,8 +99,8 @@ CREATE TABLE `szerepkorok` (
 --
 
 INSERT INTO `szerepkorok` (`id`, `nev`) VALUES
-(1, 'admin'),
-(2, 'felhasznalo');
+(1, 'Adminisztrátor'),
+(2, 'Felhasználó');
 
 --
 -- Indexek a kiírt táblákhoz
