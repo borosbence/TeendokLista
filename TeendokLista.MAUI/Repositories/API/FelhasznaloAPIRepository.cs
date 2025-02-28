@@ -1,7 +1,7 @@
 ﻿using ApiClient.Repositories;
 using System.Net;
 using System.Net.Http.Json;
-using System.Text.Json.Nodes;
+using TeendokLista.MAUI.Models;
 using TeendokLista.MAUI.Services;
 
 namespace TeendokLista.MAUI.Repositories.API
@@ -21,14 +21,14 @@ namespace TeendokLista.MAUI.Repositories.API
             if (response.IsSuccessStatusCode)
             {
                 // Nincs megadva pontosan, hogy milyen objektummá alakítja a JSON választ
-                var data = await response.Content.ReadFromJsonAsync<JsonObject>();
-                if (data != null)
+                var felhasznaloModel = await response.Content.ReadFromJsonAsync<FelhasznaloModel>();
+                if (felhasznaloModel != null)
                 {
-                    CurrentUser.Id = int.Parse(data.FirstOrDefault(x => x.Key == "id").Value!.ToString());
-                    CurrentUser.Felhasznalonev = data.FirstOrDefault(x => x.Key == "felhasznalonev").Value!.ToString();
-                    CurrentUser.Szerepkor = data.FirstOrDefault(x => x.Key == "szerepkor").Value!.ToString();
-                    CurrentUser.AccessToken = data.FirstOrDefault(x => x.Key == "accessToken").Value!.ToString();
-                    CurrentUser.RefreshToken = data.FirstOrDefault(x => x.Key == "refreshToken").Value!.ToString();
+                    CurrentUser.Id = felhasznaloModel.Id;
+                    CurrentUser.Felhasznalonev = felhasznaloModel.Felhasznalonev;
+                    CurrentUser.Szerepkor = felhasznaloModel.Szerepkor;
+                    CurrentUser.AccessToken = felhasznaloModel.AccessToken;
+                    CurrentUser.RefreshToken = felhasznaloModel.RefreshToken;
                 }
                 return "Sikeres bejelentkezés.";
             }

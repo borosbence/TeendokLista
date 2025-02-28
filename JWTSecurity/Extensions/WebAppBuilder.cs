@@ -16,7 +16,7 @@ namespace JwtSecurity.Extensions
         /// </summary>
         /// <param name="builder">Web Application builder</param>
         /// <returns>WebApplicationBuilder</returns>
-        public static WebApplicationBuilder RegisterJWTAuthentication(this WebApplicationBuilder builder)
+        public static WebApplicationBuilder AddJWTAuthentication(this WebApplicationBuilder builder)
         {
             ConfigurationManager configuration = builder.Configuration;
 
@@ -53,7 +53,7 @@ namespace JwtSecurity.Extensions
         /// </summary>
         /// <param name="builder">Web Application builder</param>
         /// <returns>WebApplicationBuilder</returns>
-        public static WebApplicationBuilder RegisterSwaggerJWTAuth(this WebApplicationBuilder builder)
+        public static WebApplicationBuilder AddJWTSwagger(this WebApplicationBuilder builder)
         {
             builder.Services.AddSwaggerGen(c =>
             {

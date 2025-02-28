@@ -4,9 +4,17 @@ namespace TeendokLista.MAUI.Views;
 
 public partial class MainPage : ContentPage
 {
-    public MainPage(MainViewModel vm)
+    private readonly MainViewModel _viewModel;
+
+    public MainPage(MainViewModel viewModel)
     {
-        BindingContext = vm;
+        _viewModel = viewModel;
+        BindingContext = _viewModel;
         InitializeComponent();
+    }
+
+    protected override async void OnAppearing()
+    {
+        await _viewModel.LoadDataAsync();
     }
 }

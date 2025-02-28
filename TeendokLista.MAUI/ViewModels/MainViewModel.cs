@@ -7,38 +7,26 @@ using TeendokLista.MAUI.Views;
 
 namespace TeendokLista.MAUI.ViewModels
 {
-    public class MainViewModel : ObservableObject
+    public partial class MainViewModel : ObservableObject
     {
         private readonly IGenericRepository<FeladatModel> _repository;
 
         public MainViewModel(IGenericRepository<FeladatModel> repository)
         {
             _repository = repository;
-            NewCommandAsync = new AsyncRelayCommand(AddItem);
-            SelectCommandAsync = new AsyncRelayCommand<FeladatModel>(ShowItem!);
-            LogoutCommandAsync = new AsyncRelayCommand(Logout);
-            Task.Run(LoadData);
         }
 
+        [ObservableProperty]
         private ObservableCollection<FeladatModel> _feladatok = [];
-        public ObservableCollection<FeladatModel> Feladatok
-        {
-            get { return _feladatok; }
-            // aszinkron feltöltés miatt kell
-            set { SetProperty(ref _feladatok, value); }
-        }
 
-        public IAsyncRelayCommand<FeladatModel> SelectCommandAsync { get; set; }
-        public IAsyncRelayCommand NewCommandAsync { get; set; }
-        public IAsyncRelayCommand LogoutCommandAsync { get; set; }
-
-        private async Task LoadData()
+        public async Task LoadDataAsync()
         {
             var result = await _repository.GetAllAsync();
             Feladatok = result != null ? new ObservableCollection<FeladatModel>(result) : [];
         }
 
-        private async Task ShowItem(FeladatModel feladat)
+        [RelayCommand]
+        private async Task SelecItem(FeladatModel feladat)
         {
             var navigationParameter = new Dictionary<string, object>
             {
@@ -48,7 +36,8 @@ namespace TeendokLista.MAUI.ViewModels
             await Shell.Current.GoToAsync(nameof(DetailPage), navigationParameter);
         }
 
-        private async Task AddItem()
+        [RelayCommand]
+        private async Task NewItem()
         {
             var navigationParameter = new Dictionary<string, object>
             {
@@ -57,6 +46,7 @@ namespace TeendokLista.MAUI.ViewModels
             await Shell.Current.GoToAsync(nameof(DetailPage), navigationParameter);
         }
 
+        [RelayCommand]
         private async Task Logout()
         {
             await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");

@@ -23,7 +23,7 @@ namespace TeendokLista.API
             builder.Services.AddControllers();
 
             // Szolgáltatások hozzáadása
-            builder.RegisterJWTAuthentication();
+            builder.AddJWTAuthentication();
 
             var app = builder.Build();
 

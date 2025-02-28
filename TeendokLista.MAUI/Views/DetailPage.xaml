@@ -39,13 +39,13 @@
                 <Button Text="Mentés" ImageSource="save.png"
                     HorizontalOptions="Start"
                     Style="{StaticResource gombStyle}"
-                    Command="{Binding SaveCommandAsync }">
+                    Command="{Binding SaveItemCommand}">
                 </Button>
                 <Button Text="Törlés" ImageSource="trash.png"
                     HorizontalOptions="End"
                     Style="{StaticResource gombStyle}"
                     Background="Red"
-                    Command="{Binding DeleteCommandAsync}">
+                    Command="{Binding DeleteItemCommand}">
                 </Button>
             </HorizontalStackLayout>
         </VerticalStackLayout>

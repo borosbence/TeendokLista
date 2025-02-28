@@ -49,7 +49,7 @@ namespace TeendokLista.API.Controllers
         // PUT: api/Felhasznalok/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        [Authorize]
+        [Authorize(Roles = "Adminisztrátor, Felhasználó")]
         public async Task<IActionResult> PutFelhasznalo(int id, Felhasznalo felhasznalo)
         {
             if (id != felhasznalo.id)

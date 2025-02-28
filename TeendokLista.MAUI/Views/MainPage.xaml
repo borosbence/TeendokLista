@@ -9,10 +9,10 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Új +" IconImageSource="add.png"
                      Order="Primary" Priority="0"
-                     Command="{Binding NewCommandAsync}"/>
+                     Command="{Binding NewItemCommand}"/>
         <ToolbarItem Text="Kijelentkezés" IconImageSource="exit.png"
                      Order="Primary" Priority="1"
-                     Command="{Binding LogoutCommandAsync}"/>
+                     Command="{Binding LogoutCommand}"/>
     </ContentPage.ToolbarItems>
     <Grid>
         <Grid.RowDefinitions>

@@ -70,6 +70,7 @@ namespace TeendokLista.API.Controllers
             var dbUser = await _context.felhasznalok
                 .Include(x => x.szerepkor)
                 .FirstOrDefaultAsync(x => x.id == userId);
+
             if (dbUser == null)
             {
                 return Unauthorized("A felhasználónév nincs regisztrálva.");
@@ -77,6 +78,7 @@ namespace TeendokLista.API.Controllers
             // Token kikeresése
             var oldToken = await _context.login_tokenek
                 .FirstOrDefaultAsync(x => x.felhasznalo_id == dbUser.id && x.token == jwtToken.RefreshToken);
+
             if (oldToken == null)
             {
                 return BadRequest("Érvénytelen token.");
@@ -89,6 +91,7 @@ namespace TeendokLista.API.Controllers
                 await _context.SaveChangesAsync();
                 return Unauthorized("Lejárt vagy érvénytelen token.");
             }
+
             // Új token generálása
             var claims = GetClaimsFromUser(dbUser);
             var newToken = _jwtManagerService.GenerateToken(claims);

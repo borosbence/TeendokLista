@@ -34,7 +34,7 @@ namespace TeendokLista.MAUI
             builder.Services.AddSingleton<LoginPage>();
 
             // A tesztelés miatt kell a Singleton a FeladatLocalRepository-nál!
-            //builder.Services.AddSingleton<IGenericRepository<Feladat>, FeladatLocalRepository>();
+            // builder.Services.AddSingleton<IGenericRepository<Feladat>, FeladatLocalRepository>();
             builder.Services.AddTransient<IGenericRepository<FeladatModel>, GenericAPIRepository<FeladatModel>>(x =>
             {
                 return new("api/feladatok", handler: new TokenAuthHandler(CurrentUser.AccessToken!, CurrentUser.RefreshToken!));

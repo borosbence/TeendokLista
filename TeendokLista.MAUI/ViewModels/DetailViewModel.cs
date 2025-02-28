@@ -7,29 +7,21 @@ using TeendokLista.MAUI.Views;
 namespace TeendokLista.MAUI.ViewModels
 {
     [QueryProperty(nameof(Feladat), "Reszletek")]
-    public class DetailViewModel : ObservableObject
+    public partial class DetailViewModel : ObservableObject
     {
         private readonly IGenericRepository<FeladatModel> _repository;
 
         public DetailViewModel(IGenericRepository<FeladatModel> repository)
         {
             _repository = repository;
-            SaveCommandAsync = new AsyncRelayCommand(Save);
-            DeleteCommandAsync = new AsyncRelayCommand(Delete);
         }
 
         // Ennek a feladatnak a részleteivel töltjük ki az űrlapot
+        [ObservableProperty]
         private FeladatModel _feladat = new();
-        public FeladatModel Feladat
-        {
-            get { return _feladat; }
-            set { SetProperty(ref _feladat, value); }
-        }
 
-        public IAsyncRelayCommand SaveCommandAsync { get; set; }
-        public IAsyncRelayCommand DeleteCommandAsync { get; set; }
-
-        private async Task Save()
+        [RelayCommand]
+        private async Task SaveItem()
         {
             bool letezik = await _repository.ExistsByIdAsync(Feladat.Id);
             if (letezik)
@@ -46,12 +38,13 @@ namespace TeendokLista.MAUI.ViewModels
             await Shell.Current.GoToAsync(nameof(MainPage));
         }
 
-        private async Task Delete()
+        [RelayCommand]
+        private async Task DeleteItem()
         {
-            bool letezik = await _repository.ExistsByIdAsync(_feladat.Id);
+            bool letezik = await _repository.ExistsByIdAsync(Feladat.Id);
             if (letezik)
             {
-                await _repository.DeleteAsync(_feladat.Id);
+                await _repository.DeleteAsync(Feladat.Id);
             }
             await Shell.Current.GoToAsync(nameof(MainPage));
         }

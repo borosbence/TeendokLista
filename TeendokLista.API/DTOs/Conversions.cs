@@ -4,19 +4,14 @@ namespace TeendokLista.API.DTOs
 {
     public static class Conversions
     {
-        public static FelhasznaloDTO ToDTO(this Felhasznalo source)
+        public static FelhasznaloDTO ToDTO(this Felhasznalo felhasznalo)
         {
-            return new FelhasznaloDTO
-            {
-                Id = source.id,
-                Felhasznalonev = source.felhasznalonev,
-                Szerepkor = source.szerepkor!.nev
-            };
+            return new FelhasznaloDTO(felhasznalo.id, felhasznalo.felhasznalonev, felhasznalo.szerepkor!.nev);
         }
 
-        public static List<FelhasznaloDTO> ToDTO(this IEnumerable<Felhasznalo> source)
+        public static List<FelhasznaloDTO> ToDTO(this IEnumerable<Felhasznalo> felhasznalo)
         {
-            return source.Select(src => src.ToDTO()).ToList();
+            return felhasznalo.Select(ToDTO).ToList();
         }
     }
 }
